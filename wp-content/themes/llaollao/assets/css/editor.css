@@ -1,0 +1,14 @@
+/**
+ * Estilos SOLO para el editor (Gutenberg). Se cargan vía add_editor_style, así
+ * que no afectan al frontend.
+ */
+
+/* Heading "Transparente": en el front el texto es transparente (invisible).
+   En el editor lo mostramos atenuado y con un contorno punteado para poder
+   editarlo y que se note que es transparente. */
+.wp-block-heading.is-style-transparente {
+	color: rgba(18, 18, 18, 0.35);
+	font-size: revert;
+	font-family: revert;
+	font-weight: revert;
+}

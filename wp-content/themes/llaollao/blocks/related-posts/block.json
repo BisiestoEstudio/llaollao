@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/related-posts",
+	"version": "1.0.0",
+	"title": "Related posts",
+	"category": "design",
+	"icon": "grid-view",
+	"description": "Entradas relacionadas (misma categoría) con cards como la home. Título traducible con Loco.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"count": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render": "file:./render.php"
+}

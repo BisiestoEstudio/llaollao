@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/video-hero",
+	"version": "1.0.0",
+	"title": "Video hero",
+	"category": "design",
+	"icon": "format-video",
+	"description": "Vídeo a tamaño completo con portada (o primer frame) que pasa a vídeo al hacer hover, y un heading de Gutenberg superpuesto.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"videoUrl":  { "type": "string",  "default": "" },
+		"videoId":   { "type": "integer" },
+		"posterUrl": { "type": "string",  "default": "" },
+		"posterId":  { "type": "integer" },
+		"posterAlt": { "type": "string",  "default": "" }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"viewScript":   "file:./build/view.js",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

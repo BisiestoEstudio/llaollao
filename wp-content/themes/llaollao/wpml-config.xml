@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Configuración de traducción para Polylang Pro / WPML.
+	Declara qué atributos de los bloques a medida debe traducir DeepL.
+	Polylang lee este archivo automáticamente desde la raíz del tema
+	(wpml-config.xml es un estándar compartido: lo leen WPML y Polylang).
+
+	Para arrays de objetos (p. ej. "items"), hay que añadir un nivel con el
+	comodín <key name="*"> que representa cada índice del array, y dentro las
+	claves de texto a traducir. Sin ese "*" no itera el array y no traduce.
+
+	Solo se declaran campos de TEXTO. No se incluyen URLs, IDs de imagen,
+	focal points, números ni booleanos (no son traducibles). Los campos que
+	son nombres propios (autor de reseña, nombre del equipo) se incluyen pero
+	pueden quitarse si no se desean enviar a DeepL.
+-->
+<wpml-config>
+	<gutenberg-blocks>
+
+		<!-- Texto animado -->
+		<gutenberg-block type="bisiesto/animated-text" translate="1">
+			<key name="content" />
+		</gutenberg-block>
+
+		<!-- Banner: texto alternativo de la imagen -->
+		<gutenberg-block type="bisiesto/banner" translate="1">
+			<key name="imageAlt" />
+		</gutenberg-block>
+
+		<!-- Cintillo: alt y texto de cada item -->
+		<gutenberg-block type="bisiesto/cintillo" translate="1">
+			<key name="items">
+				<key name="*">
+					<key name="alt" />
+					<key name="text" />
+				</key>
+			</key>
+		</gutenberg-block>
+
+		<!-- FAQs: pregunta/respuesta de cada item + alt de la imagen -->
+		<gutenberg-block type="bisiesto/faqs" translate="1">
+			<key name="items">
+				<key name="*">
+					<key name="question" />
+					<key name="answer" />
+				</key>
+			</key>
+			<key name="imageAlt" />
+		</gutenberg-block>
+
+		<!-- Location: dirección y horario -->
+		<gutenberg-block type="bisiesto/location" translate="1">
+			<key name="address" />
+			<key name="schedule" />
+		</gutenberg-block>
+
+		<!-- Marquee: texto en movimiento -->
+		<gutenberg-block type="bisiesto/marquee" translate="1">
+			<key name="text" />
+		</gutenberg-block>
+
+		<!-- Offices card: texto alternativo de la imagen -->
+		<gutenberg-block type="bisiesto/offices-card" translate="1">
+			<key name="imageAlt" />
+		</gutenberg-block>
+
+		<!-- Reseñas: nombre, fecha y texto de cada reseña -->
+		<gutenberg-block type="bisiesto/resenas" translate="1">
+			<key name="items">
+				<key name="*">
+					<key name="name" />
+					<key name="date" />
+					<key name="text" />
+				</key>
+			</key>
+		</gutenberg-block>
+
+		<!-- Team card: nombre, rol y alt de la imagen -->
+		<gutenberg-block type="bisiesto/team-card" translate="1">
+			<key name="name" />
+			<key name="role" />
+			<key name="imageAlt" />
+		</gutenberg-block>
+
+		<!-- Timeline: título y texto de cada hito (el año no se traduce) -->
+		<gutenberg-block type="bisiesto/timeline" translate="1">
+			<key name="items">
+				<key name="*">
+					<key name="title" />
+					<key name="text" />
+				</key>
+			</key>
+		</gutenberg-block>
+
+	</gutenberg-blocks>
+</wpml-config>

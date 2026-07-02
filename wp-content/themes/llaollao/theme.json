@@ -1,0 +1,396 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"color": {
+			"palette": [
+				{
+					"name": "Verde",
+					"slug": "verde",
+					"color": "#64A50A"
+				},
+				{
+					"name": "Beige",
+					"slug": "beige",
+					"color": "#F6EECB"
+				},
+				{
+					"name": "Crema",
+					"slug": "crema",
+					"color": "#F9F6EF"
+				},
+				{
+					"name": "Blanco",
+					"slug": "blanco",
+					"color": "#FFFFFF"
+				},
+				{
+					"name": "Negro",
+					"slug": "negro",
+					"color": "#121212"
+				},
+				{
+					"name": "Marron",
+					"slug": "marron",
+					"color": "#70421F"
+				},
+				{
+					"name": "Naranja",
+					"slug": "naranja",
+					"color": "#ED822C"
+				},
+				{
+					"name": "Verde Light",
+					"slug": "verde-light",
+					"color": "#ECF4D3"
+				},
+				{
+					"name": "Gris Light",
+					"slug": "gris-light",
+					"color": "#D9D9D9"
+				}
+			],
+			"gradients": []
+		},
+		"layout": {
+			"contentSize": "1399px",
+			"wideSize": "1720px"
+		},
+		"spacing": {
+			"units": [
+				"px",
+				"em",
+				"rem",
+				"%",
+				"vw",
+				"vh"
+			],
+			"spacingSizes": [
+				{
+					"name": "8",
+					"slug": "8",
+					"size": "8px"
+				},
+				{
+					"name": "12",
+					"slug": "12",
+					"size": "12px"
+				},
+				{
+					"name": "16",
+					"slug": "16",
+					"size": "16px"
+				},
+				{
+					"name": "24",
+					"slug": "24",
+					"size": "24px"
+				},
+				{
+					"name": "32",
+					"slug": "32",
+					"size": "32px"
+				}
+			]
+		},
+		"typography": {
+			"fluid": true,
+			"fontFamilies": [
+				{
+					"fontFamily": "Souvenir Std, serif",
+					"name": "Souvenir Std",
+					"slug": "souvenir-std",
+					"fontFace": [
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "300",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-Light.woff2"
+							]
+						},
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "300",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-LightItalic.woff2"
+							]
+						},
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "500",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-Medium.woff2"
+							]
+						},
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "500",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-MediumItalic.woff2"
+							]
+						},
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-Bold.woff2"
+							]
+						},
+						{
+							"fontFamily": "Souvenir Std",
+							"fontWeight": "700",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/SouvenirStd-BoldItalic.woff2"
+							]
+						}
+					]
+				},
+				{
+					"fontFamily": "Bree, sans-serif",
+					"name": "Bree",
+					"slug": "bree",
+					"fontFace": [
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "100",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeThin.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "100",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeOblique_Thin.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "300",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeLight.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "300",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeOblique_Light.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeRegular.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "400",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeOblique_Reg.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeBold.otf"
+							]
+						},
+						{
+							"fontFamily": "Bree",
+							"fontWeight": "700",
+							"fontStyle": "italic",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/BreeOblique_Bold.otf"
+							]
+						}
+					]
+				},
+				{
+					"fontFamily": "Neue Haas Grotesk Text Pro, sans-serif",
+					"name": "Neue Haas Grotesk Text Pro",
+					"slug": "neue-haas-grotesk-text-pro",
+					"fontFace": [
+						{
+							"fontFamily": "Neue Haas Grotesk Text Pro",
+							"fontWeight": "400",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Neue Haas Grotesk Text Pro.woff2"
+							]
+						},
+						{
+							"fontFamily": "Neue Haas Grotesk Text Pro",
+							"fontWeight": "700",
+							"fontStyle": "normal",
+							"fontDisplay": "swap",
+							"src": [
+								"file:./assets/fonts/Neue Haas Grotesk Text Pro Bold.woff2"
+							]
+						}
+					]
+				}
+			],
+			"fontSizes": [
+				{
+					"name": "S",
+					"slug": "s",
+					"size": "16px",
+					"fluid": false
+				},
+				{
+					"name": "M",
+					"slug": "m",
+					"size": "18px",
+					"fluid": false
+				},
+				{
+					"name": "L",
+					"slug": "l",
+					"size": "24px",
+					"fluid": {
+						"min": "20px",
+						"max": "24px"
+					}
+				},
+				{
+					"name": "XL",
+					"slug": "xl",
+					"size": "30px",
+					"fluid": {
+						"min": "24px",
+						"max": "30px"
+					}
+				}
+			]
+		},
+		"useRootPaddingAwareAlignments": true,
+		"custom": {
+			"layout": {
+				"middle": "902px"
+			},
+			"radius": {
+				"default": "16px",
+				"s": "4px",
+				"m": "8px",
+				"l": "16px",
+				"12": "12px",
+				"100": "100px",
+				"mobile": {
+					"default": "8px",
+					"s": "4px",
+					"m": "4px",
+					"l": "8px"
+				}
+			}
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--white)",
+			"text": "var(--wp--preset--color--black)"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--neue-haas-grotesk-text-pro)",
+			"fontSize": "var(--wp--preset--font-size--xxs)",
+			"lineHeight": "1.5"
+		},
+		"elements": {
+			"button": {
+				"border": {
+					"radius": "var(--wp--custom--radius--100)"
+				},
+				"color": {
+					"background": "var(--wp--preset--color--black)"
+				}
+			},
+			"h1": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--bree)",
+					"fontSize": "clamp(40px, 5.83vw + 5px, 75px)",
+					"lineHeight": "1.15",
+					"fontWeight": "700"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--bree)",
+					"fontSize": "clamp(32px, 4.67vw + 4px, 60px)",
+					"lineHeight": "1.15",
+					"fontWeight": "700"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--bree)",
+					"fontSize": "clamp(24px, 1vw + 18px, 30px)",
+					"lineHeight": "1.2",
+					"fontWeight": "700"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--bree)",
+					"fontSize": "clamp(20px, 0.67vw + 16px, 24px)",
+					"lineHeight": "1.2",
+					"fontWeight": "700"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--bree)",
+					"fontSize": "18px",
+					"lineHeight": "1.4",
+					"fontWeight": "700"
+				}
+			}
+		},
+		"spacing": {
+			"blockGap": "1.5rem"
+		}
+	},
+	"templateParts": [
+		{
+			"name": "header",
+			"title": "Header",
+			"area": "header"
+		},
+		{
+			"name": "footer",
+			"title": "Footer",
+			"area": "footer"
+		}
+	]
+}

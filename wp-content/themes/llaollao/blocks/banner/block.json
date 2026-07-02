@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/banner",
+	"version": "1.0.0",
+	"title": "Banner",
+	"category": "design",
+	"icon": "image-crop",
+	"description": "Banner con imagen o color de fondo, inner blocks y padding vertical de 152px.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"imageUrl":   { "type": "string",  "default": "" },
+		"imageId":    { "type": "integer" },
+		"imageAlt":   { "type": "string",  "default": "" },
+		"focalPoint": { "type": "object",  "default": { "x": 0.5, "y": 0.5 } }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"color": {
+			"background": true,
+			"text":       false,
+			"gradients":  true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

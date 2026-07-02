@@ -83,7 +83,5 @@ Thumbs.db
 # add your own entries here
 
 .history/
-!wp-content/themes/baygo/
-!wp-content/plugins/reservations-hq-rental/
+!wp-content/themes/llaollao/
 !wp-content/plugins/tabla-contenidos-bisiesto/
-!wp-content/plugins/cf7-zendesk-baygo/

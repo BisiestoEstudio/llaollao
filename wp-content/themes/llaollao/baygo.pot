@@ -1,0 +1,515 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Baygo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-24 09:37+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.5; wp-7.0; php-8.2.31\n"
+"X-Domain: baygo"
+
+#. Name of the theme
+msgid "Baygo"
+msgstr ""
+
+#. Author of the theme
+msgid "Bisiesto Estudio"
+msgstr ""
+
+#: blocks/cintillo/block.json:1
+msgctxt "block description"
+msgid ""
+"Banda horizontal con elementos de icono + texto, configurables desde el "
+"editor."
+msgstr ""
+
+#: blocks/banner-blog/block.json:1
+msgctxt "block description"
+msgid ""
+"Banner con imagen de fondo ajustable (focal point), texto y botón a Reservas "
+"(textos traducibles con Loco)."
+msgstr ""
+
+#: blocks/banner/block.json:1
+msgctxt "block description"
+msgid ""
+"Banner con imagen o color de fondo, inner blocks y padding vertical de 152px."
+msgstr ""
+
+#: blocks/cover-baygo/block.json:1
+msgctxt "block description"
+msgid ""
+"Bloque cover con imagen de fondo y layout de dos zonas: contenido libre "
+"arriba y dos columnas (encabezado + imagen) abajo."
+msgstr ""
+
+#: blocks/newsletter-baygo/block.json:1
+msgctxt "block description"
+msgid ""
+"Bloque de newsletter: texto + formulario de Contact Form 7 (texto traducible "
+"con Loco)."
+msgstr ""
+
+#: blocks/header/block.json:1
+msgctxt "block description"
+msgid "Cabecera del sitio con logo, megamenú y selector de idiomas."
+msgstr ""
+
+#: blocks/related-posts/block.json:1
+msgctxt "block description"
+msgid ""
+"Entradas relacionadas (misma categoría) con cards como la home. Título "
+"traducible con Loco."
+msgstr ""
+
+#: blocks/marquee/block.json:1
+msgctxt "block description"
+msgid "Frase con scroll horizontal infinito a pantalla completa."
+msgstr ""
+
+#: blocks/animated-text/block.json:1
+msgctxt "block description"
+msgid "Full screen text block with line-by-line animation."
+msgstr ""
+
+#: blocks/resenas/block.json:1
+msgctxt "block description"
+msgid "Listado de reseñas con avatar, puntuación y texto. Slider en móvil."
+msgstr ""
+
+#: blocks/timeline/block.json:1
+msgctxt "block description"
+msgid "Línea de tiempo horizontal en escritorio y vertical en móvil."
+msgstr ""
+
+#: blocks/blog-no-results/block.json:1
+msgctxt "block description"
+msgid ""
+"Mensaje cuando no hay entradas. Bloque dinámico para que el texto siga "
+"siendo traducible con Loco (no se incrusta al guardar la plantilla)."
+msgstr ""
+
+#: blocks/megamenu/block.json:1
+msgctxt "block description"
+msgid "Navegación principal con megamenú."
+msgstr ""
+
+#: blocks/footer/block.json:1
+msgctxt "block description"
+msgid "Pie de página del sitio."
+msgstr ""
+
+#: blocks/section/block.json:1
+msgctxt "block description"
+msgid ""
+"Sección con padding de 40px, color de fondo configurable e inner blocks."
+msgstr ""
+
+#: blocks/faqs/block.json:1
+msgctxt "block description"
+msgid "Sección de preguntas frecuentes con imagen y zona de cabecera libre."
+msgstr ""
+
+#: blocks/location/block.json:1
+msgctxt "block description"
+msgid "Tarjeta de dirección y horario con iconos SVG."
+msgstr ""
+
+#: blocks/team-card/block.json:1
+msgctxt "block description"
+msgid "Tarjeta de miembro del equipo con imagen, nombre y cargo."
+msgstr ""
+
+#: blocks/offices-card/block.json:1
+msgctxt "block description"
+msgid ""
+"Tarjeta vertical 5:6 con imagen de fondo y texto en la esquina superior "
+"izquierda."
+msgstr ""
+
+#: blocks/explore-themes/block.json:1
+msgctxt "block description"
+msgid ""
+"Título + nube de categorías del blog. Bloque dinámico para que el texto siga "
+"siendo traducible con Loco (no se incrusta al guardar la plantilla)."
+msgstr ""
+
+#: blocks/blog-title/block.json:1
+msgctxt "block description"
+msgid ""
+"Título principal del blog. Bloque dinámico para que el texto siga siendo "
+"traducible con Loco (no se incrusta al guardar la plantilla)."
+msgstr ""
+
+#: blocks/animated-text/block.json:1
+msgctxt "block title"
+msgid "Animated Text"
+msgstr ""
+
+#: blocks/banner/block.json:1
+msgctxt "block title"
+msgid "Banner"
+msgstr ""
+
+#: blocks/banner-blog/block.json:1
+msgctxt "block title"
+msgid "Banner blog"
+msgstr ""
+
+#: blocks/blog-no-results/block.json:1
+msgctxt "block title"
+msgid "Blog no results"
+msgstr ""
+
+#: blocks/blog-title/block.json:1
+msgctxt "block title"
+msgid "Blog title"
+msgstr ""
+
+#: blocks/cintillo/block.json:1
+msgctxt "block title"
+msgid "Bullets"
+msgstr ""
+
+#: blocks/cover-baygo/block.json:1
+msgctxt "block title"
+msgid "Cover Baygo"
+msgstr ""
+
+#: blocks/explore-themes/block.json:1
+msgctxt "block title"
+msgid "Explore themes"
+msgstr ""
+
+#: blocks/faqs/block.json:1
+msgctxt "block title"
+msgid "FAQs"
+msgstr ""
+
+#: blocks/footer/block.json:1
+msgctxt "block title"
+msgid "Footer"
+msgstr ""
+
+#: blocks/header/block.json:1
+msgctxt "block title"
+msgid "Header"
+msgstr ""
+
+#: blocks/location/block.json:1
+msgctxt "block title"
+msgid "Location"
+msgstr ""
+
+#: blocks/megamenu/block.json:1
+msgctxt "block title"
+msgid "Megamenú"
+msgstr ""
+
+#: blocks/newsletter-baygo/block.json:1
+msgctxt "block title"
+msgid "Newsletter Baygo"
+msgstr ""
+
+#: blocks/offices-card/block.json:1
+msgctxt "block title"
+msgid "Offices Card"
+msgstr ""
+
+#: blocks/related-posts/block.json:1
+msgctxt "block title"
+msgid "Related posts"
+msgstr ""
+
+#: blocks/resenas/block.json:1
+msgctxt "block title"
+msgid "Reviews"
+msgstr ""
+
+#: blocks/marquee/block.json:1
+msgctxt "block title"
+msgid "Scroll Text"
+msgstr ""
+
+#: blocks/section/block.json:1
+msgctxt "block title"
+msgid "Section"
+msgstr ""
+
+#: blocks/team-card/block.json:1
+msgctxt "block title"
+msgid "Team Card"
+msgstr ""
+
+#: blocks/timeline/block.json:1
+msgctxt "block title"
+msgid "Timeline"
+msgstr ""
+
+#: blocks/banner-blog/render.php:47
+msgid "Book now"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Black"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Black 10"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Black 20"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Black 40"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Black 60"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Error"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Glass"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Gray"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Gray Dark"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Gray Light"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Ocean"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sand"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sky"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sky 10"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Success"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sun"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sun 10"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Sun 2"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Vapor"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "Vapor 20"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Color name"
+msgid "White"
+msgstr ""
+
+#: blocks/banner-blog/render.php:43
+msgid "Enjoy your ideal car on the Andalusian Coast"
+msgstr ""
+
+#: blocks/explore-themes/render.php:19
+msgid "Explore our themes"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font family name"
+msgid "Barlow Condensed"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font family name"
+msgid "General Sans"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "LG"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "MD"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "ML"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "S"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XL"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XS"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XXL"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XXS"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XXXL"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Font size name"
+msgid "XXXS"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://bisiesto.es"
+msgstr ""
+
+#: blocks/blog-no-results/render.php:13
+msgid "No posts found."
+msgstr ""
+
+#: includes/blocks.php:72
+msgid "Read article"
+msgstr ""
+
+#: blocks/related-posts/render.php:36
+msgid "Related posts"
+msgstr ""
+
+#: blocks/newsletter-baygo/render.php:26
+msgid "Sign up for our newsletter"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "16"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "24"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "4"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "40"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "60"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "64"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "8"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Space size name"
+msgid "80"
+msgstr ""
+
+#. Description of the theme
+msgid "Tema base FSE para Baygo"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Template part name"
+msgid "Footer"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Template part name"
+msgid "Header"
+msgstr ""
+
+#: theme.json:1
+msgctxt "Template part name"
+msgid "Header — Reserva"
+msgstr ""
+
+#: blocks/blog-title/render.php:15
+msgid "The BayGo blog"
+msgstr ""

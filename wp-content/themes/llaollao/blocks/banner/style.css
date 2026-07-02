@@ -1,0 +1,24 @@
+.has-global-padding > .wp-block-bisiesto-banner.alignfull{
+	margin-left: calc(50% - 50vw + 2rem);
+	max-width: calc(100vw - 4rem);
+}
+.wp-block-bisiesto-banner {
+	aspect-ratio: 38 / 13;
+}
+
+.banner {
+	border-radius:      var( --wp--custom--radius--l, 16px );
+	background-size:    cover;
+	background-repeat:  no-repeat;
+	overflow:           hidden;
+	box-sizing:         border-box;
+	display:            flex;
+	flex-direction:     column;
+	justify-content:    center;
+}
+@media (max-width: 960px) {
+	.has-global-padding > .wp-block-bisiesto-banner.alignfull{
+		margin-left: 0;
+		max-width: 100%;
+	}
+}

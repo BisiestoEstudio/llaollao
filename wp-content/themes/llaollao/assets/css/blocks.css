@@ -1,0 +1,395 @@
+/*
+var(--wp--preset--font-family--neue-haas-grotesk-text-pro)
+var(--wp--preset--font-family--souvenir-std)
+var(--wp--preset--font-family--bree)
+ */
+body {
+	overflow-x: hidden;
+	line-height: 110%;
+}
+
+:root :where(.is-layout-constrained)>* {
+	margin-block-start: 0;
+}
+
+p,
+:root :where(.is-layout-constrained)>p {
+	margin-block-start: 0;
+	margin-block-end: 0.75rem;
+}
+
+h1,
+:root :where(.is-layout-constrained)>h1 {
+	margin-block-start: 0;
+	margin-block-end: 1rem;
+}
+
+h2,
+:root :where(.is-layout-constrained)>h2 {
+	margin-block-start: 2rem;
+	margin-block-end: 1rem;
+}
+
+h3,
+:root :where(.is-layout-constrained)>h3 {
+	margin-block-start: 2rem;
+	margin-block-end: 1rem;
+}
+
+h4,
+:root :where(.is-layout-constrained)>h4 {
+	margin-block-start: 1.5rem;
+	margin-block-end: 1rem;
+}
+
+h5,
+:root :where(.is-layout-constrained)>h5 {
+	margin-block-start: 1.5rem;
+	margin-block-end: 0.75rem;
+}
+
+/* Estilo de heading "Transparente": texto transparente y sin los estilos que
+   el heading hereda de theme.json (fuente Bree, peso 700, tamaño/interlineado). */
+.wp-block-heading.is-style-transparente {
+	color:       transparent;
+	font-family: inherit;
+	font-weight: inherit;
+	font-size:   inherit;
+	line-height: inherit;
+}
+
+.wp-block-image,
+.wp-block-buttons {
+	margin-bottom: 1rem;
+}
+
+.wp-block-media-text__media img,
+.wp-block-image img {
+	border-radius: 0.563rem;
+}
+
+.wp-site-blocks>main {
+	margin-block-start: 0;
+}
+
+.wp-site-blocks>main>:first-child {
+	padding-top: var(--header-height);
+}
+
+.alignfull {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+}
+
+.has-global-padding>.alignfull {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+}
+
+.is-layout-constrained>.alignwide {
+	width: min(var(--wp--style--global--wide-size, 1720px), calc(100vw - 4rem));
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	position: relative;
+	left: calc(50% - min(860px, 50vw - 2rem));
+	box-sizing: border-box;
+}
+
+.wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
+.wp-block-button.is-style-fill .wp-block-button__link,
+.wp-block-button.is-style-outline .wp-block-button__link,
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link {
+	border-radius: var(--wp--custom--radius--100, 100px);
+	padding: 0.5rem 1rem;
+	display: inline-flex;
+	align-items: center;
+}
+
+/* Icono (flecha) a la derecha del texto. Se pinta con máscara para que el color
+   lo dé currentColor: blanco en el fill (texto blanco), negro en el outline
+   (texto negro). Separación 12px = 0.75rem. */
+.wp-block-button:not([class*="is-style-"]) .wp-block-button__link::after,
+.wp-block-button.is-style-fill .wp-block-button__link::after,
+.wp-block-button.is-style-outline .wp-block-button__link::after,
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link::after,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link::after {
+	content: "";
+	width: 12px;
+	height: 12px;
+	margin-left: 0.75rem;
+	flex-shrink: 0;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	transition: transform 0.25s ease;
+}
+
+/* Fill: parte oblicua (↗) y al hover gira a horizontal (→). */
+.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover::after,
+.wp-block-button.is-style-fill .wp-block-button__link:hover::after {
+	transform: rotate(45deg);
+}
+
+/* Outline: al revés que el fill. Parte horizontal (→) y al hover pasa a oblicua (↗). */
+.wp-block-button.is-style-outline .wp-block-button__link::after {
+	transform: rotate(45deg);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover::after {
+	transform: rotate(0deg);
+}
+
+.wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
+.wp-block-button.is-style-fill .wp-block-button__link,
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link {
+	background-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--blanco);
+	border-color: transparent;
+	transition: background-color 0.25s ease;
+}
+
+.wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover,
+.wp-block-button.is-style-fill .wp-block-button__link:hover,
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--verde-light);
+	color: var(--wp--preset--color--negro);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link {
+	background-color: var(--wp--preset--color--crema);
+	color: var(--wp--preset--color--marron);
+	border: 1px solid var(--wp--preset--color--marron);
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--crema);
+	color: var(--wp--preset--color--negro);
+	border-color: var(--wp--preset--color--negro);
+}
+
+/* Botones "collapsed": en reposo solo se ve el icono (horizontal); al hover
+   aparece el texto (el botón crece) y el icono pasa a oblicuo. El texto se
+   oculta con font-size:0 y se restaura al hover; el gap del icono aparece con él.
+   Se sobrescribe la transition para animar también font-size y margin. */
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link {
+	font-size: 0;
+	white-space: nowrap;
+	transition: background-color 0.25s ease, color 0.25s ease, font-size 0.25s ease;
+}
+
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link:hover,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link:hover {
+	font-size: 1rem;
+}
+
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link::after,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link::after {
+	margin-left: 0;
+	transform: rotate(45deg);
+	transition: transform 0.25s ease, margin-left 0.25s ease;
+}
+
+.wp-block-button.is-style-fill-collapsed .wp-block-button__link:hover::after,
+.wp-block-button.is-style-outline-collapsed .wp-block-button__link:hover::after {
+	margin-left: 0.75rem;
+	transform: rotate(0deg);
+}
+
+.wp-block-buttons .wp-block-button__link {
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-weight: 500;
+}
+
+.wp-block-media-text {
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.wp-block-media-text>.wp-block-media-text__content {
+	padding: 0 3.75rem;
+}
+
+.field-inline {
+	display: flex;
+	align-items: end;
+	justify-content: start;
+}
+
+.wpcf7-form .field-inline>label span.wpcf7-form-control-wrap {
+	margin-right: 0.5rem;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.wpcf7 .field-inline .wpcf7-submit {
+	background-color: var(--wp--preset--color--black);
+	color: var(--wp--preset--color--white);
+	height: 100%;
+	padding: 9px 1rem;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.wpcf7-form.invalid .field-inline input.wpcf7-form-control.wpcf7-submit {
+	margin-bottom: 2rem;
+}
+
+.field-inline .wpcf7-spinner {
+	display: none;
+}
+
+.field-inline .wpcf7-not-valid-tip {
+	margin-bottom: 0.6rem;
+}
+
+.field-inline input[type="text"],
+.field-inline input[type="email"],
+.field-inline input[type="tel"],
+.field-inline input[type="number"],
+.field-inline input[type="password"],
+.field-inline input[type="search"],
+.field-inline input[type="url"],
+.field-inline input[type="date"],
+.field-inline textarea,
+.field-inline select {
+	padding: 0.5rem 0.75rem;
+}
+
+body input[type="submit"],
+body button[type="submit"],
+body .wp-block-search__button {
+	border-radius: 8px;
+	background-color: var(--wp--preset--color--sun);
+	color: var(--wp--preset--color--black);
+	font-size: var(--wp--preset--font-size--xs);
+	font-weight: 500;
+	padding: 0.5rem 1.5rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.25s ease;
+}
+
+body input[type="submit"]:hover,
+body button[type="submit"]:hover,
+body .wp-block-search__button:hover {
+	background-color: var(--wp--preset--color--sand);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="date"],
+textarea,
+select,
+.rhqr-field__input,
+.ff-default .ff-el-form-control {
+	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
+	color: var(--wp--preset--color--gray-dark);
+	font-size: var(--wp--preset--font-size--xxs);
+	background-color: var(--wp--preset--color--white);
+	padding: 12px;
+	outline: none;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	appearance: none;
+	-webkit-appearance: none;
+	border-radius: 8px;
+	border: 1px solid var(--wp--preset--color--gray);
+	background: var(--wp--preset--color--white);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="number"]::placeholder,
+input[type="password"]::placeholder,
+input[type="search"]::placeholder,
+input[type="url"]::placeholder,
+input[type="date"],
+textarea::placeholder,
+.rhqr-field__input::placeholder,
+.ff-default .ff-el-form-control::placeholder {
+	color: var(--wp--preset--color--gray-dark);
+	font-size: var(--wp--preset--font-size--xxs);
+}
+
+.wpcf7-form-control-wrap input[type="text"],
+.wpcf7-form-control-wrap input[type="email"],
+.wpcf7-form-control-wrap input[type="tel"],
+.wpcf7-form-control-wrap input[type="number"],
+.wpcf7-form-control-wrap input[type="password"],
+.wpcf7-form-control-wrap input[type="search"],
+.wpcf7-form-control-wrap input[type="url"],
+.wpcf7-form-control-wrap input[type="date"],
+.wpcf7-form-control-wrap textarea,
+.wpcf7-form-control-wrap select {
+	width: calc(100% - 24px);
+}
+
+.wpcf7-form label span.wpcf7-form-control-wrap {
+	display: block;
+	margin-top: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.wpcf7-form div.two-col {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.wpcf7-form .wpcf7-list-item {
+	margin: 0;
+}
+
+.wpcf7 .wpcf7-submit {
+	display: block;
+	margin-top: 1rem;
+}
+
+.wpcf7 form .wpcf7-response-output {
+	margin: 0;
+}
+
+.wpcf7-form .wpcf7-acceptance .wpcf7-list-item {
+	margin-bottom: 0.5rem;
+}
+
+.wp-block-video video {
+	border-radius: 0.5rem;
+}
+
+/* Gutenberg */
+.wp-block-columns.is-style-centered,
+:root :where(.is-layout-constrained > :last-child.wp-block-columns.is-style-centered),
+:root :where(.is-layout-constrained)>.wp-block-columns.is-style-centered {
+	justify-content: center;
+}
+
+.wp-block-media-text>.wp-block-media-text__content {
+	padding: 1.5rem 0 1.5rem 3.75rem;
+}
+
+.wp-block-media-text.has-media-on-the-right>.wp-block-media-text__content {
+	padding: 0;
+}
+
+.wp-block-media-text.has-media-on-the-right>.wp-block-media-text__media {
+	padding: 1.5rem 0 1.5rem 3.75rem;
+}
+
+.wp-block-media-text>.wp-block-media-text__content>* {
+	margin-block-start: 1.5rem;
+}
+
+/* End Gutenberg */
+
+@media (max-width: 960px) {}

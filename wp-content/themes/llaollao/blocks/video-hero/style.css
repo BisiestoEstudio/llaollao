@@ -1,0 +1,50 @@
+/* Video hero: vídeo a tamaño completo con portada y heading superpuesto. */
+.video-hero {
+	position:      relative;
+	width:         100%;
+	aspect-ratio:  16 / 9; /* alto por defecto; cámbialo (o usa min-height) para un hero más alto */
+	overflow:      hidden;
+	box-sizing:    border-box;
+}
+
+.video-hero__video,
+.video-hero__poster {
+	position:   absolute;
+	inset:      0;
+	width:      100%;
+	height:     100%;
+	object-fit: cover;
+	display:    block;
+}
+
+/* Portada por encima del vídeo; se desvanece al reproducir (clase que pone view.js). */
+.video-hero__poster {
+	z-index:    1;
+	transition: opacity 0.4s ease;
+}
+
+.video-hero.is-playing .video-hero__poster {
+	opacity:        0;
+	pointer-events: none;
+}
+
+/* Contenido (heading de Gutenberg) superpuesto y centrado. El color/transparencia
+   del heading se controla desde el propio bloque de Gutenberg. */
+.video-hero__content {
+	position:        absolute;
+	inset:           0;
+	z-index:         2;
+	display:         flex;
+	flex-direction:  column;
+	align-items:     center;
+	justify-content: center;
+	text-align:      center;
+	padding:         2rem;
+	pointer-events:  none; /* el hover/tap llega al contenedor; los enlaces se reactivan abajo */
+}
+
+/* Reactiva la interacción en elementos que la necesiten dentro del contenido. */
+.video-hero__content a,
+.video-hero__content button {
+	pointer-events: auto;
+}

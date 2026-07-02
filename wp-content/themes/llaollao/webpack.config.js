@@ -1,0 +1,42 @@
+const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+const path          = require( 'path' );
+
+module.exports = {
+	...defaultConfig,
+	entry: {
+		'header/build/index':          path.resolve( __dirname, 'blocks/header/src/index.js' ),
+		'footer/build/index':          path.resolve( __dirname, 'blocks/footer/src/index.js' ),
+		'header/build/view':           path.resolve( __dirname, 'blocks/header/src/view.js' ),
+		'megamenu/build/index':        path.resolve( __dirname, 'blocks/megamenu/src/index.js' ),
+		'megamenu/build/view':         path.resolve( __dirname, 'blocks/megamenu/src/view.js' ),
+		'animated-text/build/index': path.resolve( __dirname, 'blocks/animated-text/src/index.js' ),
+		'animated-text/build/view':  path.resolve( __dirname, 'blocks/animated-text/src/view.js' ),
+		'cover-baygo/build/index':   path.resolve( __dirname, 'blocks/cover-baygo/src/index.js' ),
+		'cintillo/build/index':      path.resolve( __dirname, 'blocks/cintillo/src/index.js' ),
+		'resenas/build/index':       path.resolve( __dirname, 'blocks/resenas/src/index.js' ),
+		'marquee/build/index':       path.resolve( __dirname, 'blocks/marquee/src/index.js' ),
+		'faqs/build/index':          path.resolve( __dirname, 'blocks/faqs/src/index.js' ),
+		'timeline/build/index':      path.resolve( __dirname, 'blocks/timeline/src/index.js' ),
+		'timeline/build/view':       path.resolve( __dirname, 'blocks/timeline/src/view.js' ),
+		'location/build/index':      path.resolve( __dirname, 'blocks/location/src/index.js' ),
+		'offices-card/build/index':  path.resolve( __dirname, 'blocks/offices-card/src/index.js' ),
+		'team-card/build/index':     path.resolve( __dirname, 'blocks/team-card/src/index.js' ),
+		'banner/build/index':        path.resolve( __dirname, 'blocks/banner/src/index.js' ),
+		'video-hero/build/index':    path.resolve( __dirname, 'blocks/video-hero/src/index.js' ),
+		'video-hero/build/view':     path.resolve( __dirname, 'blocks/video-hero/src/view.js' ),
+		'section/build/index':       path.resolve( __dirname, 'blocks/section/src/index.js' ),
+		'banner-blog/build/index':   path.resolve( __dirname, 'blocks/banner-blog/src/index.js' ),
+		'newsletter-baygo/build/index': path.resolve( __dirname, 'blocks/newsletter-baygo/src/index.js' ),
+		'related-posts/build/index': path.resolve( __dirname, 'blocks/related-posts/src/index.js' ),
+		'explore-themes/build/index': path.resolve( __dirname, 'blocks/explore-themes/src/index.js' ),
+		'blog-title/build/index': path.resolve( __dirname, 'blocks/blog-title/src/index.js' ),
+		'blog-no-results/build/index': path.resolve( __dirname, 'blocks/blog-no-results/src/index.js' ),
+		'resenas/build/view':        path.resolve( __dirname, 'blocks/resenas/src/view.js' ),
+	},
+	output: {
+		...defaultConfig.output,
+		filename: '[name].js',
+		path:     path.resolve( __dirname, 'blocks' ),
+		clean:    false,
+	},
+};

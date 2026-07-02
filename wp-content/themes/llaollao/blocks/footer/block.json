@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/footer",
+	"version": "1.0.0",
+	"title": "Footer",
+	"category": "design",
+	"icon": "admin-generic",
+	"description": "Pie de página del sitio.",
+	"textdomain": "bisiesto",
+	"supports": {
+		"html": false,
+		"align": [ "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"style":        "file:./style.css"
+}

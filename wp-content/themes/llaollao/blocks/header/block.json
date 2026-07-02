@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/header",
+	"version": "1.0.0",
+	"title": "Header",
+	"category": "design",
+	"icon": "admin-site",
+	"description": "Cabecera del sitio con logo, megamenú y selector de idiomas.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"showLanguageSwitcher": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "full" ]
+	},
+	"render":       "file:./render.php",
+	"editorScript": "file:./build/index.js",
+	"viewScript":   "file:./build/view.js",
+	"style":        "file:./style.css",
+	"viewStyle":    "file:./view.css"
+}
