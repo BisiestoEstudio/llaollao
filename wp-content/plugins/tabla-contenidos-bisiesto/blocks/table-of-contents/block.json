@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/table-of-contents",
+	"version": "2.0.0",
+	"title": "Tabla de contenidos",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "Tabla de contenidos automática a partir de los encabezados de la entrada.",
+	"textdomain": "tabla-contenidos-bisiesto",
+	"keywords": [ "toc", "tabla", "contenidos", "indice", "índice" ],
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"sticky": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"editorScript": "file:./editor.js",
+	"viewScript": "file:./view.js",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}
