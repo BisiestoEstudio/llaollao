@@ -24,6 +24,8 @@ module.exports = {
 		'banner/build/index':        path.resolve( __dirname, 'blocks/banner/src/index.js' ),
 		'video-hero/build/index':    path.resolve( __dirname, 'blocks/video-hero/src/index.js' ),
 		'video-hero/build/view':     path.resolve( __dirname, 'blocks/video-hero/src/view.js' ),
+		'video-llaollao/build/index': path.resolve( __dirname, 'blocks/video-llaollao/src/index.js' ),
+		'video-llaollao/build/view':  path.resolve( __dirname, 'blocks/video-llaollao/src/view.js' ),
 		'section/build/index':       path.resolve( __dirname, 'blocks/section/src/index.js' ),
 		'banner-blog/build/index':   path.resolve( __dirname, 'blocks/banner-blog/src/index.js' ),
 		'newsletter-baygo/build/index': path.resolve( __dirname, 'blocks/newsletter-baygo/src/index.js' ),

@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/video-llaollao",
+	"version": "1.0.0",
+	"title": "Video Llaollao",
+	"category": "media",
+	"icon": "format-video",
+	"description": "Vídeo con imagen de inicio que se carga al hacer hover. Aspecto 3:4, con opción vertical u horizontal.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"videoUrl":    { "type": "string",  "default": "" },
+		"videoId":     { "type": "integer" },
+		"posterUrl":   { "type": "string",  "default": "" },
+		"posterId":    { "type": "integer" },
+		"posterAlt":    { "type": "string",  "default": "" },
+		"orientation":  { "type": "string",  "default": "vertical" },
+		"hideOnMobile": { "type": "boolean", "default": false }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "left", "center", "right", "wide" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"viewScript":   "file:./build/view.js",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

@@ -13,6 +13,7 @@ function bisiesto_register_blocks()
 	register_block_type(get_theme_file_path('blocks/footer'));
 	register_block_type(get_theme_file_path('blocks/banner'));
 	register_block_type(get_theme_file_path('blocks/video-hero'));
+	register_block_type(get_theme_file_path('blocks/video-llaollao'));
 	register_block_type(get_theme_file_path('blocks/related-posts'));
 }
 

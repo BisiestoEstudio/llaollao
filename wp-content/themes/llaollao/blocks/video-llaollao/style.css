@@ -1,0 +1,45 @@
+/* Video Llaollao: vídeo con imagen de inicio, aspecto 3:4 (vertical) o 4:3
+   (horizontal). El vídeo se carga al hacer hover/tap (ver view.js). */
+.video-llaollao {
+	position:      relative;
+	width:         100%;
+	overflow:      hidden;
+	box-sizing:    border-box;
+	border-radius: var( --wp--custom--radius--l, 16px );
+}
+
+.video-llaollao.is-vertical {
+	aspect-ratio: 3 / 4;
+}
+
+.video-llaollao.is-horizontal {
+	aspect-ratio: 4 / 3;
+}
+
+.video-llaollao__video,
+.video-llaollao__poster {
+	position:   absolute;
+	inset:      0;
+	width:      100%;
+	height:     100%;
+	object-fit: cover;
+	display:    block;
+}
+
+/* Imagen de inicio por encima del vídeo; se desvanece al reproducir. */
+.video-llaollao__poster {
+	z-index:    1;
+	transition: opacity 0.4s ease;
+}
+
+.video-llaollao.is-playing .video-llaollao__poster {
+	opacity:        0;
+	pointer-events: none;
+}
+
+/* Opción "Ocultar en móvil". */
+@media (max-width: 768px) {
+	.video-llaollao.is-hidden-mobile {
+		display: none;
+	}
+}
