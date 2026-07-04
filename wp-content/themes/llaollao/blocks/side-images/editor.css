@@ -1,8 +1,3 @@
-/* Solo en el editor: se ven siempre las dos columnas al 50%, sin el hover 70/30
-   ni el colapso de botones, para poder editar el contenido con comodidad.
-   .editor-styles-wrapper solo existe dentro del editor, así que estas reglas no
-   afectan al front. Llevan el mismo selector base + esa clase → mayor
-   especificidad, por lo que ganan a style.css. */
 .editor-styles-wrapper .wp-block-bisiesto-side-images .side-image-column,
 .editor-styles-wrapper .wp-block-bisiesto-side-images .side-image-column:hover {
    flex-grow: 1;

@@ -1,11 +1,9 @@
-/* Bloque "Side images": dos columnas al 50% con gap de 20px (1.25rem).
-   El fondo (color o imagen) y el contenido centrado los aporta cada columna
-   hija (.side-image-column). Aquí van la maquetación y las interacciones. */
 .wp-block-bisiesto-side-images {
    display: flex;
-   gap: 1.25rem; /* 20px */
+   gap: 1.25rem;
    align-items: stretch;
-   margin-block: 2.5rem; /* 40px arriba y abajo */
+   padding-top: 2.5rem;
+   padding-bottom: 2.5rem;
 }
 
 /* Cada columna arranca al 50%. Al hacer hover crece al 70% dejando la otra al

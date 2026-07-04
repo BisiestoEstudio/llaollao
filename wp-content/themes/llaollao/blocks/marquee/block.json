@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/marquee",
+	"version": "1.0.0",
+	"title": "Marquee",
+	"category": "design",
+	"icon": "controls-repeat",
+	"description": "Cinta de textos separados por · que se desplazan en horizontal de forma infinita. Fondo verde, texto blanco Souvenir. Animación solo con CSS.",
+	"textdomain": "bisiesto",
+	"attributes": {
+		"items": { "type": "array", "default": [] }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

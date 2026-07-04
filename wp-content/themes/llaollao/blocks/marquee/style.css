@@ -1,0 +1,52 @@
+/* Bloque "Marquee": cinta de textos que se desplaza en horizontal de forma
+   infinita, solo con CSS. Fondo verde, padding vertical 10px. */
+.wp-block-bisiesto-marquee {
+   display: flex;
+   overflow: hidden;
+   background-color: var(--wp--preset--color--verde);
+   padding-block: 10px;
+}
+
+/* Dos grupos idénticos, cada uno como mínimo del ancho de la pantalla
+   (min-width:100%) para que nunca quede hueco a la derecha. Ambos se desplazan
+   -100% de su ancho: cuando el segundo llega a la izquierda ocupa el sitio del
+   primero → bucle sin costura. space-around reparte los textos de forma
+   uniforme cuando hay pocos; con muchos se empaquetan con su separación normal. */
+.wp-block-bisiesto-marquee .marquee__group {
+   flex-shrink: 0;
+   min-width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   animation: marquee-scroll 30s linear infinite;
+}
+
+.wp-block-bisiesto-marquee .marquee__item {
+   display: inline-flex;
+   align-items: center;
+   color: var(--wp--preset--color--blanco);
+   font-family: var(--wp--preset--font-family--souvenir-std);
+   font-size: 1rem;
+   font-weight: 700;
+   line-height: 1;
+   white-space: nowrap;
+}
+
+/* Separador · pegado a cada texto, con hueco a ambos lados. Al ir en cada item
+   la separación es igual también en el empalme entre el último y el primero. */
+.wp-block-bisiesto-marquee .marquee__item::after {
+   content: "\00B7"; /* · */
+   margin-inline: 0.75rem;
+}
+
+@keyframes marquee-scroll {
+   from { transform: translateX(0); }
+   to   { transform: translateX(-100%); }
+}
+
+/* Accesibilidad: sin animación si el usuario reduce el movimiento. */
+@media (prefers-reduced-motion: reduce) {
+   .wp-block-bisiesto-marquee .marquee__group {
+      animation: none;
+   }
+}

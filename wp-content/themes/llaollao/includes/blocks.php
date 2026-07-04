@@ -17,6 +17,7 @@ function bisiesto_register_blocks()
 	register_block_type(get_theme_file_path('blocks/images'));
 	register_block_type(get_theme_file_path('blocks/side-images'));
 	register_block_type(get_theme_file_path('blocks/side-image-column'));
+	register_block_type(get_theme_file_path('blocks/marquee'));
 	register_block_type(get_theme_file_path('blocks/related-posts'));
 }
 
