@@ -293,6 +293,57 @@
 						"min": "24px",
 						"max": "30px"
 					}
+				},
+				{
+					"name": "H1",
+					"slug": "h1",
+					"size": "75px",
+					"fluid": {
+						"min": "40px",
+						"max": "75px"
+					}
+				},
+				{
+					"name": "H2",
+					"slug": "h2",
+					"size": "60px",
+					"fluid": {
+						"min": "32px",
+						"max": "60px"
+					}
+				},
+				{
+					"name": "H2 Cards",
+					"slug": "h2-cards",
+					"size": "40px",
+					"fluid": {
+						"min": "24px",
+						"max": "40px"
+					}
+				},
+				{
+					"name": "H3",
+					"slug": "h3",
+					"size": "30px",
+					"fluid": {
+						"min": "24px",
+						"max": "30px"
+					}
+				},
+				{
+					"name": "H4",
+					"slug": "h4",
+					"size": "24px",
+					"fluid": {
+						"min": "20px",
+						"max": "24px"
+					}
+				},
+				{
+					"name": "H5",
+					"slug": "h5",
+					"size": "18px",
+					"fluid": false
 				}
 			]
 		},
