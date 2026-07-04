@@ -15,6 +15,8 @@ function bisiesto_register_blocks()
 	register_block_type(get_theme_file_path('blocks/video-hero'));
 	register_block_type(get_theme_file_path('blocks/video-llaollao'));
 	register_block_type(get_theme_file_path('blocks/images'));
+	register_block_type(get_theme_file_path('blocks/side-images'));
+	register_block_type(get_theme_file_path('blocks/side-image-column'));
 	register_block_type(get_theme_file_path('blocks/related-posts'));
 }
 
@@ -124,6 +126,14 @@ function bisiesto_register_block_styles()
 		array(
 			'name'  => 'detalle',
 			'label' => __('Detalle', 'bisiesto'),
+		)
+	);
+
+	register_block_style(
+		'core/button',
+		array(
+			'name'  => 'fill-border',
+			'label' => __('Fill border', 'bisiesto'),
 		)
 	);
 

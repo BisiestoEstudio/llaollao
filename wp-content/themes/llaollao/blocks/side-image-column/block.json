@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/side-image-column",
+	"version": "1.0.0",
+	"title": "Side image · columna",
+	"category": "design",
+	"icon": "align-center",
+	"description": "Columna del bloque Side images: fondo de color sólido o imagen con contenido centrado.",
+	"textdomain": "bisiesto",
+	"parent": [ "bisiesto/side-images" ],
+	"attributes": {
+		"imageUrl":   { "type": "string",  "default": "" },
+		"imageId":    { "type": "integer" },
+		"imageAlt":   { "type": "string",  "default": "" },
+		"focalPoint": { "type": "object",  "default": { "x": 0.5, "y": 0.5 } }
+	},
+	"supports": {
+		"html": false,
+		"color": {
+			"background": true,
+			"text":       false,
+			"gradients":  false
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"render":       "file:./render.php"
+}

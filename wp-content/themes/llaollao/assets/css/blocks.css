@@ -98,6 +98,7 @@ h5,
 .wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
 .wp-block-button.is-style-fill .wp-block-button__link,
 .wp-block-button.is-style-outline .wp-block-button__link,
+.wp-block-button.is-style-fill-border .wp-block-button__link,
 .wp-block-button.is-style-fill-collapsed .wp-block-button__link,
 .wp-block-button.is-style-outline-collapsed .wp-block-button__link {
 	border-radius: var(--wp--custom--radius--100, 100px);
@@ -112,6 +113,7 @@ h5,
 .wp-block-button:not([class*="is-style-"]) .wp-block-button__link::after,
 .wp-block-button.is-style-fill .wp-block-button__link::after,
 .wp-block-button.is-style-outline .wp-block-button__link::after,
+.wp-block-button.is-style-fill-border .wp-block-button__link::after,
 .wp-block-button.is-style-fill-collapsed .wp-block-button__link::after,
 .wp-block-button.is-style-outline-collapsed .wp-block-button__link::after {
 	content: "";
@@ -127,7 +129,8 @@ h5,
 
 /* Fill: parte oblicua (↗) y al hover gira a horizontal (→). */
 .wp-block-button:not([class*="is-style-"]) .wp-block-button__link:hover::after,
-.wp-block-button.is-style-fill .wp-block-button__link:hover::after {
+.wp-block-button.is-style-fill .wp-block-button__link:hover::after,
+.wp-block-button.is-style-fill-border .wp-block-button__link:hover::after {
 	transform: rotate(45deg);
 }
 
@@ -154,6 +157,20 @@ h5,
 .wp-block-button.is-style-fill-collapsed .wp-block-button__link:hover {
 	background-color: var(--wp--preset--color--verde-light);
 	color: var(--wp--preset--color--negro);
+}
+
+/* Fill border: como el fill (sólido) pero con borde de 1px. Fondo crema,
+   texto y borde marrón. Al hover invierte a marrón/crema. */
+.wp-block-button.is-style-fill-border .wp-block-button__link {
+	background-color: var(--wp--preset--color--crema);
+	color: var(--wp--preset--color--marron);
+	border: 1px solid var(--wp--preset--color--marron);
+	transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.wp-block-button.is-style-fill-border .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--marron);
+	color: var(--wp--preset--color--crema);
 }
 
 .wp-block-button.is-style-outline .wp-block-button__link,

@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/side-images",
+	"version": "1.0.0",
+	"title": "Side images",
+	"category": "design",
+	"icon": "columns",
+	"description": "Dos columnas al 50% con fondo de color o imagen y contenido centrado. Al pasar el ratón, la columna crece al 70% (la otra al 30%) y sus botones se colapsan. Gap de 20px.",
+	"textdomain": "bisiesto",
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css"
+}

@@ -1,0 +1,84 @@
+/* Bloque "Side images": dos columnas al 50% con gap de 20px (1.25rem).
+   El fondo (color o imagen) y el contenido centrado los aporta cada columna
+   hija (.side-image-column). Aquí van la maquetación y las interacciones. */
+.wp-block-bisiesto-side-images {
+   display: flex;
+   gap: 1.25rem; /* 20px */
+   align-items: stretch;
+   margin-block: 2.5rem; /* 40px arriba y abajo */
+}
+
+/* Cada columna arranca al 50%. Al hacer hover crece al 70% dejando la otra al
+   30%: con solo dos ítems, flex-grow 2.333 vs 1 reparte 70/30 sin necesidad de
+   :has() para el dimensionado. min-height para que se aprecie el fondo. */
+.wp-block-bisiesto-side-images .side-image-column {
+   flex: 1 1 0;
+   min-width: 0;
+   min-height: 712px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 2.5rem;
+   text-align: center;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   border-radius: 9px;
+   overflow: hidden;
+   transition: flex-grow 0.7s ease;
+}
+
+.wp-block-bisiesto-side-images .side-image-column:hover {
+   flex-grow: 2.333; /* 70/30 */
+}
+
+/* Contenedor interno: apila y centra los inner blocks. */
+.wp-block-bisiesto-side-images .side-image-column__inner {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 1rem;
+   max-width: 100%;
+}
+
+/* Botones colapsados: cuando una columna está en hover (70%), la otra pasa a
+   30% y sus botones muestran solo la flecha (el ::after global de blocks.css ya
+   la pinta). El texto se oculta con font-size:0 y reaparece al pasar el ratón
+   por el propio botón. Mismo criterio visual que los estilos *-collapsed. */
+.wp-block-bisiesto-side-images:has( .side-image-column:hover ) .side-image-column:not( :hover ) .wp-block-button__link {
+   font-size: 0;
+   white-space: nowrap;
+   transition: background-color 0.25s ease, color 0.25s ease, font-size 0.25s ease;
+}
+
+.wp-block-bisiesto-side-images:has( .side-image-column:hover ) .side-image-column:not( :hover ) .wp-block-button__link::after {
+   margin-left: 0;
+   transform: rotate( 45deg ); /* flecha horizontal en reposo */
+   transition: transform 0.25s ease, margin-left 0.25s ease;
+}
+
+.wp-block-bisiesto-side-images .side-image-column .wp-block-button__link:hover {
+   font-size: 1rem; /* al pasar por el botón vuelve el texto */
+}
+
+.wp-block-bisiesto-side-images .side-image-column .wp-block-button__link:hover::after {
+   margin-left: 0.75rem;
+   transform: rotate( 0deg );
+}
+
+/* Móvil: se apilan, sin hover 70/30 ni colapso de botones. */
+@media (max-width: 768px) {
+   .wp-block-bisiesto-side-images {
+      flex-direction: column;
+   }
+
+   .wp-block-bisiesto-side-images .side-image-column,
+   .wp-block-bisiesto-side-images .side-image-column:hover {
+      flex-grow: 1;
+      min-height: 323px;
+   }
+
+   .wp-block-bisiesto-side-images:has( .side-image-column:hover ) .side-image-column:not( :hover ) .wp-block-button__link {
+      font-size: 1rem;
+   }
+}

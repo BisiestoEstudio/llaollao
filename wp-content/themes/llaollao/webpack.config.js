@@ -27,6 +27,8 @@ module.exports = {
 		'video-llaollao/build/index': path.resolve( __dirname, 'blocks/video-llaollao/src/index.js' ),
 		'video-llaollao/build/view':  path.resolve( __dirname, 'blocks/video-llaollao/src/view.js' ),
 		'images/build/index':         path.resolve( __dirname, 'blocks/images/src/index.js' ),
+		'side-images/build/index':       path.resolve( __dirname, 'blocks/side-images/src/index.js' ),
+		'side-image-column/build/index': path.resolve( __dirname, 'blocks/side-image-column/src/index.js' ),
 		'section/build/index':       path.resolve( __dirname, 'blocks/section/src/index.js' ),
 		'banner-blog/build/index':   path.resolve( __dirname, 'blocks/banner-blog/src/index.js' ),
 		'newsletter-baygo/build/index': path.resolve( __dirname, 'blocks/newsletter-baygo/src/index.js' ),
