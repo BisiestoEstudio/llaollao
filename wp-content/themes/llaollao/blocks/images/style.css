@@ -1,0 +1,39 @@
+.wp-block-bisiesto-images {
+   padding: 20px;
+}
+
+.wp-block-bisiesto-images .video-llaollao {
+   max-width: 335px;
+   margin-inline: auto;
+}
+
+.wp-block-bisiesto-images .images__row--top .video-llaollao {
+   margin-bottom: 72px;
+}
+
+@media (max-width: 768px) {
+   .wp-block-bisiesto-images .wp-block-columns {
+      margin-bottom: 0;
+   }
+
+   .wp-block-bisiesto-images .video-llaollao {
+      max-width: 223px;
+   }
+
+   .wp-block-bisiesto-images .images__row--top .video-llaollao {
+      margin-bottom: 0;
+   }
+
+   .wp-block-bisiesto-images .wp-block-column:first-child .video-llaollao {
+      margin-inline: 0 auto;
+   }
+
+   .wp-block-bisiesto-images .wp-block-column:last-child .video-llaollao {
+      margin-inline: auto 0;
+   }
+
+   .wp-block-bisiesto-images .wp-block-column .wp-block-buttons.is-layout-flex {
+      margin-block-start: 1rem;
+   }
+
+}

@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/images",
+	"version": "1.0.0",
+	"title": "Images",
+	"category": "design",
+	"icon": "grid-view",
+	"description": "Dos filas: arriba 3 columnas (24% · 52% · 24%) con vídeos a los lados y contenido libre en el centro; abajo 2 columnas con vídeos. Los vídeos miden como mucho 335px de ancho.",
+	"textdomain": "bisiesto",
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"style":        "file:./style.css"
+}
