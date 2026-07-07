@@ -18,6 +18,8 @@ function bisiesto_register_blocks()
 	register_block_type(get_theme_file_path('blocks/side-images'));
 	register_block_type(get_theme_file_path('blocks/side-image-column'));
 	register_block_type(get_theme_file_path('blocks/marquee'));
+	register_block_type(get_theme_file_path('blocks/history'));
+	register_block_type(get_theme_file_path('blocks/history-item'));
 	register_block_type(get_theme_file_path('blocks/related-posts'));
 }
 
@@ -71,6 +73,19 @@ add_action('enqueue_block_editor_assets', function (): void {
 } )( window.wp );
 JS;
 	wp_add_inline_script('wp-blocks', $js, 'after');
+});
+
+/**
+ * Añade el campo "Ancho máximo" al bloque padre core/columns.
+ */
+add_action('enqueue_block_editor_assets', function (): void {
+	wp_enqueue_script(
+		'bisiesto-columns-max-width',
+		get_theme_file_uri('assets/js/columns-maxwidth.js'),
+		array('wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-hooks', 'wp-compose', 'wp-i18n'),
+		'1.0.0',
+		true
+	);
 });
 
 add_action('init', 'bisiesto_register_blocks');

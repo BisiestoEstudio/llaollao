@@ -217,6 +217,84 @@ h5,
 	transform: rotate(0deg);
 }
 
+/* Clase reutilizable "button-tag": pill con borde marrón y fondo transparente.
+   Al hover el verde sube desde abajo (como llenar un vaso) y el texto entra en
+   blanco desde arriba, cruzándose. Sirve en enlaces sueltos (.button-tag) y en
+   botones de Gutenberg (clase adicional en el bloque → .wp-block-button). */
+.button-tag,
+.wp-block-button.button-tag > .wp-block-button__link {
+	position: relative;
+	isolation: isolate;
+	overflow: hidden;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.4375rem 1.125rem; /* 7px / 18px */
+	border-radius: 100px;
+	border: 1px solid var(--wp--preset--color--marron);
+	color: var(--wp--preset--color--marron);
+	text-decoration: none;
+	background-color: transparent;
+	transition: color 0.45s ease, border-color 0.45s ease;
+}
+
+/* Relleno verde que sube desde abajo. Se hace con transform: scaleY() (GPU, sin
+   el hairline/parpadeo que deja animar background-size a 0%). z-index -1 lo deja
+   detrás del texto (el elemento crea contexto con isolation). */
+.button-tag::before,
+.wp-block-button.button-tag > .wp-block-button__link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-color: var(--wp--preset--color--verde);
+	transform: scaleY(0);
+	transform-origin: bottom;
+	transition: transform 0.45s ease;
+}
+
+.button-tag:hover::before,
+.wp-block-button.button-tag > .wp-block-button__link:hover::before {
+	transform: scaleY(1);
+}
+
+/* El borde pasa a verde al hover. */
+.button-tag:hover,
+.wp-block-button.button-tag > .wp-block-button__link:hover {
+	border-color: var(--wp--preset--color--verde);
+}
+
+/* Sin data-text (botones normales): cambio de color simple para que se lea. */
+.button-tag:not([data-text]):hover,
+.wp-block-button.button-tag > .wp-block-button__link:hover {
+	color: var(--wp--preset--color--blanco);
+}
+
+/* Con data-text: capa de texto blanco que se revela desde arriba (clip-path),
+   cruzándose con el verde que sube. El texto base (marrón) queda debajo. */
+.button-tag[data-text]::after {
+	content: attr(data-text);
+	position: absolute;
+	inset: 0;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--wp--preset--color--blanco);
+	white-space: inherit;
+	pointer-events: none;
+	clip-path: inset(0 0 100% 0); /* oculto, anclado arriba */
+	transition: clip-path 0.45s ease;
+}
+
+.button-tag[data-text]:hover::after {
+	clip-path: inset(0 0 0 0); /* se revela de arriba abajo */
+}
+
+/* En un botón de Gutenberg, quita la flecha global para que la "tag" quede limpia. */
+.wp-block-button.button-tag .wp-block-button__link::after {
+	content: none;
+}
+
 .wp-block-buttons .wp-block-button__link {
 	font-family: var(--wp--preset--font-family--souvenir-std);
 	font-weight: 500;

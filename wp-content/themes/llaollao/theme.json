@@ -295,6 +295,15 @@
 					}
 				},
 				{
+					"name": "Display",
+					"slug": "display",
+					"size": "130px",
+					"fluid": {
+						"min": "80px",
+						"max": "130px"
+					}
+				},
+				{
 					"name": "H1",
 					"slug": "h1",
 					"size": "75px",

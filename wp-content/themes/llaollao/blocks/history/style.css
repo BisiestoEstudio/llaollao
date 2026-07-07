@@ -1,0 +1,145 @@
+/* Bloque "History": dos filas horizontales apiladas — la nav de años arriba y
+   los ítems abajo. Cada fila es su propio scroller que se arrastra (view.js) o
+   con scroll táctil/trackpad nativo, y sangra hasta el borde derecho. */
+.wp-block-bisiesto-history {
+   display: flex;
+   flex-direction: column;
+   gap: 2.5rem; /* separación entre la nav y los ítems */
+}
+
+/* Las dos filas scrollables */
+.wp-block-bisiesto-history .history__nav,
+.wp-block-bisiesto-history .history__items {
+   display: flex;
+   flex-direction: row;
+   overflow-x: auto;
+   overflow-y: hidden;
+   cursor: grab;
+   scrollbar-width: none; /* Firefox */
+   -webkit-overflow-scrolling: touch;
+}
+
+.wp-block-bisiesto-history .history__nav::-webkit-scrollbar,
+.wp-block-bisiesto-history .history__items::-webkit-scrollbar {
+   display: none; /* Chrome/Safari */
+}
+
+/* Pega el lado derecho al borde de la pantalla (la izquierda alineada al
+   contenido). Espejo del margin-left del .alignfull del tema. Excluye alignfull. */
+.wp-block-bisiesto-history:not(.alignfull) .history__nav,
+.wp-block-bisiesto-history:not(.alignfull) .history__items {
+   margin-right: calc(50% - 50vw);
+}
+
+/* En alignfull, alinea el inicio de ambas filas con el contenido con un
+   espaciador flex (::before) en vez de padding-left: el padding de un flex con
+   overflow-x no se cuenta bien en la extensión del scroll y no dejaría ver el
+   último elemento entero. El espaciador sí cuenta, así el scroll llega al final.
+   max() mantiene un margen mínimo en pantallas estrechas. */
+.wp-block-bisiesto-history.alignfull .history__nav::before,
+.wp-block-bisiesto-history.alignfull .history__items::before {
+   content: "";
+   flex: 0 0 max(2rem, calc((100vw - var(--wp--style--global--content-size, 1399px)) / 2));
+   align-self: stretch;
+}
+
+.wp-block-bisiesto-history .history__nav.is-dragging,
+.wp-block-bisiesto-history .history__items.is-dragging {
+   cursor: grabbing;
+   user-select: none;
+}
+
+/* Fila de ítems: gap de 30px entre años. */
+.wp-block-bisiesto-history .history__items {
+   gap: 1.875rem; /* 30px */
+   align-items: stretch;
+}
+
+/* Nav de años: enlaces unidos por una línea, 55px entre enlace y enlace. */
+.wp-block-bisiesto-history .history__nav {
+   align-items: center;
+}
+
+/* Los enlaces usan la clase reutilizable .button-tag (color/borde/padding/radio
+   en blocks.css); aquí solo lo propio de la nav (no encoger, no partir, fuente). */
+.wp-block-bisiesto-history .history__nav-link {
+   flex: 0 0 auto;
+   white-space: nowrap;
+   font-family: var(--wp--preset--font-family--bree);
+   font-size: var(--wp--preset--font-size--h4, 24px);
+   font-weight: 700;
+}
+
+/* El año activo (el que está a la vista) se queda como el hover de button-tag:
+   relleno verde completo, borde verde y texto blanco revelado. */
+.wp-block-bisiesto-history .history__nav-link.is-active {
+   border-color: var(--wp--preset--color--verde);
+}
+
+.wp-block-bisiesto-history .history__nav-link.is-active::before {
+   transform: scaleY(1);
+}
+
+.wp-block-bisiesto-history .history__nav-link.is-active::after {
+   clip-path: inset(0 0 0 0);
+}
+
+/* Línea que une los enlaces: ocupa los 55px entre enlace y enlace. */
+.wp-block-bisiesto-history .history__nav-line {
+   flex: 0 0 55px;
+   height: 1px;
+   background-color: var(--wp--preset--color--marron);
+}
+
+/* Cada año: ancho según su contenido (no se encoge). Dentro, el año vertical a
+   la izquierda y los inner blocks a la derecha. */
+.wp-block-bisiesto-history .history-item {
+   flex: 0 0 auto;
+   min-width: 240px;
+   max-width: 766px;
+   display: flex;
+   flex-direction: row;
+   align-items: flex-start;
+   gap: 1.5rem;
+}
+
+/* Año rotado 90°, a la izquierda de los inner blocks. writing-mode da la
+   rotación real y reserva bien el ancho (columna estrecha); rotate(180deg) lo
+   deja leyéndose de abajo arriba. Tamaño Display de theme.json. */
+.wp-block-bisiesto-history .history-item__year {
+   writing-mode: vertical-rl;
+   transform: rotate(180deg);
+   flex: 0 0 auto;
+   margin: 0;
+   font-family: var(--wp--preset--font-family--bree);
+   font-size: var(--wp--preset--font-size--display, 130px);
+   font-weight: 700;
+   line-height: 1;
+   color: var(--wp--preset--color--naranja);
+}
+
+.wp-block-bisiesto-history .history-item__body {
+   flex: 1 1 auto;
+   min-width: 0;
+}
+
+.wp-block-bisiesto-history .history-item__body .wp-block-columns{
+   margin-block-end: 0;
+}
+
+/* Zigzag del año: en los ítems impares el año se pega abajo y en los pares
+   arriba (respecto al alto del ítem, que lo marca su contenido). */
+.wp-block-bisiesto-history .history-item:nth-child(odd) .history-item__year {
+   align-self: flex-end;
+}
+
+.wp-block-bisiesto-history .history-item:nth-child(even) .history-item__year {
+   align-self: flex-start;
+}
+
+/* Que ni las imágenes/medios de dentro capturen el arrastre. */
+.wp-block-bisiesto-history .history-item img {
+   pointer-events: none;
+   -webkit-user-drag: none;
+   user-select: none;
+}

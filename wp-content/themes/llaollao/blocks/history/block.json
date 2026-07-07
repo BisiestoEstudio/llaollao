@@ -1,0 +1,20 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bisiesto/history",
+	"version": "1.0.0",
+	"title": "History",
+	"category": "design",
+	"icon": "clock",
+	"description": "Línea de tiempo de años de la empresa. En el front es una fila horizontal (primer año a la izquierda) que se arrastra para ver los que no caben. En el editor los años se ven apilados.",
+	"textdomain": "bisiesto",
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ]
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}

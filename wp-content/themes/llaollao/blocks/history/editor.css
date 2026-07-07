@@ -1,0 +1,56 @@
+/* Solo en el editor: los años se ven apilados uno debajo de otro (no en fila),
+   sin scroll ni cursor de arrastre, para editar el contenido con comodidad. La
+   nav de años se muestra como vista previa arriba. .editor-styles-wrapper solo
+   existe en el editor. */
+.editor-styles-wrapper .wp-block-bisiesto-history {
+   gap: 1.5rem;
+}
+
+/* Los ítems se apilan en vertical; sin scroll ni sangrado. La nav se queda
+   horizontal como preview, también sin sangrado. */
+.editor-styles-wrapper .wp-block-bisiesto-history .history__items {
+   flex-direction: column;
+   overflow: visible;
+   cursor: default;
+   gap: 1rem;
+}
+
+.editor-styles-wrapper .wp-block-bisiesto-history .history__nav,
+.editor-styles-wrapper .wp-block-bisiesto-history .history__items {
+   margin-right: 0; /* sin sangrado a la derecha dentro del editor */
+   flex-wrap: wrap; /* la nav no necesita scroll en el editor */
+}
+
+/* El espaciador de alignfull no aplica en el editor. */
+.editor-styles-wrapper .wp-block-bisiesto-history.alignfull .history__nav::before,
+.editor-styles-wrapper .wp-block-bisiesto-history.alignfull .history__items::before {
+   content: none;
+}
+
+.editor-styles-wrapper .wp-block-bisiesto-history .history-item {
+   flex: 0 0 auto;
+   width: 100%;
+   min-width: 0;
+   flex-direction: column;
+   align-items: stretch;
+   gap: 0.5rem;
+   padding: 1rem 1.25rem;
+   border: 1px dashed var(--wp--preset--color--gris-light);
+   border-radius: 8px;
+}
+
+/* En el editor el año va horizontal y a tamaño legible para poder escribirlo;
+   la rotación 90°, el tamaño Display y el zigzag arriba/abajo se ven en el
+   front. Se neutraliza el align-self del zigzag (aquí movería el año de lado). */
+.editor-styles-wrapper .wp-block-bisiesto-history .history-item__year,
+.editor-styles-wrapper .wp-block-bisiesto-history .history-item:nth-child(odd) .history-item__year,
+.editor-styles-wrapper .wp-block-bisiesto-history .history-item:nth-child(even) .history-item__year {
+   writing-mode: horizontal-tb;
+   transform: none;
+   font-size: 2rem;
+   align-self: auto;
+}
+
+.editor-styles-wrapper .wp-block-bisiesto-history .history-item img {
+   pointer-events: auto;
+}
