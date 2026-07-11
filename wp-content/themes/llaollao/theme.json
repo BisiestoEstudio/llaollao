@@ -108,7 +108,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-Light.woff2"
+								"file:./assets/fonts/SouvenirStd-Light.woff"
 							]
 						},
 						{
@@ -117,7 +117,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-LightItalic.woff2"
+								"file:./assets/fonts/SouvenirStd-LightItalic.woff"
 							]
 						},
 						{
@@ -126,7 +126,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-Medium.woff2"
+								"file:./assets/fonts/SouvenirStd-Medium.woff"
 							]
 						},
 						{
@@ -135,7 +135,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-MediumItalic.woff2"
+								"file:./assets/fonts/SouvenirStd-MediumItalic.woff"
 							]
 						},
 						{
@@ -144,7 +144,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-Bold.woff2"
+								"file:./assets/fonts/SouvenirStd-Bold.woff"
 							]
 						},
 						{
@@ -153,7 +153,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/SouvenirStd-BoldItalic.woff2"
+								"file:./assets/fonts/SouvenirStd-BoldItalic.woff"
 							]
 						}
 					]
@@ -169,7 +169,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeThin.otf"
+								"file:./assets/fonts/BreeThin.woff"
 							]
 						},
 						{
@@ -178,7 +178,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeOblique_Thin.otf"
+								"file:./assets/fonts/BreeOblique_Thin.woff"
 							]
 						},
 						{
@@ -187,7 +187,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeLight.otf"
+								"file:./assets/fonts/BreeLight.woff"
 							]
 						},
 						{
@@ -196,7 +196,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeOblique_Light.otf"
+								"file:./assets/fonts/BreeOblique_Light.woff"
 							]
 						},
 						{
@@ -205,7 +205,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeRegular.otf"
+								"file:./assets/fonts/BreeRegular.woff"
 							]
 						},
 						{
@@ -214,7 +214,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeOblique_Reg.otf"
+								"file:./assets/fonts/BreeOblique_Reg.woff"
 							]
 						},
 						{
@@ -223,7 +223,7 @@
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeBold.otf"
+								"file:./assets/fonts/BreeBold.woff"
 							]
 						},
 						{
@@ -232,7 +232,7 @@
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/BreeOblique_Bold.otf"
+								"file:./assets/fonts/BreeOblique_Bold.woff"
 							]
 						}
 					]
