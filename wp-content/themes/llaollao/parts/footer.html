@@ -1,7 +1,93 @@
-<!-- wp:group {"tagName":"footer","layout":{"type":"constrained"}} -->
-<footer class="wp-block-group">
-	<!-- wp:paragraph {"align":"center"} -->
-	<p class="has-text-align-center">© <!-- wp:post-date {"format":"Y"} /--></p>
-	<!-- /wp:paragraph -->
+<!-- wp:group {"tagName":"footer","className":"site-footer","align":"full","backgroundColor":"verde","textColor":"blanco","style":{"spacing":{"padding":{"top":"40px","bottom":"40px","left":"20px","right":"20px"}}},"layout":{"type":"constrained"}} -->
+<footer class="wp-block-group alignfull site-footer has-blanco-color has-text-color has-verde-background-color has-background" style="padding-top:40px;padding-right:20px;padding-bottom:40px;padding-left:20px">
+
+	<!-- FILA SUPERIOR: menús (izq.) + newsletter (der.) separados con space-between -->
+	<!-- wp:group {"className":"site-footer__top","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+	<div class="wp-block-group site-footer__top">
+
+		<!-- Columna izquierda: menús a tres columnas -->
+		<!-- wp:columns {"className":"site-footer__menus"} -->
+		<div class="wp-block-columns site-footer__menus">
+
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:navigation {"overlayMenu":"never","className":"site-footer__menu","layout":{"type":"flex","orientation":"vertical"}} -->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- /wp:navigation -->
+			</div>
+			<!-- /wp:column -->
+
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:navigation {"overlayMenu":"never","className":"site-footer__menu","layout":{"type":"flex","orientation":"vertical"}} -->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- /wp:navigation -->
+			</div>
+			<!-- /wp:column -->
+
+			<!-- wp:column -->
+			<div class="wp-block-column">
+				<!-- wp:navigation {"overlayMenu":"never","className":"site-footer__menu","layout":{"type":"flex","orientation":"vertical"}} -->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- wp:navigation-link {"label":"Enlace","url":"#"} /-->
+				<!-- /wp:navigation -->
+			</div>
+			<!-- /wp:column -->
+
+		</div>
+		<!-- /wp:columns -->
+
+		<!-- Columna derecha: newsletter -->
+		<!-- wp:group {"className":"site-footer__newsletter","layout":{"type":"constrained"}} -->
+		<div class="wp-block-group site-footer__newsletter">
+			<!-- wp:paragraph {"className":"site-footer__menu-title","fontSize":"h4"} -->
+			<p class="site-footer__menu-title has-h4-font-size">Suscríbete a la newsletter</p>
+			<!-- /wp:paragraph -->
+
+			<!-- wp:paragraph -->
+			<p>Recibe nuestras novedades y promociones en tu correo.</p>
+			<!-- /wp:paragraph -->
+
+			<!-- Placeholder del formulario: sustituir por el form real (CF7 o bloque propio) -->
+			<!-- wp:paragraph {"className":"site-footer__newsletter-form"} -->
+			<p class="site-footer__newsletter-form">[ Formulario de newsletter ]</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- FILA INFERIOR: imagen · back to top · copyright (cada uno a su ancho natural) -->
+	<!-- wp:group {"className":"site-footer__bottom","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between","verticalAlignment":"center"}} -->
+	<div class="wp-block-group site-footer__bottom">
+
+		<!-- Columna 1: imagen (máx. 512px de ancho) -->
+		<!-- wp:image {"className":"site-footer__brand-image"} -->
+		<figure class="wp-block-image site-footer__brand-image"><img alt=""/></figure>
+		<!-- /wp:image -->
+
+		<!-- Columna 2: back to top -->
+		<!-- wp:buttons {"className":"site-footer__backtotop"} -->
+		<div class="wp-block-buttons site-footer__backtotop">
+			<!-- wp:button {"className":"is-style-arrow-up"} -->
+			<div class="wp-block-button is-style-arrow-up"><a class="wp-block-button__link wp-element-button" href="#top">Back to top</a></div>
+			<!-- /wp:button -->
+		</div>
+		<!-- /wp:buttons -->
+
+		<!-- Columna 3: copyright -->
+		<!-- wp:paragraph {"className":"site-footer__copy"} -->
+		<p class="site-footer__copy">© <!-- wp:post-date {"format":"Y"} /--> llaollao</p>
+		<!-- /wp:paragraph -->
+
+	</div>
+	<!-- /wp:group -->
+
 </footer>
 <!-- /wp:group -->

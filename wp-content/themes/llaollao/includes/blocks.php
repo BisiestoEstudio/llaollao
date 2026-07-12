@@ -168,5 +168,13 @@ function bisiesto_register_block_styles()
 			'label' => __('Outline collapsed', 'bisiesto'),
 		)
 	);
+
+	register_block_style(
+		'core/button',
+		array(
+			'name'  => 'arrow-up',
+			'label' => __('Flecha arriba', 'bisiesto'),
+		)
+	);
 }
 add_action('init', 'bisiesto_register_block_styles');

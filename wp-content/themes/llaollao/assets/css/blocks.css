@@ -3,6 +3,10 @@ var(--wp--preset--font-family--neue-haas-grotesk-text-pro)
 var(--wp--preset--font-family--souvenir-std)
 var(--wp--preset--font-family--bree)
  */
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	overflow-x: hidden;
 	line-height: 110%;
@@ -74,6 +78,14 @@ h5,
 
 .wp-site-blocks>main>:first-child {
 	padding-top: var(--header-height);
+}
+
+/* Single de producto: el header es fixed y transparente y el contenido empieza
+   con texto (las migas), no con un hero a sangre. Redefinimos --header-height
+   solo en este ámbito para que el primer hijo (migas) se separe del header
+   mediante la regla de arriba, sin afectar a las páginas con hero. */
+.single-producto {
+	--header-height: 6rem;
 }
 
 .alignfull {
@@ -215,6 +227,40 @@ h5,
 .wp-block-button.is-style-outline-collapsed .wp-block-button__link:hover::after {
 	margin-left: 0.75rem;
 	transform: rotate(0deg);
+}
+
+/* Estilo "Flecha arriba": fondo verde, texto y borde blancos, y una flecha
+   blanca apuntando hacia arriba a la IZQUIERDA del texto (útil para "Back to
+   top"). Reutiliza el SVG de flecha del tema en ::before, girado -45º para que
+   apunte hacia arriba. */
+.wp-block-button.is-style-arrow-up .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	border-radius: var(--wp--custom--radius--100, 100px);
+	padding: 0.5rem 1rem;
+	background-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--blanco);
+	border: 1px solid var(--wp--preset--color--blanco);
+	transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.wp-block-button.is-style-arrow-up .wp-block-button__link::before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	margin-right: 0.75rem;
+	flex-shrink: 0;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	transform: rotate(-45deg);
+}
+
+/* Hover: invierte a fondo blanco con texto/flecha verdes. */
+.wp-block-button.is-style-arrow-up .wp-block-button__link:hover {
+	background-color: var(--wp--preset--color--blanco);
+	color: var(--wp--preset--color--verde);
+	border-color: var(--wp--preset--color--blanco);
 }
 
 /* Clase reutilizable "button-tag": pill con borde marrón y fondo transparente.
@@ -486,5 +532,102 @@ textarea::placeholder,
 }
 
 /* End Gutenberg */
+
+/* ===== Footer ===== */
+/* Padding interior (40px vertical / 20px horizontal) fijado en el bloque.
+   Aquí damos 20px de margen exterior en los 4 lados manteniendo el ancho
+   completo: el ancho se reduce en 40px y se centra con el inset de 20px. */
+.site-footer.alignfull {
+	width: calc(100vw - 40px);
+	margin: 20px calc(50% - 50vw + 20px);
+	border-radius: 9px;
+}
+
+/* Fondo verde + texto blanco (fijados también en el bloque). Los enlaces
+   heredan el blanco del contenedor. */
+.site-footer a {
+	color: inherit;
+}
+
+/* Fila superior: menús (izq.) y newsletter (der.). El space-between lo pone el
+   layout flex del bloque; aquí solo repartimos anchos y el gap al envolver. */
+.site-footer__top {
+	gap: 3rem;
+}
+
+.site-footer__menus {
+	/* Se ajusta a sus columnas (3 × 220px) en vez de estirarse. */
+	flex: 0 1 auto;
+}
+
+/* Cada columna de menú mide 220px como mucho, así el menú no queda suelto
+   dentro de una columna más ancha. */
+.site-footer__menus .wp-block-column {
+	flex: 0 0 220px;
+	max-width: 220px;
+	width: 100%;
+	flex-basis: unset !important;
+}
+
+.site-footer__newsletter {
+	flex: 0 1 320px;
+}
+
+.site-footer__menu-title {
+	margin: 0 0 1rem;
+	font-weight: 700;
+}
+
+/* Navegación del footer (bloque core/navigation vertical). La lista interna la
+   monta el propio bloque; aquí solo afinamos el gap entre enlaces. */
+.site-footer__menu .wp-block-navigation__container {
+	gap: .5rem;
+}
+
+.site-footer__menu a {
+	text-decoration: none;
+}
+
+.site-footer__menu a:hover,
+.site-footer__menu a:focus {
+	text-decoration: underline;
+}
+
+/* Placeholder visible del formulario mientras no esté cableado. */
+.site-footer__newsletter-form {
+	opacity: .5;
+}
+
+/* Fila inferior: separada de la superior 80px en escritorio, 24px en móvil.
+   Tres columnas a su ancho natural (imagen · back to top · copyright). */
+.site-footer__bottom {
+	margin-top: 80px;
+}
+
+/* Primera columna: imagen de marca, 512px de ancho como máximo. */
+.site-footer__brand-image {
+	margin: 0;
+}
+
+.site-footer__brand-image img {
+	max-width: 512px;
+	height: auto;
+}
+
+@media (max-width: 781px) {
+	.site-footer__menus,
+	.site-footer__newsletter {
+		flex-basis: 100%;
+	}
+
+	.site-footer__menus .wp-block-column {
+		flex-basis: auto;
+		max-width: none;
+	}
+
+	.site-footer__bottom {
+		margin-top: 24px;
+	}
+}
 
 @media (max-width: 960px) {}
