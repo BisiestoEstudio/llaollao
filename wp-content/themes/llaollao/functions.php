@@ -60,36 +60,26 @@ add_filter( 'upload_mimes', 'permitir_svg' );
 add_filter( 'wpcf7_autop_or_not', '__return_false' );
 
 /**
- * En la página de entradas, la última entrada fija (sticky) se muestra como
- * destacada arriba (ver home.html), así que la excluimos del grid principal
- * para que no aparezca duplicada.
+ * El bloque tag-cloud (nube de categorías del blog) imprime un font-size inline
+ * en cada enlace, escalado por la popularidad de cada término. Como los queremos
+ * todos del mismo tamaño (lo fijamos por CSS en .blog-home__categories), quitamos
+ * ese inline en origen para no depender de un !important que lo pise.
+ */
+add_filter( 'wp_generate_tag_cloud', function ( $html ) {
+	return preg_replace( '/\s*font-size:\s*[^;"\']+;?/', '', $html );
+} );
+
+/**
+ * La página de entradas (home.html → "Novedades") muestra un listado
+ * cronológico simple, sin entrada destacada. Evitamos que las entradas fijas
+ * (sticky) floten al principio para que el orden por fecha se respete.
  */
 add_action( 'pre_get_posts', function ( WP_Query $query ): void {
 	if ( is_admin() || ! $query->is_main_query() || ! $query->is_home() ) {
 		return;
 	}
 
-	// Evitar que los sticky floten al principio del grid.
 	$query->set( 'ignore_sticky_posts', 1 );
-
-	$sticky = get_option( 'sticky_posts' );
-	if ( empty( $sticky ) ) {
-		return;
-	}
-
-	// Excluir solo la última entrada fija (la que se muestra como destacada).
-	$latest = get_posts( [
-		'post__in'       => $sticky,
-		'posts_per_page' => 1,
-		'orderby'        => 'date',
-		'order'          => 'DESC',
-		'fields'         => 'ids',
-		'post_status'    => 'publish',
-	] );
-
-	if ( ! empty( $latest ) ) {
-		$query->set( 'post__not_in', $latest );
-	}
 } );
 
 // Setear idioma predeterminado en inglés

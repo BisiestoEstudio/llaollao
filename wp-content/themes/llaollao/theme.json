@@ -265,6 +265,12 @@
 			],
 			"fontSizes": [
 				{
+					"name": "Caption",
+					"slug": "caption",
+					"size": "14px",
+					"fluid": false
+				},
+				{
 					"name": "S",
 					"slug": "s",
 					"size": "16px",

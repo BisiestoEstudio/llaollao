@@ -630,4 +630,197 @@ textarea::placeholder,
 	}
 }
 
+/* =========================================================================
+   Portada del blog (home.html → "Novedades")
+   H1 arriba y, debajo, dos columnas: sidebar (buscador + nube de categorías)
+   a la izquierda y listado de entradas a la derecha.
+   ========================================================================= */
+/* El header es fixed; como esta página empieza con texto (no con hero),
+   definimos --header-height para que la regla global de :first-child separe
+   el título del header. Mismo criterio que .single-producto. */
+.blog-home {
+	--header-height: 6rem;
+}
+
+.blog-home__title {
+	margin-top: 40px;
+	margin-bottom: 2.5rem;
+	text-align: center;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+}
+
+/* La sidebar no se estira a la altura del listado; se queda arriba. */
+.blog-home__layout {
+	align-items: flex-start;
+}
+
+/* Separación entre el buscador y la nube de categorías. */
+.blog-home__sidebar > * + * {
+	margin-top: 1.5rem;
+}
+
+/* --- Buscador -------------------------------------------------------------
+   Pill con borde marrón, icono como botón interior. */
+.blog-home__search .wp-block-search__inside-wrapper {
+	border: 1px solid var(--wp--preset--color--marron);
+	border-radius: 100px;
+	overflow: hidden;
+	padding: 0.25rem 0.25rem 0.25rem 1.125rem;
+}
+
+.blog-home__search .wp-block-search__input {
+	border: 0;
+	background: transparent;
+	color: var(--wp--preset--color--negro);
+}
+
+.blog-home__search .wp-block-search__input:focus {
+	outline: none;
+}
+
+.blog-home__search .wp-block-search__button {
+	margin: 0;
+	padding: 0;
+	width: 2.25rem;
+	height: 2.25rem;
+	border-radius: 100px;
+	background-color: var(--wp--preset--color--negro);
+	color: var(--wp--preset--color--blanco);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s ease;
+}
+
+.blog-home__search .wp-block-search__button:hover {
+	background-color: var(--wp--preset--color--verde);
+}
+
+.blog-home__search .wp-block-search__button svg {
+	width: 1.125rem;
+	height: 1.125rem;
+	fill: currentColor;
+}
+
+/* --- Nube de categorías ---------------------------------------------------
+   Cada enlace es un pill con la estética de .button-tag (borde marrón; al
+   hover se rellena de verde y el texto pasa a blanco). */
+.blog-home__categories.wp-block-tag-cloud {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+.blog-home__categories .tag-cloud-link {
+	font-size: 14px;
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	line-height: 1;
+	padding: 0.5rem 0.75rem;
+	border-radius: 100px;
+	border: 1px solid var(--wp--preset--color--marron);
+	color: var(--wp--preset--color--marron);
+	text-decoration: none;
+	background-color: transparent;
+	transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.blog-home__categories .tag-cloud-link:hover {
+	color: var(--wp--preset--color--blanco);
+	background-color: var(--wp--preset--color--marron);
+	border-color: var(--wp--preset--color--marron);
+}
+
+/* --- Card horizontal (patterns/post-card.php) ---------------------------- */
+.post-card {
+	gap: 1.5rem;
+}
+
+.post-card__image.wp-block-post-featured-image {
+	flex: 0 0 498px;
+	margin: 0;
+}
+
+.post-card__image img {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	border-radius: var(--wp--custom--radius--default);
+}
+
+.post-card__body {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+/* Categorías del post como pills, misma estética que la nube del lateral
+   (.blog-home__categories) pero más pequeñas: 12px y padding 4px/8px. */
+.post-card__categories {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.post-card__categories a {
+	font-size: 12px;
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	line-height: 1;
+	padding: 4px 8px;
+	border-radius: 100px;
+	border: 1px solid var(--wp--preset--color--marron);
+	color: var(--wp--preset--color--marron);
+	text-decoration: none;
+	background-color: transparent;
+	transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.post-card__categories a:hover {
+	color: var(--wp--preset--color--blanco);
+	background-color: var(--wp--preset--color--marron);
+	border-color: var(--wp--preset--color--marron);
+}
+
+.post-card__title {
+	margin: 0.75rem 0;
+	font-size: var(--wp--preset--font-size--h-3);
+}
+
+.post-card__title a {
+	color: var(--wp--preset--color--marron);
+	text-decoration: none;
+	line-height: normal;
+	transition: color 0.3s ease;
+}
+
+.post-card__title a:hover {
+	color: var(--wp--preset--color--verde);
+}
+
+.post-card__excerpt {
+	margin: 0;
+	font-size: var(--wp--preset--font-size--caption);
+}
+
+.post-card__excerpt p {
+	margin: 0;
+	color: var(--wp--preset--color--marron);
+}
+
+@media (max-width: 600px) {
+	/* En móvil la card apila: imagen arriba, texto debajo. */
+	.post-card {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.post-card__image.wp-block-post-featured-image {
+		flex-basis: auto;
+	}
+
+	.post-card__image img {
+		aspect-ratio: 16 / 9;
+	}
+}
+
 @media (max-width: 960px) {}

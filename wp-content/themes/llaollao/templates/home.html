@@ -1,9 +1,55 @@
 <!-- wp:template-part {"slug":"header","area":"header"} /-->
 
-<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
-<main class="wp-block-group">
+<!-- wp:group {"tagName":"main","className":"blog-home","layout":{"type":"constrained"}} -->
+<main class="wp-block-group blog-home">
 
-	<!-- wp:bisiesto/banner /-->
+	<!-- wp:heading {"level":1,"className":"blog-home__title"} -->
+	<h1 class="wp-block-heading blog-home__title">Novedades</h1>
+	<!-- /wp:heading -->
+
+	<!-- wp:columns {"className":"blog-home__layout","style":{"spacing":{"blockGap":{"top":"0","left":"48px"}}}} -->
+	<div class="wp-block-columns blog-home__layout">
+
+		<!-- wp:column {"width":"300px","className":"blog-home__sidebar"} -->
+		<div class="wp-block-column blog-home__sidebar" style="flex-basis:300px">
+
+			<!-- wp:search {"label":"Buscar","showLabel":false,"placeholder":"Buscar…","buttonText":"Buscar","buttonPosition":"button-inside","buttonUseIcon":true,"className":"blog-home__search"} /-->
+
+			<!-- wp:tag-cloud {"numberOfTags":45,"smallestFontSize":"16px","largestFontSize":"16px","taxonomy":"category","showTagCounts":false,"className":"blog-home__categories"} /-->
+
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"className":"blog-home__main"} -->
+		<div class="wp-block-column blog-home__main">
+
+			<!-- wp:query {"queryId":10,"query":{"perPage":10,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","inherit":true},"className":"blog-home__query","layout":{"type":"constrained"}} -->
+			<div class="wp-block-query blog-home__query">
+
+				<!-- wp:post-template {"className":"blog-home__list","style":{"spacing":{"blockGap":"32px"}},"layout":{"type":"default"}} -->
+					<!-- wp:pattern {"slug":"llaollao/post-card"} /-->
+				<!-- /wp:post-template -->
+
+				<!-- wp:query-pagination {"style":{"spacing":{"blockGap":"0.5rem"}},"layout":{"type":"flex","justifyContent":"center"}} -->
+					<!-- wp:query-pagination-previous /-->
+					<!-- wp:query-pagination-numbers /-->
+					<!-- wp:query-pagination-next /-->
+				<!-- /wp:query-pagination -->
+
+				<!-- wp:query-no-results -->
+					<!-- wp:paragraph -->
+					<p>No se han encontrado resultados.</p>
+					<!-- /wp:paragraph -->
+				<!-- /wp:query-no-results -->
+
+			</div>
+			<!-- /wp:query -->
+
+		</div>
+		<!-- /wp:column -->
+
+	</div>
+	<!-- /wp:columns -->
 
 </main>
 <!-- /wp:group -->
