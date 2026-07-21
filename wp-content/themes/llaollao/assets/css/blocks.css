@@ -88,6 +88,56 @@ h5,
 	--header-height: 6rem;
 }
 
+/* Single del blog: mismo caso que producto. Empieza con la cabecera del post
+   (título + tags + fecha), texto y no un hero a sangre, así que redefinimos
+   --header-height para que la regla global de :first-child lo separe del
+   header fixed y no se solape. */
+.single-post {
+	--header-height: 6rem;
+}
+
+.single-post__title {
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-1);
+}
+
+.single-post__category {
+	margin-top: 0.75rem; /* 12px entre título y categoría */
+	text-align: center;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
+}
+
+.single-post__category a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Los global styles traen `:root :where(.is-layout-constrained) > :last-child
+   { margin-block-end: 0 }` (especificidad 0,2,0), que machaca cualquier
+   margen inferior puesto con una sola clase. Subimos a 0,2,0 con el padre
+   para poder separar el contenido del footer. */
+.single-post > .single-post__content {
+	margin-bottom: 2.75rem; /* 44px hasta el footer */
+}
+
+.single-post__image {
+	margin-top: 2rem;
+	margin-bottom: 4rem; /* 64px */
+}
+
+.single-post__date {
+	margin-top: 0.75rem; /* 12px, mismo ritmo que la categoría */
+	text-align: center;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
+}
+
 .alignfull {
 	width: 100vw;
 	margin-left: calc(50% - 50vw);
