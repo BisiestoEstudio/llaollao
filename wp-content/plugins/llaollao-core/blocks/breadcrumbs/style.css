@@ -1,0 +1,32 @@
+.llao-breadcrumbs__list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: .5em;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.llao-breadcrumbs__item {
+	display: inline-flex;
+	align-items: center;
+	gap: .5em;
+}
+
+.llao-breadcrumbs__link {
+	text-decoration: none;
+}
+
+.llao-breadcrumbs__link:hover,
+.llao-breadcrumbs__link:focus {
+	text-decoration: underline;
+}
+
+.llao-breadcrumbs__sep {
+	opacity: .5;
+}
+
+.llao-breadcrumbs__current {
+	font-weight: 600;
+}
