@@ -1,0 +1,40 @@
+/* Solo en el editor (.editor-styles-wrapper): la fila se parte en varias líneas
+   en vez de hacer scroll horizontal. Así se ven todas las imágenes de un vistazo
+   y, sobre todo, la barra de herramientas del bloque no se queda recortada por
+   el overflow del scroller. Las proporciones se ven igual que en el front. */
+.editor-styles-wrapper .wp-block-llaollao-image-slider .llao-slider__track {
+   flex-wrap: wrap;
+   overflow: visible;
+   height: auto;
+   cursor: default;
+   margin-right: 0; /* sin sangrado a la derecha dentro del editor */
+}
+
+/* Hueco de una imagen aún sin elegir. */
+.editor-styles-wrapper .wp-block-llaollao-image-slider .llao-slider__item--empty {
+   width: 260px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 1rem;
+   text-align: center;
+   border: 1px dashed var(--wp--preset--color--gris-light, #ccc);
+   border-radius: 9px; /* mismo radio que las imágenes ya colocadas */
+}
+
+.editor-styles-wrapper .wp-block-llaollao-image-slider .llao-slider__item--empty .components-placeholder {
+   width: 100%;
+   min-height: 0;
+}
+
+/* En el editor sí queremos poder arrastrar la imagen para reordenar bloques. */
+.editor-styles-wrapper .wp-block-llaollao-image-slider .llao-slider__img {
+   -webkit-user-drag: auto;
+}
+
+/* El botón de "añadir imagen" del final, dentro del flex. */
+.editor-styles-wrapper .wp-block-llaollao-image-slider .block-list-appender {
+   flex: 0 0 auto;
+   align-self: center;
+   margin: 0;
+}

@@ -1,0 +1,102 @@
+/* Bloque "Slider de imágenes": una sola fila horizontal de imágenes que se
+   arrastra con el ratón (build/view.js) o con scroll táctil/trackpad nativo.
+   La fila fija el alto y cada imagen pone su propia proporción (aspect-ratio
+   en línea desde render.php), así que el ancho de cada una sale de ahí. Lo que
+   no cabe se sale por la derecha, hasta el borde de la pantalla. */
+.wp-block-llaollao-image-slider {
+   /* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper
+      (render.php los pone a partir de los atributos). */
+   --llao-slider-h: 480px;
+   --llao-slider-h-mobile: 260px;
+   --llao-slider-gap: 20px;
+   /* Alto vigente de la fila: el de escritorio salvo en móvil (ver abajo). Lo
+      usan la pista y cada imagen; que sea un alto definido es justo lo que
+      permite al aspect-ratio calcular el ancho de cada imagen. */
+   --llao-slider-row: var(--llao-slider-h);
+   /* Aire propio del bloque. Padding y no margin a propósito: los global styles
+      traen `:root :where(.is-layout-constrained) > :last-child{margin-block-end:0}`
+      (0,2,0), que se comería el margen de abajo si el slider cierra la página.
+      El control de margen del panel lateral sigue libre para ajustar encima. */
+   padding-block: 2rem;
+}
+
+.wp-block-llaollao-image-slider .llao-slider__track {
+   display: flex;
+   flex-direction: row;
+   align-items: stretch;
+   gap: var(--llao-slider-gap);
+   height: var(--llao-slider-row);
+   overflow-x: auto;
+   overflow-y: hidden;
+   cursor: grab;
+   scrollbar-width: none; /* Firefox */
+   -webkit-overflow-scrolling: touch;
+   overscroll-behavior-x: contain; /* que el arrastre no navegue atrás */
+}
+
+.wp-block-llaollao-image-slider .llao-slider__track::-webkit-scrollbar {
+   display: none; /* Chrome/Safari */
+}
+
+/* Las dos alineaciones hacen cosas distintas a propósito:
+
+   - Por defecto (sin alignfull): la fila empieza alineada con la columna de
+     contenido y solo se sale por la derecha. El wrapper mide lo que el
+     contenido, así que es la pista la que se estira hasta el borde de la
+     pantalla con el espejo del margin-left del .alignfull del tema.
+
+   - Con alignfull: de borde a borde. El wrapper ya lo pone el tema
+     (`width:100vw; margin-left:calc(50% - 50vw)` en blocks.css) y la pista lo
+     hereda; aquí solo hay que NO aplicar el margin-right de arriba, que
+     duplicaría el sangrado. */
+.wp-block-llaollao-image-slider:not(.alignfull) .llao-slider__track {
+   margin-right: calc(50% - 50vw);
+}
+
+/* En alignfull, 40px de aire antes de la primera imagen. Va como espaciador
+   flex (::before) y no como padding-left: el padding de un flex con overflow-x
+   no cuenta en la extensión del scroll y dejaría la última imagen sin poder
+   verse entera. El espaciador sí cuenta, así el scroll llega hasta el final. */
+.wp-block-llaollao-image-slider.alignfull .llao-slider__track::before {
+   content: "";
+   flex: 0 0 2.5rem; /* 40px */
+   align-self: stretch;
+}
+
+.wp-block-llaollao-image-slider .llao-slider__track.is-dragging {
+   cursor: grabbing;
+   user-select: none;
+}
+
+/* Cada imagen: alto el de la fila y ancho el que resulte de su aspect-ratio
+   (en línea). No se encoge ni se estira. El overflow recorta la imagen contra
+   las esquinas redondeadas (mismo radio de 9px que side-images y el footer). */
+.wp-block-llaollao-image-slider .llao-slider__item {
+   flex: 0 0 auto;
+   height: var(--llao-slider-row);
+   width: auto;
+   margin: 0;
+   overflow: hidden;
+   border-radius: 9px;
+}
+
+.wp-block-llaollao-image-slider .llao-slider__img {
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   /* Que la imagen no capture el arrastre del ratón. */
+   -webkit-user-drag: none;
+   user-select: none;
+}
+
+/* Sin proporción guardada (adjunto sin dimensiones): manda la propia imagen. */
+.wp-block-llaollao-image-slider .llao-slider__item--auto .llao-slider__img {
+   width: auto;
+}
+
+@media (max-width: 781px) {
+   .wp-block-llaollao-image-slider {
+      --llao-slider-row: var(--llao-slider-h-mobile);
+   }
+}

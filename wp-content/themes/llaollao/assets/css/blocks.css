@@ -10,6 +10,7 @@ html {
 body {
 	overflow-x: hidden;
 	line-height: 110%;
+	color: var(--wp--preset--color--marron);
 }
 
 :root :where(.is-layout-constrained)>* {

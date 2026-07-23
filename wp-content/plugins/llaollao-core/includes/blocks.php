@@ -9,4 +9,6 @@ add_action( 'init', 'llao_register_blocks' );
 
 function llao_register_blocks() {
 	register_block_type( LLAO_CORE_DIR . 'blocks/breadcrumbs' );
+	register_block_type( LLAO_CORE_DIR . 'blocks/image-slider' );
+	register_block_type( LLAO_CORE_DIR . 'blocks/image-slider-item' );
 }

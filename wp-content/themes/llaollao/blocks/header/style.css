@@ -30,6 +30,7 @@ header.wp-block-template-part {
 
 .pll-switcher-select {
 	border: 0;
+	border-radius: 0;
 	font-weight: 600;
 	font-size: 15px;
 	text-transform: uppercase;

@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/image-slider",
+	"version": "1.0.0",
+	"title": "Slider de imágenes",
+	"category": "media",
+	"icon": "images-alt2",
+	"description": "Fila de imágenes en horizontal. Todas comparten el alto y cada una guarda su propia proporción, así que el ancho lo marca su aspect-ratio. Las que no caben se pierden por la derecha y la fila se arrastra con el ratón.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"height":       { "type": "number", "default": 480 },
+		"heightMobile": { "type": "number", "default": 260 },
+		"gap":          { "type": "number", "default": 20 }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}
