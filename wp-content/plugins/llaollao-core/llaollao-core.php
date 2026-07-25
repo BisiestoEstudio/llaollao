@@ -18,6 +18,7 @@ require_once LLAO_CORE_DIR . 'includes/post-types.php';
 require_once LLAO_CORE_DIR . 'includes/taxonomies.php';
 require_once LLAO_CORE_DIR . 'includes/meta-fields.php';
 require_once LLAO_CORE_DIR . 'includes/settings.php';
+require_once LLAO_CORE_DIR . 'includes/error-page.php';
 require_once LLAO_CORE_DIR . 'includes/blocks.php';
 
 /**

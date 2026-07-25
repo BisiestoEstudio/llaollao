@@ -43,9 +43,10 @@ function llao_register_post_types() {
 		),
 		'public'       => true,
 		'has_archive'  => false,
+		'hierarchical' => true,
 		'show_in_rest' => true,
 		'menu_icon'    => llao_helado_icon(),
-		'supports'     => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
+		'supports'     => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' ),
 		'rewrite'      => array( 'slug' => 'productos' ),
 	) );
 }

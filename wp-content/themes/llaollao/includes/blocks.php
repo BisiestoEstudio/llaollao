@@ -53,7 +53,7 @@ add_action('enqueue_block_editor_assets', function (): void {
  * Tiñe de lila el icono de nuestros bloques
  */
 add_action('enqueue_block_editor_assets', function (): void {
-	$prefixes = wp_json_encode(['bisiesto/', 'reservations-hq-rental/']);
+	$prefixes = wp_json_encode(['bisiesto/', 'llaollao/']);
 	$color    = '#a855f7'; // lila
 	$js = <<<JS
 ( function ( wp ) {

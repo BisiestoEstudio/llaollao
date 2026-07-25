@@ -2,11 +2,13 @@
 /**
  * Migas de pan del single de producto.
  *
- * Estructura: Carta / Productos / {Tipo del producto} / {Nombre del producto}
+ * Estructura: Carta / Productos / {Tipo} / {Productos superiores} / {Producto}
  *
  * - "Carta" enlaza a la página configurada en Ajustes → Llaollao.
  * - "Productos" y "Tipo" van sin enlace: el CPT no tiene archivo público y la
  *   taxonomía no es pública, así que no hay URL válida a la que apuntar.
+ * - Los productos superiores sí enlazan a su single, salvo que no estén
+ *   publicados (un borrador no tiene URL pública que ofrecer).
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -43,7 +45,15 @@ if ( $terms && ! is_wp_error( $terms ) ) {
 	$crumbs[] = array( 'label' => $term->name, 'url' => '' );
 }
 
-// 4. Producto actual.
+// 4. Productos superiores, del más lejano al más cercano.
+foreach ( array_reverse( get_post_ancestors( $product_id ) ) as $ancestor_id ) {
+	$crumbs[] = array(
+		'label' => get_the_title( $ancestor_id ),
+		'url'   => 'publish' === get_post_status( $ancestor_id ) ? get_permalink( $ancestor_id ) : '',
+	);
+}
+
+// 5. Producto actual.
 $crumbs[] = array( 'label' => get_the_title( $product_id ), 'url' => '' );
 
 $wrapper = get_block_wrapper_attributes( array( 'class' => 'llao-breadcrumbs' ) );

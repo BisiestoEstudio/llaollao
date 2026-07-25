@@ -1,0 +1,40 @@
+/* Solo editor. La vista previa es un ServerSideRender, así que el mosaico ya se
+   ve con los estilos del front (style.css se carga también en el editor); aquí
+   va únicamente la lista de productos de la barra lateral. */
+
+.llao-carta-list {
+	margin: 0 0 1rem;
+	padding: 0;
+	list-style: none;
+}
+
+.llao-carta-list__item {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	padding: 2px 0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.llao-carta-list__label {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 12px;
+}
+
+.llao-carta-list__empty {
+	margin: 0 0 1rem;
+	color: #757575;
+	font-size: 12px;
+	font-style: italic;
+}
+
+/* En el editor las etiquetas no filtran (view.js no corre ahí): el clic sobre
+   una card tampoco debe navegar. */
+.editor-styles-wrapper .wp-block-llaollao-carta .llao-carta__card,
+.editor-styles-wrapper .wp-block-llaollao-carta .llao-carta__filter {
+	pointer-events: none;
+}

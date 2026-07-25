@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/carta",
+	"version": "1.0.0",
+	"title": "Carta",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "Nube de etiquetas de Tipo arriba y, debajo, los productos en un mosaico de dos columnas. La primera card abre a todo el ancho y el resto toma uno de los tres altos (745, 504 y 660px) según su posición; las etiquetas ocultan o muestran las cards de ese tipo.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"productIds":  { "type": "array", "default": [], "items": { "type": "number" } },
+		"showFilters": { "type": "boolean", "default": true },
+		"allLabel":    { "type": "string", "default": "Todos" },
+		"gap":         { "type": "number", "default": 20 }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}
