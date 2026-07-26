@@ -1,0 +1,271 @@
+/* Bloque "Vista producto con slide vertical": fila de hermanos arriba y, debajo,
+   dos columnas separadas un 7%. Izquierda (tope 400px) título + contenido +
+   variantes + alérgenos; derecha la galería, con la pieza grande y la tira
+   vertical de miniaturas a su derecha. */
+.wp-block-llaollao-vista-producto {
+	/* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
+	--llao-vista-gap: 7%;
+	--llao-vista-left: 400px;
+	--llao-vista-thumb: 96px;
+	padding-block: 2rem;
+}
+
+/* --- Hermanos ---------------------------------------------------------- */
+
+.wp-block-llaollao-vista-producto .llao-vista__siblings {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.625rem; /* 10px */
+	margin-bottom: 2.5rem;
+}
+
+/* El hermano actual se queda en el estado final del hover de .button-tag:
+   relleno verde, borde verde y texto blanco ya revelado. Mismo recurso que la
+   nav de años de history y los filtros de carta. */
+.wp-block-llaollao-vista-producto .llao-vista__sibling.is-active {
+	border-color: var(--wp--preset--color--verde);
+	pointer-events: none;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__sibling.is-active::before {
+	transform: scaleY(1);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__sibling.is-active::after {
+	clip-path: inset(0 0 0 0);
+}
+
+/* --- Dos columnas ------------------------------------------------------ */
+
+/* El gap en % de un flex se resuelve contra el ancho del contenedor, que es lo
+   que se busca aquí: 7% del ancho de la ficha, no una medida fija. */
+.wp-block-llaollao-vista-producto .llao-vista__cols {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--llao-vista-gap);
+}
+
+/* Izquierda: nunca pasa de 400px, pero puede encoger si no cabe. */
+.wp-block-llaollao-vista-producto .llao-vista__info {
+	flex: 0 1 var(--llao-vista-left);
+	max-width: var(--llao-vista-left);
+	min-width: 0;
+}
+
+/* Derecha: se queda con el resto. min-width:0 es lo que impide que una imagen
+   ancha desborde el flex en lugar de encogerse. */
+.wp-block-llaollao-vista-producto .llao-vista__gallery {
+	flex: 1 1 auto;
+	min-width: 0;
+	display: flex;
+	align-items: stretch;
+	gap: 1rem;
+}
+
+/* --- Columna izquierda -------------------------------------------------- */
+
+.wp-block-llaollao-vista-producto .llao-vista__title {
+	margin: 0 0 1rem;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-2, 60px);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__content {
+	margin-bottom: 1.5rem;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__variantes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.625rem; /* 10px */
+	margin: 0 0 1.5rem;
+	padding: 0;
+	list-style: none;
+}
+
+/* Las variantes son etiquetas de solo lectura: se quedan con la pastilla de
+   .button-tag pero sin el relleno verde del hover, que insinuaría un clic que
+   no existe. */
+.wp-block-llaollao-vista-producto .llao-vista__variante {
+	cursor: default;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__variante:hover {
+	border-color: var(--wp--preset--color--marron);
+	color: var(--wp--preset--color--marron);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__variante:hover::before {
+	transform: scaleY(0);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergenos {
+	border-top: 1px solid var(--wp--preset--color--gris-light);
+	border-bottom: 1px solid var(--wp--preset--color--gris-light);
+	padding: 0.75rem 0;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergenos-label {
+	cursor: pointer;
+	list-style: none; /* quita el triángulo en Firefox */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	color: var(--wp--preset--color--marron);
+	font-weight: 600;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergenos-label::-webkit-details-marker {
+	display: none; /* y en Safari/Chrome */
+}
+
+/* Marcador propio: un "+" que gira a "×" al abrir. */
+.wp-block-llaollao-vista-producto .llao-vista__alergenos-label::after {
+	content: "+";
+	font-size: 1.25em;
+	line-height: 1;
+	transition: transform 0.3s ease;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergenos[open] .llao-vista__alergenos-label::after {
+	transform: rotate(45deg);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergenos-body {
+	padding-top: 0.75rem;
+}
+
+/* --- Galería ------------------------------------------------------------ */
+
+.wp-block-llaollao-vista-producto .llao-vista__stage {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* Están todos los recursos en el DOM y solo se enseña el activo: cambiar de
+   pieza es mover una clase, sin recargar nada ni rehacer el <video>. */
+.wp-block-llaollao-vista-producto .llao-vista__media {
+	display: none;
+	margin: 0;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__media.is-active {
+	display: block;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__media-img,
+.wp-block-llaollao-vista-producto .llao-vista__media-video {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 9px;
+}
+
+/* La tira vertical. align-items:stretch en .llao-vista__gallery le da como alto
+   el de la pieza grande, y ese alto definido es lo que permite que el
+   overflow-y desplace en lugar de estirarse sin fin. */
+.wp-block-llaollao-vista-producto .llao-vista__thumbs {
+	flex: 0 0 var(--llao-vista-thumb);
+	width: var(--llao-vista-thumb);
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	overflow-y: auto;
+	scrollbar-width: none; /* Firefox */
+	overscroll-behavior-y: contain;
+	scroll-snap-type: y proximity;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumbs::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumb {
+	flex: 0 0 auto;
+	position: relative;
+	display: block;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	padding: 0;
+	overflow: hidden;
+	border: 2px solid transparent;
+	border-radius: 9px;
+	background: var(--wp--preset--color--beige);
+	cursor: pointer;
+	scroll-snap-align: start;
+	transition: border-color 0.3s ease, opacity 0.3s ease;
+	opacity: 0.65;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumb:hover,
+.wp-block-llaollao-vista-producto .llao-vista__thumb:focus-visible {
+	opacity: 1;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumb.is-active {
+	border-color: var(--wp--preset--color--verde);
+	opacity: 1;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumb-img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Miniatura de un vídeo: marcador de play encima. */
+.wp-block-llaollao-vista-producto .llao-vista__thumb.is-video::after {
+	content: "▶";
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--wp--preset--color--blanco);
+	font-size: 1.5rem;
+	text-shadow: 0 1px 4px rgba(18, 18, 18, 0.6);
+	pointer-events: none;
+}
+
+/* --- Móvil -------------------------------------------------------------- */
+
+@media (max-width: 781px) {
+	.wp-block-llaollao-vista-producto .llao-vista__cols {
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__info {
+		flex-basis: auto;
+		max-width: none;
+		width: 100%;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__title {
+		font-size: var(--wp--preset--font-size--h-3, 30px);
+	}
+
+	/* La galería pasa a vertical y la tira, de columna a fila bajo la imagen:
+	   en un móvil no hay ancho que gastar en una columna de miniaturas. */
+	.wp-block-llaollao-vista-producto .llao-vista__gallery {
+		flex-direction: column;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__thumbs {
+		flex: 0 0 auto;
+		width: 100%;
+		flex-direction: row;
+		overflow-x: auto;
+		overflow-y: hidden;
+		scroll-snap-type: x proximity;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__thumb {
+		width: var(--llao-vista-thumb);
+	}
+}

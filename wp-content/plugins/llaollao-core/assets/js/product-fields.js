@@ -1,8 +1,9 @@
 /**
  * Panel de "Datos del producto" en la barra lateral del editor.
  *
- * Campos: Recursos (imágenes/vídeos), Variantes (repeater de textos) y
- * Alérgenos (texto). Escrito a mano con wp.element.createElement, sin build.
+ * Campos: Descripción (texto), Recursos (imágenes/vídeos), Variantes (repeater
+ * de textos) y Alérgenos (texto). Escrito a mano con wp.element.createElement,
+ * sin build.
  */
 ( function ( wp ) {
 	var el       = wp.element.createElement;
@@ -33,9 +34,10 @@
 		var meta    = entity[ 0 ] || {};
 		var setMeta = entity[ 1 ];
 
-		var recursos  = meta.llao_recursos || [];
-		var variantes = meta.llao_variantes || [];
-		var alergenos = meta.llao_alergenos || '';
+		var descripcion = meta.llao_descripcion || '';
+		var recursos    = meta.llao_recursos || [];
+		var variantes   = meta.llao_variantes || [];
+		var alergenos   = meta.llao_alergenos || '';
 
 		// Resolver los adjuntos para la previsualización.
 		var mediaItems = useSelect( function ( select ) {
@@ -53,6 +55,15 @@
 			next[ key ] = value;
 			setMeta( next );
 		}
+
+		// --- Descripción ----------------------------------------------------
+		var descripcionField = el( c.TextareaControl, {
+			value: descripcion,
+			rows: 6,
+			placeholder: __( 'Texto de la ficha del producto.', 'llaollao-core' ),
+			onChange: function ( val ) { update( 'llao_descripcion', val ); },
+			__nextHasNoMarginBottom: true
+		} );
 
 		// --- Recursos -------------------------------------------------------
 		function onSelectRecursos( items ) {
@@ -183,6 +194,12 @@
 		return el(
 			PluginDocumentSettingPanel,
 			{ name: 'llao-product-fields', title: __( 'Datos del producto', 'llaollao-core' ), initialOpen: true },
+			el( c.BaseControl, {
+				label: __( 'Descripción', 'llaollao-core' ),
+				help: __( 'La pinta el bloque "Vista producto", no el contenido.', 'llaollao-core' ),
+				__nextHasNoMarginBottom: true
+			}, descripcionField ),
+			el( 'hr', { style: { margin: '16px 0' } } ),
 			el( c.BaseControl, {
 				label: __( 'Recursos', 'llaollao-core' ),
 				help: __( 'Imágenes o vídeos.', 'llaollao-core' ),

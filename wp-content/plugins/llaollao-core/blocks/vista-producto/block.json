@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/vista-producto",
+	"version": "1.0.0",
+	"title": "Vista producto con slide vertical",
+	"category": "widgets",
+	"icon": "images-alt",
+	"description": "Elige un producto y pinta su ficha donde quieras: arriba los hermanos como etiquetas y debajo dos columnas. A la izquierda título, descripción, variantes y alérgenos; a la derecha la galería de recursos, con la imagen grande y una tira vertical al lado para cambiarla. Todo sale de los campos del producto, así que puede ir dentro del propio producto.",
+	"textdomain": "llaollao-core",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"productId":      { "type": "number", "default": 0 },
+		"columnGap":      { "type": "number", "default": 7 },
+		"leftMaxWidth":   { "type": "number", "default": 400 },
+		"showSiblings":   { "type": "boolean", "default": true },
+		"alergenosLabel": { "type": "string", "default": "Alérgenos" }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}

@@ -17,6 +17,17 @@ function llao_register_product_meta() {
 		return current_user_can( 'edit_posts' );
 	};
 
+	// Descripción: texto de la ficha. Va en un campo propio y no en el contenido
+	// del producto a propósito, para que el bloque "Vista producto" pueda
+	// insertarse dentro del propio producto sin llamarse a sí mismo.
+	register_post_meta( 'producto', 'llao_descripcion', array(
+		'type'          => 'string',
+		'single'        => true,
+		'default'       => '',
+		'auth_callback' => $can_edit,
+		'show_in_rest'  => true,
+	) );
+
 	// Recursos: array de IDs de adjuntos (imágenes o vídeos).
 	register_post_meta( 'producto', 'llao_recursos', array(
 		'type'          => 'array',
