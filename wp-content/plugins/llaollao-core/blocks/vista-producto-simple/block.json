@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/vista-producto-simple",
+	"version": "1.0.0",
+	"title": "Vista producto",
+	"category": "widgets",
+	"icon": "id-alt",
+	"description": "Elige un producto y pinta su ficha: la nube de etiquetas de Tipo, el título de su producto padre, la fila de hermanos y, debajo, dos columnas con el título, la descripción y los alérgenos a la izquierda y el primer recurso a la derecha.",
+	"textdomain": "llaollao-core",
+	"usesContext": [ "postId", "postType" ],
+	"attributes": {
+		"productId":      { "type": "number", "default": 0 },
+		"mediaWidth":     { "type": "number", "default": 70 },
+		"columnGap":      { "type": "number", "default": 64 },
+		"showTipos":      { "type": "boolean", "default": true },
+		"alergenosLabel": { "type": "string", "default": "Alérgenos" }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}

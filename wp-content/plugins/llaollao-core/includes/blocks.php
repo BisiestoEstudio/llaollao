@@ -11,6 +11,7 @@ function llao_register_blocks() {
 	register_block_type( LLAO_CORE_DIR . 'blocks/breadcrumbs' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/carta' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/vista-producto' );
+	register_block_type( LLAO_CORE_DIR . 'blocks/vista-producto-simple' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/image-slider' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/image-slider-item' );
 }

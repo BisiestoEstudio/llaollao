@@ -1,0 +1,266 @@
+/* Bloque "Vista producto": nube de etiquetas de Tipo, título de la familia
+   (el producto padre), fila de hermanos y, debajo, dos columnas — texto a la
+   izquierda y el primer recurso a la derecha, al 70% del ancho. */
+.wp-block-llaollao-vista-producto-simple {
+	/* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
+	--llao-vp-media: 70%;
+	--llao-vp-gap: 64px;
+	padding-block: 2rem;
+}
+
+/* --- Nube de etiquetas de Tipo ------------------------------------------ */
+
+/* Mismo tratamiento que la fila de hermanos del bloque "Vista producto con
+   slide vertical": el marcador va fuera de la pista, así que se queda quieto a
+   la izquierda mientras las etiquetas se desplazan. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin: 0 0 1.5rem;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-icon {
+	flex: 0 0 16px;
+	width: 16px;
+	height: 16px;
+	/* Data URI con el # del color escapado a %23: sin escapar el navegador lo
+	   lee como fragmento de URL y el icono no carga. */
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+/* Pista en una sola línea: lo que no cabe se pierde por la derecha y se llega a
+   ello arrastrando o con gesto lateral. La barra va oculta a propósito. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track {
+	flex: 1 1 auto;
+	min-width: 0;
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.625rem; /* 10px */
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow-x: auto;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain; /* que el gesto no navegue atrás */
+	scrollbar-width: none; /* Firefox */
+	-webkit-overflow-scrolling: touch;
+	cursor: grab;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track.is-dragging {
+	cursor: grabbing;
+	user-select: none;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track > li {
+	flex: 0 0 auto;
+}
+
+/* La taxonomía no es pública: no hay a dónde enlazar, así que son etiquetas de
+   solo lectura y el cursor se queda en default. La pastilla y el respiro los
+   pone .button-tag, igual que en la fila de hermanos del otro bloque; aquí solo
+   el tamaño y el color de reposo, que va en verde y no en marrón. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipo {
+	white-space: nowrap;
+	font-size: var(--wp--preset--font-size--h-4, 24px);
+	border-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--verde);
+	cursor: default;
+}
+
+/* El tipo que el producto sí tiene se queda en el estado final del hover de
+   .button-tag: relleno verde y texto blanco ya revelado. Mismo recurso que el
+   hermano actual del otro bloque. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipo.is-active::before {
+	transform: scaleY(1);
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__tipo.is-active::after {
+	clip-path: inset(0 0 0 0);
+}
+
+/* --- Familia y hermanos -------------------------------------------------- */
+
+/* Es un h2 por jerarquía —el h1 es el producto—, pero con el tamaño de un h1,
+   que es lo que pide el diseño. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__familia {
+	margin: 0 0 1.5rem;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-1, 75px);
+	font-weight: 700;
+	line-height: 1.1;
+}
+
+/* Cada hermano es una imagen redonda con su título debajo, no una pastilla. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermanos {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 1.5rem;
+	margin-bottom: 2.5rem;
+}
+
+/* El ancho del ítem es el del círculo, así que el título parte de línea debajo
+   en lugar de ensanchar la fila. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 80px;
+	text-decoration: none;
+}
+
+/* El aro lo lleva todo hermano, transparente salvo en el actual. Va como
+   box-shadow y no como borde a propósito: el tema no trae box-sizing:border-box
+   global, así que un borde de 2px convertiría el círculo en 84px. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano-img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50%;
+	background-color: var(--wp--preset--color--beige);
+	box-shadow: 0 0 0 2px transparent;
+	transition: box-shadow 0.3s ease;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano-thumb {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano-label {
+	margin-top: 10px;
+	color: var(--wp--preset--color--marron);
+	font-size: var(--wp--preset--font-size--caption, 14px);
+	font-weight: 400;
+	line-height: 1.2;
+	text-align: center;
+}
+
+/* El hermano en el que estás: el aro se pinta de marrón. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano.is-active {
+	pointer-events: none;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermano.is-active .llao-vp__hermano-img {
+	box-shadow: 0 0 0 2px var(--wp--preset--color--marron);
+}
+
+/* --- Dos columnas -------------------------------------------------------- */
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__cols {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--llao-vp-gap);
+}
+
+/* La izquierda se queda con lo que sobre. min-width:0 evita que un texto largo
+   sin espacios la ensanche por encima de su hueco. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__info {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+/* Es un h1 por jerarquía —es el título del producto—, con el tamaño de un h3. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__title {
+	margin: 0 0 1rem;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-3, 30px);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__content {
+	margin-bottom: 1.5rem;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos {
+	padding: 0.5rem 0;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos-label {
+	cursor: pointer;
+	list-style: none; /* quita el triángulo en Firefox */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-4, 24px);
+	font-weight: 400;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos-label::-webkit-details-marker {
+	display: none; /* y en Safari/Chrome */
+}
+
+/* Mismo galón que el otro bloque de ficha: data URI con el # del color escapado
+   a %23, porque sin escapar el navegador lo lee como fragmento de URL. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos-label::after {
+	content: "";
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%2370421F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	transition: transform 0.3s ease;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos[open] .llao-vp__alergenos-label::after {
+	transform: rotate(180deg);
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__alergenos-body {
+	padding-top: 0.75rem;
+}
+
+/* --- Recurso ------------------------------------------------------------- */
+
+/* El 70% del ancho es del recurso; el texto se reparte el resto menos el gap. */
+.wp-block-llaollao-vista-producto-simple .llao-vp__media {
+	flex: 0 0 var(--llao-vp-media);
+	max-width: var(--llao-vp-media);
+	min-width: 0;
+	margin: 0;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__media-img,
+.wp-block-llaollao-vista-producto-simple .llao-vp__media-video {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 9px;
+}
+
+/* --- Móvil --------------------------------------------------------------- */
+
+@media (max-width: 781px) {
+	.wp-block-llaollao-vista-producto-simple .llao-vp__cols {
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.wp-block-llaollao-vista-producto-simple .llao-vp__media {
+		flex-basis: auto;
+		max-width: none;
+		width: 100%;
+	}
+
+	.wp-block-llaollao-vista-producto-simple .llao-vp__familia {
+		font-size: var(--wp--preset--font-size--h-2, 60px);
+	}
+}

@@ -60,11 +60,14 @@
 }
 
 /* Ni se encogen ni parten el texto: es lo que hace que se salgan de la fila en
-   lugar de apretarse unas contra otras. */
+   lugar de apretarse unas contra otras. En reposo van en verde, no en el marrón
+   que trae .button-tag; el hover no cambia. */
 .wp-block-llaollao-vista-producto .llao-vista__sibling {
 	flex: 0 0 auto;
 	white-space: nowrap;
 	font-size: var(--wp--preset--font-size--h-4, 24px);
+	border-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--verde);
 }
 
 /* El hermano actual se queda en el estado final del hover de .button-tag:
@@ -125,13 +128,16 @@
 	list-style: none;
 }
 
-/* Misma pastilla que las etiquetas de hermanos de arriba: la estética entera la
-   pone .button-tag (borde marrón, cápsula y el relleno verde que sube al pasar
-   por encima). Aquí solo el tamaño y el respiro propios de las variantes.
-   El cursor se queda en default: no son enlaces, no llevan a ningún sitio. */
+/* Misma pastilla que las etiquetas de hermanos de arriba: la cápsula y el
+   relleno verde del hover los pone .button-tag. Aquí, además del tamaño y el
+   respiro, el color de reposo pasa a verde en lugar del marrón que trae por
+   defecto. El hover no cambia: el relleno sube igual y el texto se revela en
+   blanco. El cursor se queda en default: no son enlaces. */
 .wp-block-llaollao-vista-producto .llao-vista__variante {
 	padding: 0.25rem 1rem;
 	font-size: var(--wp--preset--font-size--m, 18px);
+	border-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--verde);
 	cursor: default;
 }
 
