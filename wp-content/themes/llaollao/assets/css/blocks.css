@@ -295,10 +295,6 @@ h5,
 	transform: rotate(0deg);
 }
 
-/* Estilo "Flecha arriba": fondo verde, texto y borde blancos, y una flecha
-   blanca apuntando hacia arriba a la IZQUIERDA del texto (útil para "Back to
-   top"). Reutiliza el SVG de flecha del tema en ::before, girado -45º para que
-   apunte hacia arriba. */
 .wp-block-button.is-style-arrow-up .wp-block-button__link {
 	display: inline-flex;
 	align-items: center;
@@ -322,17 +318,12 @@ h5,
 	transform: rotate(-45deg);
 }
 
-/* Hover: invierte a fondo blanco con texto/flecha verdes. */
 .wp-block-button.is-style-arrow-up .wp-block-button__link:hover {
 	background-color: var(--wp--preset--color--blanco);
 	color: var(--wp--preset--color--verde);
 	border-color: var(--wp--preset--color--blanco);
 }
 
-/* Clase reutilizable "button-tag": pill con borde marrón y fondo transparente.
-   Al hover el verde sube desde abajo (como llenar un vaso) y el texto entra en
-   blanco desde arriba, cruzándose. Sirve en enlaces sueltos (.button-tag) y en
-   botones de Gutenberg (clase adicional en el bloque → .wp-block-button). */
 .button-tag,
 .wp-block-button.button-tag > .wp-block-button__link {
 	position: relative;
@@ -345,6 +336,8 @@ h5,
 	border-radius: 100px;
 	border: 1px solid var(--wp--preset--color--marron);
 	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	line-height: normal;
 	text-decoration: none;
 	background-color: transparent;
 	transition: color 0.45s ease, border-color 0.45s ease;
@@ -676,6 +669,7 @@ textarea::placeholder,
 }
 
 .site-footer__brand-image img {
+	width: 100%;
 	max-width: 512px;
 	height: auto;
 }

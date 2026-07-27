@@ -1,22 +1,42 @@
 /* Bloque "Vista producto con slide vertical": fila de hermanos arriba y, debajo,
-   dos columnas separadas un 7%. Izquierda (tope 400px) título + contenido +
-   variantes + alérgenos; derecha la galería, con la pieza grande y la tira
-   vertical de miniaturas a su derecha. */
+   tres columnas repartidas con space-between. Izquierda (tope 400px) título +
+   descripción + variantes + alérgenos; centro la pieza grande (tope 30%);
+   derecha la tira vertical de miniaturas que la cambia. */
 .wp-block-llaollao-vista-producto {
-	/* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
 	--llao-vista-gap: 7%;
 	--llao-vista-left: 400px;
-	--llao-vista-thumb: 96px;
-	padding-block: 2rem;
+	--llao-vista-stage: 40%;
+	--llao-vista-thumb: 150px;
+	--llao-vista-thumbs-max: 517px;
+	padding-block: 1.5rem;
 }
 
 /* --- Hermanos ---------------------------------------------------------- */
 
+/* Fila en una sola línea: lo que no cabe se pierde por la derecha y se llega a
+   ello desplazando en horizontal. La barra va oculta a propósito. */
 .wp-block-llaollao-vista-producto .llao-vista__siblings {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	gap: 0.625rem; /* 10px */
 	margin-bottom: 2.5rem;
+	overflow-x: auto;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain; /* que el gesto no navegue atrás */
+	scrollbar-width: none; /* Firefox */
+	-webkit-overflow-scrolling: touch;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__siblings::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+/* Ni se encogen ni parten el texto: es lo que hace que se salgan de la fila en
+   lugar de apretarse unas contra otras. */
+.wp-block-llaollao-vista-producto .llao-vista__sibling {
+	flex: 0 0 auto;
+	white-space: nowrap;
+	font-size: var(--wp--preset--font-size--h-4, 24px);
 }
 
 /* El hermano actual se queda en el estado final del hover de .button-tag:
@@ -35,13 +55,16 @@
 	clip-path: inset(0 0 0 0);
 }
 
-/* --- Dos columnas ------------------------------------------------------ */
+/* --- Tres columnas ------------------------------------------------------ */
 
-/* El gap en % de un flex se resuelve contra el ancho del contenedor, que es lo
-   que se busca aquí: 7% del ancho de la ficha, no una medida fija. */
+/* Izquierda el texto, centro la pieza grande y derecha la tira. Reparto con
+   space-between; el gap actúa de separación mínima, para que las columnas no
+   se toquen cuando no sobra espacio que repartir. El gap en % de un flex se
+   resuelve contra el ancho del contenedor, que es lo que se busca aquí. */
 .wp-block-llaollao-vista-producto .llao-vista__cols {
 	display: flex;
 	align-items: flex-start;
+	justify-content: space-between;
 	gap: var(--llao-vista-gap);
 }
 
@@ -52,25 +75,13 @@
 	min-width: 0;
 }
 
-/* Derecha: se queda con el resto. min-width:0 es lo que impide que una imagen
-   ancha desborde el flex en lugar de encogerse. */
-.wp-block-llaollao-vista-producto .llao-vista__gallery {
-	flex: 1 1 auto;
-	min-width: 0;
-	display: flex;
-	align-items: stretch;
-	gap: 1rem;
-}
-
 /* --- Columna izquierda -------------------------------------------------- */
 
 .wp-block-llaollao-vista-producto .llao-vista__title {
 	margin: 0 0 1rem;
 	color: var(--wp--preset--color--marron);
 	font-family: var(--wp--preset--font-family--bree);
-	font-size: var(--wp--preset--font-size--h-2, 60px);
 	font-weight: 700;
-	line-height: 1.1;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__content {
@@ -86,68 +97,62 @@
 	list-style: none;
 }
 
-/* Las variantes son etiquetas de solo lectura: se quedan con la pastilla de
-   .button-tag pero sin el relleno verde del hover, que insinuaría un clic que
-   no existe. */
+/* Misma pastilla que las etiquetas de hermanos de arriba: la estética entera la
+   pone .button-tag (borde marrón, cápsula y el relleno verde que sube al pasar
+   por encima). Aquí solo el tamaño y el respiro propios de las variantes.
+   El cursor se queda en default: no son enlaces, no llevan a ningún sitio. */
 .wp-block-llaollao-vista-producto .llao-vista__variante {
+	padding: 0.25rem 1rem;
+	font-size: var(--wp--preset--font-size--m, 18px);
 	cursor: default;
 }
 
-.wp-block-llaollao-vista-producto .llao-vista__variante:hover {
-	border-color: var(--wp--preset--color--marron);
-	color: var(--wp--preset--color--marron);
-}
-
-.wp-block-llaollao-vista-producto .llao-vista__variante:hover::before {
-	transform: scaleY(0);
-}
-
 .wp-block-llaollao-vista-producto .llao-vista__alergenos {
-	border-top: 1px solid var(--wp--preset--color--gris-light);
-	border-bottom: 1px solid var(--wp--preset--color--gris-light);
-	padding: 0.75rem 0;
+	padding: 0.5rem 0;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__alergenos-label {
 	cursor: pointer;
-	list-style: none; /* quita el triángulo en Firefox */
+	list-style: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 1rem;
 	color: var(--wp--preset--color--marron);
-	font-weight: 600;
+	font-weight: 400;
+	font-size: var(--wp--preset--font-size--h-4);
+	font-family: var(--wp--preset--font-family--bree);
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__alergenos-label::-webkit-details-marker {
-	display: none; /* y en Safari/Chrome */
+	display: none;
 }
 
-/* Marcador propio: un "+" que gira a "×" al abrir. */
 .wp-block-llaollao-vista-producto .llao-vista__alergenos-label::after {
-	content: "+";
-	font-size: 1.25em;
-	line-height: 1;
+	content: "";
+	flex: 0 0 auto;
+	width: 20px;
+	height: 20px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 7.5L10 12.5L15 7.5' stroke='%2370421F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
 	transition: transform 0.3s ease;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__alergenos[open] .llao-vista__alergenos-label::after {
-	transform: rotate(45deg);
+	transform: rotate(180deg);
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__alergenos-body {
 	padding-top: 0.75rem;
 }
 
-/* --- Galería ------------------------------------------------------------ */
-
 .wp-block-llaollao-vista-producto .llao-vista__stage {
-	flex: 1 1 auto;
+	flex: 0 1 var(--llao-vista-stage);
+	max-width: var(--llao-vista-stage);
 	min-width: 0;
 }
 
-/* Están todos los recursos en el DOM y solo se enseña el activo: cambiar de
-   pieza es mover una clase, sin recargar nada ni rehacer el <video>. */
 .wp-block-llaollao-vista-producto .llao-vista__media {
 	display: none;
 	margin: 0;
@@ -165,26 +170,41 @@
 	border-radius: 9px;
 }
 
-/* La tira vertical. align-items:stretch en .llao-vista__gallery le da como alto
-   el de la pieza grande, y ese alto definido es lo que permite que el
-   overflow-y desplace en lugar de estirarse sin fin. */
 .wp-block-llaollao-vista-producto .llao-vista__thumbs {
 	flex: 0 0 var(--llao-vista-thumb);
 	width: var(--llao-vista-thumb);
+	align-self: stretch;
+	max-height: var(--llao-vista-thumbs-max);
 	display: flex;
 	flex-direction: column;
-	gap: 0.75rem;
+	gap: 1rem;
 	overflow-y: auto;
-	scrollbar-width: none; /* Firefox */
 	overscroll-behavior-y: contain;
 	scroll-snap-type: y proximity;
+	border-radius: 10px;
+	direction: rtl;
+	padding-left: 1rem;
+	scrollbar-color: var(--wp--preset--color--marron) var(--wp--preset--color--beige);
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__thumbs::-webkit-scrollbar {
-	display: none; /* Chrome/Safari */
+	width: 0.5rem;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumbs::-webkit-scrollbar-track {
+	background-color: var(--wp--preset--color--beige);
+	border-radius: 100px;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__thumbs::-webkit-scrollbar-thumb {
+	background-color: var(--wp--preset--color--marron);
+	border-radius: 100px;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__thumb {
+	/* Devuelve el sentido normal: el rtl del contenedor es solo para sacar la
+	   barra a la izquierda y no debe heredarse al contenido. */
+	direction: ltr;
 	flex: 0 0 auto;
 	position: relative;
 	display: block;
@@ -192,13 +212,13 @@
 	aspect-ratio: 1 / 1;
 	padding: 0;
 	overflow: hidden;
-	border: 2px solid transparent;
+	/* border:0 explícito: es un <button> y, sin esto, saldría el borde que le
+	   pone el navegador por defecto. */
+	border: 0;
 	border-radius: 9px;
 	background: var(--wp--preset--color--beige);
 	cursor: pointer;
 	scroll-snap-align: start;
-	transition: border-color 0.3s ease, opacity 0.3s ease;
-	opacity: 0.65;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__thumb:hover,
@@ -206,8 +226,9 @@
 	opacity: 1;
 }
 
+/* La miniatura activa se distingue solo por la opacidad: el resto se quedan
+   atenuadas al 65%. */
 .wp-block-llaollao-vista-producto .llao-vista__thumb.is-active {
-	border-color: var(--wp--preset--color--verde);
 	opacity: 1;
 }
 
@@ -235,37 +256,131 @@
 /* --- Móvil -------------------------------------------------------------- */
 
 @media (max-width: 781px) {
+	/* En móvil manda la imagen: se apila todo y se reordena para que lo primero
+	   sea la pieza grande, debajo los puntos que la cambian y al final el texto.
+	   El orden del marcado no se toca (ahí el texto va primero, que es el orden
+	   que tiene sentido leído); solo se reordena visualmente con `order`. */
 	.wp-block-llaollao-vista-producto .llao-vista__cols {
 		flex-direction: column;
-		gap: 2rem;
+		gap: 1.25rem;
 	}
 
-	.wp-block-llaollao-vista-producto .llao-vista__info {
+	/* El slide. En móvil las piezas se ponen en fila dentro de la pista y esta
+	   se arrastra con el dedo: es scroll nativo con scroll-snap, así que el
+	   gesto, la inercia y el frenado en cada imagen los pone el navegador. No
+	   hay JS de arrastre; view.js solo lee dónde ha quedado para encender el
+	   punto que toca. */
+	.wp-block-llaollao-vista-producto .llao-vista__stage {
+		order: 1;
 		flex-basis: auto;
 		max-width: none;
 		width: 100%;
+		display: flex;
+		/* flex-start y no el stretch por defecto: con stretch cada pieza tomaría
+		   el alto de la pista, y view.js necesita medir su alto natural para
+		   dárselo a la pista. Sería una pescadilla que se muerde la cola. */
+		align-items: flex-start;
+		overflow-x: auto;
+		overflow-y: hidden; /* recorta la vecina más alta durante el arrastre */
+		scroll-snap-type: x mandatory;
+		overscroll-behavior-x: contain;
+		scrollbar-width: none; /* la posición ya la cantan los puntos */
+		/* El alto lo pone view.js, el de la pieza activa; la transición evita
+		   que el salto entre una alta y una baja sea seco. */
+		transition: height 0.3s ease;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__stage::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* En escritorio solo se enseña la activa; aquí conviven todas en la pista,
+	   una por pantalla. */
+	.wp-block-llaollao-vista-producto .llao-vista__media {
+		display: block;
+		flex: 0 0 100%;
+		width: 100%;
+		scroll-snap-align: center;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__thumbs {
+		order: 2;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__info {
+		order: 3;
+		flex-basis: auto;
+		max-width: none;
+		width: 100%;
+		margin-top: 0.75rem;
 	}
 
 	.wp-block-llaollao-vista-producto .llao-vista__title {
 		font-size: var(--wp--preset--font-size--h-3, 30px);
 	}
 
-	/* La galería pasa a vertical y la tira, de columna a fila bajo la imagen:
-	   en un móvil no hay ancho que gastar en una columna de miniaturas. */
-	.wp-block-llaollao-vista-producto .llao-vista__gallery {
-		flex-direction: column;
-	}
-
+	/* La tira de miniaturas se convierte en la paginación del slide: una fila
+	   de puntos centrada, uno por recurso. Son los mismos <button> del
+	   escritorio, así que view.js sigue funcionando sin tocar nada. */
 	.wp-block-llaollao-vista-producto .llao-vista__thumbs {
 		flex: 0 0 auto;
 		width: 100%;
+		/* El tema no trae un box-sizing:border-box global, así que sin esto el
+		   width:100% y el padding de abajo se suman: la fila mediría 100%+48px
+		   y el margen derecho se saldría de la pantalla. */
+		box-sizing: border-box;
+		align-self: auto;
+		max-height: none; /* en fila el tope de 517px no pinta nada */
 		flex-direction: row;
-		overflow-x: auto;
-		overflow-y: hidden;
-		scroll-snap-type: x proximity;
+		gap: 0.5rem;
+		overflow: visible; /* las barras no necesitan desplazamiento */
+		/* De vuelta a ltr: en fila el eje principal sí es horizontal y el rtl
+		   invertiría el orden. Y sin scroll no hay barra que colocar, así que el
+		   1rem que le dejaba hueco en escritorio se sustituye por los 24px de
+		   margen lateral de la fila de botones. */
+		direction: ltr;
+		padding-inline: 1.5rem; /* 24px */
 	}
 
+	/* Barras alargadas que se reparten el ancho a partes iguales: flex:1 1 0
+	   hace que el reparto salga del ancho disponible, sea cual sea la pantalla
+	   y haya los recursos que haya.
+
+	   El botón hace de área táctil (24px de alto) y la barra visible (7px) se
+	   dibuja dentro con ::before. Un botón de 7px de alto sería un blanco
+	   demasiado fino para un dedo. */
 	.wp-block-llaollao-vista-producto .llao-vista__thumb {
-		width: var(--llao-vista-thumb);
+		flex: 1 1 0;
+		width: auto;
+		height: 1.5rem;
+		aspect-ratio: auto;
+		border-radius: 0;
+		background: none;
+		opacity: 1;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__thumb::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		right: 0;
+		height: 7px;
+		transform: translateY(-50%);
+		border-radius: 22px;
+		/* Beige y no crema: el fondo global del tema es crema, así que una barra
+		   inactiva en crema sería invisible. */
+		background-color: var(--wp--preset--color--beige);
+		transition: background-color 0.3s ease;
+	}
+
+	.wp-block-llaollao-vista-producto .llao-vista__thumb.is-active::before {
+		background-color: var(--wp--preset--color--marron);
+	}
+
+	/* Dentro de un punto no cabe ni la miniatura ni el marcador de vídeo. */
+	.wp-block-llaollao-vista-producto .llao-vista__thumb-img,
+	.wp-block-llaollao-vista-producto .llao-vista__thumb.is-video::after {
+		display: none;
 	}
 }

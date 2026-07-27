@@ -2,11 +2,14 @@
 /**
  * Migas de pan del single de producto.
  *
- * Estructura: Carta / Productos / {Tipo} / {Productos superiores} / {Producto}
+ * Estructura: Carta / Productos / {Productos superiores} / {Producto}
+ *
+ * El camino lo marca la jerarquía del CPT, no la taxonomía: cada escalón es un
+ * producto padre del actual.
  *
  * - "Carta" enlaza a la página configurada en Ajustes → Llaollao.
- * - "Productos" y "Tipo" van sin enlace: el CPT no tiene archivo público y la
- *   taxonomía no es pública, así que no hay URL válida a la que apuntar.
+ * - "Productos" va sin enlace: el CPT no tiene archivo público, así que no hay
+ *   URL válida a la que apuntar.
  * - Los productos superiores sí enlazan a su single, salvo que no estén
  *   publicados (un borrador no tiene URL pública que ofrecer).
  */
@@ -21,31 +24,24 @@ if ( ! $product_id || 'producto' !== get_post_type( $product_id ) ) {
 $crumbs = array();
 
 // 1. Carta (página configurable).
-$carta_id = llao_get_carta_page_id();
-if ( $carta_id ) {
-	$crumbs[] = array(
-		'label' => get_the_title( $carta_id ),
-		'url'   => get_permalink( $carta_id ),
-	);
-} else {
-	$crumbs[] = array( 'label' => __( 'Carta', 'llaollao-core' ), 'url' => '' );
-}
+$carta_id  = llao_get_carta_page_id();
+$carta_url = $carta_id ? get_permalink( $carta_id ) : '';
 
-// 2. Productos (sin enlace: el CPT no tiene archivo público).
+$crumbs[] = array(
+	'label' => $carta_id ? get_the_title( $carta_id ) : __( 'Carta', 'llaollao-core' ),
+	'url'   => $carta_url,
+);
+
+// 2. Productos. El CPT no tiene archivo público, así que el escalón apunta
+// también a la página de Carta: es la que hace de índice de productos. Sin
+// página configurada en los ajustes se queda sin enlace, como antes.
 $pt       = get_post_type_object( 'producto' );
 $crumbs[] = array(
 	'label' => $pt ? $pt->labels->name : __( 'Productos', 'llaollao-core' ),
-	'url'   => '',
+	'url'   => $carta_url,
 );
 
-// 3. Tipo del producto actual (primer término; taxonomía no pública → sin enlace).
-$terms = get_the_terms( $product_id, 'tipo' );
-if ( $terms && ! is_wp_error( $terms ) ) {
-	$term     = array_shift( $terms );
-	$crumbs[] = array( 'label' => $term->name, 'url' => '' );
-}
-
-// 4. Productos superiores, del más lejano al más cercano.
+// 3. Productos superiores, del más lejano al más cercano.
 foreach ( array_reverse( get_post_ancestors( $product_id ) ) as $ancestor_id ) {
 	$crumbs[] = array(
 		'label' => get_the_title( $ancestor_id ),
@@ -53,7 +49,7 @@ foreach ( array_reverse( get_post_ancestors( $product_id ) ) as $ancestor_id ) {
 	);
 }
 
-// 5. Producto actual.
+// 4. Producto actual.
 $crumbs[] = array( 'label' => get_the_title( $product_id ), 'url' => '' );
 
 $wrapper = get_block_wrapper_attributes( array( 'class' => 'llao-breadcrumbs' ) );

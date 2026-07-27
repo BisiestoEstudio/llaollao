@@ -48,8 +48,8 @@ if ( '' === $alergenos_lbl ) {
 }
 
 // --- Hermanos ----------------------------------------------------------
-// Los demás hijos del mismo padre, el actual incluido y marcado. Sin padre no
-// hay fila; con un solo hermano (él mismo) tampoco, que no aporta nada.
+// Los hijos del mismo padre, el actual incluido y marcado. Un producto de nivel
+// superior no tiene padre, así que tampoco fila.
 $siblings = array();
 $parent   = wp_get_post_parent_id( $post_id );
 
@@ -63,10 +63,6 @@ if ( $show_siblings && $parent ) {
 		'order'            => 'ASC',
 		'suppress_filters' => false,
 	) );
-
-	if ( count( $siblings ) < 2 ) {
-		$siblings = array();
-	}
 }
 
 // --- Campos personalizados ---------------------------------------------
@@ -116,7 +112,7 @@ $wrapper = get_block_wrapper_attributes( array(
 			<?php if ( $variantes ) : ?>
 				<ul class="llao-vista__variantes">
 					<?php foreach ( $variantes as $variante ) : ?>
-						<li><span class="llao-vista__variante button-tag"><?php echo esc_html( $variante ); ?></span></li>
+						<li><span class="llao-vista__variante button-tag" data-text="<?php echo esc_attr( $variante ); ?>"><?php echo esc_html( $variante ); ?></span></li>
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
@@ -130,66 +126,64 @@ $wrapper = get_block_wrapper_attributes( array(
 		</div>
 
 		<?php if ( $recursos ) : ?>
-			<div class="llao-vista__gallery">
 
-				<div class="llao-vista__stage">
+			<div class="llao-vista__stage">
+				<?php foreach ( $recursos as $i => $recurso_id ) : ?>
+					<figure class="llao-vista__media<?php echo 0 === $i ? ' is-active' : ''; ?>" data-index="<?php echo (int) $i; ?>">
+						<?php if ( wp_attachment_is_image( $recurso_id ) ) : ?>
+							<?php
+							echo wp_get_attachment_image( $recurso_id, 'large', false, array(
+								'class'   => 'llao-vista__media-img',
+								'loading' => 0 === $i ? 'eager' : 'lazy',
+							) );
+							?>
+						<?php elseif ( wp_attachment_is( 'video', $recurso_id ) ) : ?>
+							<?php
+							// El póster del vídeo es su imagen destacada, si la tiene.
+							$poster_id  = get_post_thumbnail_id( $recurso_id );
+							$poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'large' ) : '';
+							?>
+							<video
+								class="llao-vista__media-video"
+								controls
+								preload="metadata"
+								<?php echo $poster_url ? 'poster="' . esc_url( $poster_url ) . '"' : ''; ?>
+								src="<?php echo esc_url( wp_get_attachment_url( $recurso_id ) ); ?>"
+							></video>
+						<?php endif; ?>
+					</figure>
+				<?php endforeach; ?>
+			</div>
+
+			<?php if ( count( $recursos ) > 1 ) : ?>
+				<div class="llao-vista__thumbs" role="group" aria-label="<?php esc_attr_e( 'Elegir imagen', 'llaollao-core' ); ?>">
 					<?php foreach ( $recursos as $i => $recurso_id ) : ?>
-						<figure class="llao-vista__media<?php echo 0 === $i ? ' is-active' : ''; ?>" data-index="<?php echo (int) $i; ?>">
-							<?php if ( wp_attachment_is_image( $recurso_id ) ) : ?>
-								<?php
-								echo wp_get_attachment_image( $recurso_id, 'large', false, array(
-									'class'   => 'llao-vista__media-img',
-									'loading' => 0 === $i ? 'eager' : 'lazy',
+						<?php
+						// En un vídeo la miniatura es su imagen destacada (el póster)
+						// si la tiene; si no, queda el hueco con el marcador de play.
+						$thumb_id = wp_attachment_is_image( $recurso_id ) ? $recurso_id : get_post_thumbnail_id( $recurso_id );
+						$es_video = ! wp_attachment_is_image( $recurso_id );
+						?>
+						<button
+							type="button"
+							class="llao-vista__thumb<?php echo 0 === $i ? ' is-active' : ''; ?><?php echo $es_video ? ' is-video' : ''; ?>"
+							data-index="<?php echo (int) $i; ?>"
+							aria-pressed="<?php echo 0 === $i ? 'true' : 'false'; ?>"
+							aria-label="<?php echo esc_attr( sprintf( __( 'Ver recurso %d', 'llaollao-core' ), $i + 1 ) ); ?>"
+						>
+							<?php
+							if ( $thumb_id ) {
+								echo wp_get_attachment_image( $thumb_id, 'medium', false, array(
+									'class'   => 'llao-vista__thumb-img',
+									'loading' => 'lazy',
 								) );
-								?>
-							<?php elseif ( wp_attachment_is( 'video', $recurso_id ) ) : ?>
-								<?php
-								// El póster del vídeo es su imagen destacada, si la tiene.
-								$poster_id  = get_post_thumbnail_id( $recurso_id );
-								$poster_url = $poster_id ? wp_get_attachment_image_url( $poster_id, 'large' ) : '';
-								?>
-								<video
-									class="llao-vista__media-video"
-									controls
-									preload="metadata"
-									<?php echo $poster_url ? 'poster="' . esc_url( $poster_url ) . '"' : ''; ?>
-									src="<?php echo esc_url( wp_get_attachment_url( $recurso_id ) ); ?>"
-								></video>
-							<?php endif; ?>
-						</figure>
+							}
+							?>
+						</button>
 					<?php endforeach; ?>
 				</div>
+			<?php endif; ?>
 
-				<?php if ( count( $recursos ) > 1 ) : ?>
-					<div class="llao-vista__thumbs" role="group" aria-label="<?php esc_attr_e( 'Elegir imagen', 'llaollao-core' ); ?>">
-						<?php foreach ( $recursos as $i => $recurso_id ) : ?>
-							<?php
-							// En un vídeo la miniatura es su imagen destacada (el póster)
-							// si la tiene; si no, queda el hueco con el marcador de play.
-							$thumb_id = wp_attachment_is_image( $recurso_id ) ? $recurso_id : get_post_thumbnail_id( $recurso_id );
-							$es_video = ! wp_attachment_is_image( $recurso_id );
-							?>
-							<button
-								type="button"
-								class="llao-vista__thumb<?php echo 0 === $i ? ' is-active' : ''; ?><?php echo $es_video ? ' is-video' : ''; ?>"
-								data-index="<?php echo (int) $i; ?>"
-								aria-pressed="<?php echo 0 === $i ? 'true' : 'false'; ?>"
-								aria-label="<?php echo esc_attr( sprintf( __( 'Ver recurso %d', 'llaollao-core' ), $i + 1 ) ); ?>"
-							>
-								<?php
-								if ( $thumb_id ) {
-									echo wp_get_attachment_image( $thumb_id, 'medium', false, array(
-										'class'   => 'llao-vista__thumb-img',
-										'loading' => 'lazy',
-									) );
-								}
-								?>
-							</button>
-						<?php endforeach; ?>
-					</div>
-				<?php endif; ?>
-
-			</div>
 		<?php endif; ?>
 
 	</div>
