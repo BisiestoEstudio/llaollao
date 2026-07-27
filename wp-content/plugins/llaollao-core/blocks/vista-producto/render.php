@@ -88,15 +88,20 @@ $wrapper = get_block_wrapper_attributes( array(
 
 	<?php if ( $siblings ) : ?>
 		<nav class="llao-vista__siblings" aria-label="<?php esc_attr_e( 'Otros productos de la misma familia', 'llaollao-core' ); ?>">
-			<?php foreach ( $siblings as $sibling ) : ?>
-				<?php $actual = ( (int) $sibling->ID === $post_id ); ?>
-				<a
-					class="llao-vista__sibling button-tag<?php echo $actual ? ' is-active' : ''; ?>"
-					href="<?php echo esc_url( get_permalink( $sibling->ID ) ); ?>"
-					data-text="<?php echo esc_attr( get_the_title( $sibling->ID ) ); ?>"
-					<?php echo $actual ? ' aria-current="page"' : ''; ?>
-				><?php echo esc_html( get_the_title( $sibling->ID ) ); ?></a>
-			<?php endforeach; ?>
+			<?php /* Marcador decorativo: queda fuera de la pista para no irse con el desplazamiento. */ ?>
+			<span class="llao-vista__siblings-icon" aria-hidden="true"></span>
+
+			<div class="llao-vista__siblings-track">
+				<?php foreach ( $siblings as $sibling ) : ?>
+					<?php $actual = ( (int) $sibling->ID === $post_id ); ?>
+					<a
+						class="llao-vista__sibling button-tag<?php echo $actual ? ' is-active' : ''; ?>"
+						href="<?php echo esc_url( get_permalink( $sibling->ID ) ); ?>"
+						data-text="<?php echo esc_attr( get_the_title( $sibling->ID ) ); ?>"
+						<?php echo $actual ? ' aria-current="page"' : ''; ?>
+					><?php echo esc_html( get_the_title( $sibling->ID ) ); ?></a>
+				<?php endforeach; ?>
+			</div>
 		</nav>
 	<?php endif; ?>
 

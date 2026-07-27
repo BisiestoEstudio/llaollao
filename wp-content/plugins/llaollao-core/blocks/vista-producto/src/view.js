@@ -24,10 +24,76 @@
 	// Mismo punto de ruptura que el @media de style.css.
 	var MOVIL = '(max-width: 781px)';
 
+	/**
+	 * Arrastrar con el ratón para desplazar una fila horizontal. Mismo
+	 * planteamiento que el bloque "Slider de imágenes": en táctil y trackpad el
+	 * desplazamiento lateral ya es nativo, así que solo se atiende al ratón.
+	 *
+	 * No se usa setPointerCapture: redirige el click al contenedor y rompería
+	 * el de los enlaces de dentro. Se escucha move/up en window.
+	 */
+	function hacerArrastrable( scroller ) {
+		var pulsado = false;
+		var movido  = false;
+		var inicioX = 0;
+		var inicioScroll = 0;
+
+		scroller.addEventListener( 'pointerdown', function ( e ) {
+			if ( e.pointerType && 'mouse' !== e.pointerType ) {
+				return; // táctil/lápiz: desplazamiento nativo
+			}
+			pulsado = true;
+			movido  = false;
+			inicioX = e.clientX;
+			inicioScroll = scroller.scrollLeft;
+			scroller.classList.add( 'is-dragging' );
+		} );
+
+		window.addEventListener( 'pointermove', function ( e ) {
+			if ( ! pulsado ) {
+				return;
+			}
+			var recorrido = e.clientX - inicioX;
+			if ( Math.abs( recorrido ) > 3 ) {
+				movido = true;
+			}
+			scroller.scrollLeft = inicioScroll - recorrido;
+		} );
+
+		window.addEventListener( 'pointerup', function () {
+			if ( ! pulsado ) {
+				return;
+			}
+			pulsado = false;
+			scroller.classList.remove( 'is-dragging' );
+		} );
+
+		// Que soltar tras arrastrar no acabe navegando al enlace de debajo.
+		scroller.addEventListener( 'click', function ( e ) {
+			if ( movido ) {
+				e.preventDefault();
+				e.stopPropagation();
+				movido = false;
+			}
+		}, true );
+
+		// Sin esto el navegador arrastraría el propio enlace en vez de la fila.
+		scroller.addEventListener( 'dragstart', function ( e ) {
+			e.preventDefault();
+		} );
+	}
+
 	function initVista( root ) {
 		var thumbs = root.querySelectorAll( '.llao-vista__thumb' );
 		var medias = root.querySelectorAll( '.llao-vista__media' );
 		var stage  = root.querySelector( '.llao-vista__stage' );
+		var pista  = root.querySelector( '.llao-vista__siblings-track' );
+
+		// La fila de hermanos es independiente de la galería: se prepara antes
+		// de la salida por falta de recursos.
+		if ( pista ) {
+			hacerArrastrable( pista );
+		}
 
 		if ( ! medias.length ) {
 			return;
