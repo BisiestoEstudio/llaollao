@@ -365,7 +365,7 @@
 		"useRootPaddingAwareAlignments": true,
 		"custom": {
 			"layout": {
-				"middle": "902px"
+				"narrow": "884px"
 			},
 			"radius": {
 				"default": "16px",
@@ -447,6 +447,13 @@
 			"blockGap": "1.5rem"
 		}
 	},
+	"customTemplates": [
+		{
+			"name": "page-narrow",
+			"title": "Narrow",
+			"postTypes": [ "page" ]
+		}
+	],
 	"templateParts": [
 		{
 			"name": "header",

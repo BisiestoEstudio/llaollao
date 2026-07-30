@@ -13,7 +13,7 @@
 .faqs__list {
     display: flex;
     flex-direction: column;
-    max-width: 884px;
+    max-width: var( --wp--custom--layout--narrow, 884px );
     margin-left: auto;
     margin-right: auto;
 }

@@ -81,18 +81,22 @@ h5,
 	padding-top: var(--header-height);
 }
 
-/* Páginas (page.html). No usan --header-height como los singles: aquí el primer
-   hijo de <main> es el envoltorio de post-content, así que la regla de arriba
-   empujaría el contenido entero y un hero a sangre no podría pasar por debajo
-   del header. Se separa el primer bloque de dentro del contenido. */
-.page-default>.wp-block-post-content>:first-child {
+/* Páginas (page.html y page-narrow.html). No usan --header-height como los
+   singles: aquí el primer hijo de <main> es el envoltorio de post-content, así
+   que la regla de arriba empujaría el contenido entero y un hero a sangre no
+   podría pasar por debajo del header. Se separa el primer bloque de dentro del
+   contenido. Toda plantilla de página nueva tiene que entrar en esta lista o su
+   contenido queda debajo del header fixed. */
+.page-default>.wp-block-post-content>:first-child,
+.page-narrow>.wp-block-post-content>:first-child {
 	padding-top: 6rem;
 }
 
 /* Salvo que la página abra a sangre (hero de vídeo, banner, imagen full): ahí el
    solape con el header transparente es justo lo que se busca, así que se anula.
    Lleva una clase más que la regla de arriba, así que gana sin !important. */
-.page-default>.wp-block-post-content>:first-child.alignfull {
+.page-default>.wp-block-post-content>:first-child.alignfull,
+.page-narrow>.wp-block-post-content>:first-child.alignfull {
 	padding-top: 0;
 }
 
