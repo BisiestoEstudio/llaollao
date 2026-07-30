@@ -418,6 +418,14 @@ h5,
 	padding: 0 3.75rem;
 }
 
+/* Aire propio del bloque de Contact Form 7 (40px arriba y abajo). Padding y no
+   margin a propósito: los global styles traen
+   `:root :where(.is-layout-constrained) > :last-child{margin-block-end:0}`
+   (0,2,0), que se comería el de abajo si el formulario cierra la página. */
+.wp-block-contact-form-7-contact-form-selector {
+	padding-block: 2.5rem;
+}
+
 .field-inline {
 	display: flex;
 	align-items: end;
@@ -467,12 +475,13 @@ h5,
 body input[type="submit"],
 body button[type="submit"],
 body .wp-block-search__button {
-	border-radius: 8px;
-	background-color: var(--wp--preset--color--sun);
-	color: var(--wp--preset--color--negro);
-	font-size: var(--wp--preset--font-size--xs);
+	border-radius: var(--wp--custom--radius--100);
+	background-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--crema);
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-size: var(--wp--preset--font-size--s);
 	font-weight: 500;
-	padding: 0.5rem 1.5rem;
+	padding: 13px 31px;
 	border: none;
 	cursor: pointer;
 	transition: background-color 0.25s ease;
@@ -481,7 +490,19 @@ body .wp-block-search__button {
 body input[type="submit"]:hover,
 body button[type="submit"]:hover,
 body .wp-block-search__button:hover {
-	background-color: var(--wp--preset--color--sand);
+	background-color: var(--wp--preset--color--marron);
+}
+
+/* Etiqueta de campo. En CF7 el <label> envuelve también al campo, pero los
+   controles de formulario no heredan la tipografía del padre, así que cada uno
+   declara la suya (ver el bloque de campos de abajo). */
+.wpcf7-form label,
+form label {
+	display: block;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
 }
 
 input[type="text"],
@@ -493,21 +514,22 @@ input[type="search"],
 input[type="url"],
 input[type="date"],
 textarea,
-select,
-.rhqr-field__input,
-.ff-default .ff-el-form-control {
-	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
-	color: var(--wp--preset--color--gray-dark);
-	font-size: var(--wp--preset--font-size--xxs);
+select {
+	/* Local y no global: el tema no trae border-box para todo, y sin esto el
+	   padding se sumaría al 100% y el campo se saldría por la derecha. */
+	box-sizing: border-box;
+	width: 100%;
+	padding: 8px 15px;
 	background-color: var(--wp--preset--color--blanco);
-	padding: 12px;
-	outline: none;
-	transition: border-color 0.15s ease, box-shadow 0.15s ease;
+	border: 1px solid var(--wp--preset--color--gris-light);
+	border-radius: var(--wp--custom--radius--m);
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--souvenir-std);
+	font-size: var(--wp--preset--font-size--s);
+	font-weight: 500;
 	appearance: none;
 	-webkit-appearance: none;
-	border-radius: 8px;
-	border: 1px solid var(--wp--preset--color--gray);
-	background: var(--wp--preset--color--blanco);
+	transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="text"]::placeholder,
@@ -517,37 +539,153 @@ input[type="number"]::placeholder,
 input[type="password"]::placeholder,
 input[type="search"]::placeholder,
 input[type="url"]::placeholder,
-input[type="date"],
-textarea::placeholder,
-.rhqr-field__input::placeholder,
-.ff-default .ff-el-form-control::placeholder {
-	color: var(--wp--preset--color--gray-dark);
-	font-size: var(--wp--preset--font-size--xxs);
+input[type="date"]::placeholder,
+textarea::placeholder {
+	/* Tipografía y tamaño los hereda del propio campo. */
+	color: var(--wp--preset--color--gris-light);
+	/* Firefox le baja la opacidad por su cuenta; así se ve el color exacto. */
+	opacity: 1;
 }
 
-.wpcf7-form-control-wrap input[type="text"],
-.wpcf7-form-control-wrap input[type="email"],
-.wpcf7-form-control-wrap input[type="tel"],
-.wpcf7-form-control-wrap input[type="number"],
-.wpcf7-form-control-wrap input[type="password"],
-.wpcf7-form-control-wrap input[type="search"],
-.wpcf7-form-control-wrap input[type="url"],
-.wpcf7-form-control-wrap input[type="date"],
-.wpcf7-form-control-wrap textarea,
-.wpcf7-form-control-wrap select {
-	width: calc(100% - 24px);
+/* Campo seleccionado: el borde pasa a marrón. */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	border-color: var(--wp--preset--color--marron);
 }
 
+/* Campo con error: el borde manda sobre el del foco, de ahí que se repitan los
+   selectores con :focus. La clase la pone CF7; :user-invalid cubre cualquier
+   otro formulario y, a diferencia de :invalid, no salta hasta que se ha
+   intentado enviar o se ha tocado el campo. */
+input.wpcf7-not-valid,
+textarea.wpcf7-not-valid,
+select.wpcf7-not-valid,
+input.wpcf7-not-valid:focus,
+textarea.wpcf7-not-valid:focus,
+select.wpcf7-not-valid:focus,
+input:user-invalid,
+textarea:user-invalid,
+select:user-invalid,
+input:user-invalid:focus,
+textarea:user-invalid:focus,
+select:user-invalid:focus {
+	border-color: var(--wp--preset--color--error);
+}
+
+/* Mensaje de error bajo el campo. Se cualifica con .wpcf7-form para ganar al
+   rojo y al tamaño que CF7 trae de serie sin depender del orden de carga. */
+.wpcf7-form .wpcf7-not-valid-tip {
+	display: block;
+	margin-top: 5px;
+	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
+	font-size: var(--wp--preset--font-size--caption);
+	color: var(--wp--preset--color--marron);
+}
+
+/* 5px entre la etiqueta y su campo. En CF7 el campo viaja dentro de un
+   span.wpcf7-form-control-wrap; en un formulario suelto es el campo mismo,
+   esté anidado en la etiqueta o justo detrás. */
 .wpcf7-form label span.wpcf7-form-control-wrap {
 	display: block;
-	margin-top: 0.5rem;
+	margin-top: 5px;
 	margin-bottom: 1rem;
+}
+
+form label > input,
+form label > textarea,
+form label > select,
+form label + input,
+form label + textarea,
+form label + select {
+	margin-top: 5px;
 }
 
 .wpcf7-form div.two-col {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 1rem;
+}
+
+/* ----- Formulario a dos columnas: campos | consentimientos ----- */
+/* La columna de consentimientos nunca pasa de 265px; el resto del ancho se lo
+   queda la de campos. minmax(0, …) en vez de una medida fija para que en
+   pantallas estrechas pueda encoger. */
+.wpcf7-form .form-split {
+	display: grid;
+	grid-template-columns: 1fr minmax(0, 265px);
+	gap: 40px;
+	align-items: start;
+}
+
+/* Los campos cortos, de dos en dos. */
+.wpcf7-form .form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+/* Dentro de la rejilla manda el gap: el margen inferior que lleva de serie el
+   envoltorio de campo se sumaría encima y descuadraría los 20px. */
+.wpcf7-form .form-grid label span.wpcf7-form-control-wrap {
+	margin-bottom: 0;
+}
+
+.wpcf7-form .form-actions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+/* CF7 oculta el spinner con visibility:hidden, que sigue ocupando su caja
+   (24px + 24px de margen a cada lado): son ~72px muertos que separan el botón
+   del borde derecho. Lo sacamos del flujo en reposo y lo devolvemos solo
+   mientras se envía, para no perder el aviso de carga. */
+.wpcf7-form .form-actions .wpcf7-spinner {
+	display: none;
+}
+
+.wpcf7-form.submitting .form-actions .wpcf7-spinner {
+	display: inline-block;
+	margin: 0 0 0 1rem;
+}
+
+.wpcf7-form .form-consent {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	/* Local y no global: el tema no trae border-box para todo, y sin esto los
+	   30px de padding se sumarían al ancho de la columna del grid. */
+	box-sizing: border-box;
+	padding: 20px 30px;
+	border: 1px solid var(--wp--preset--color--marron);
+	border-radius: var(--wp--custom--radius--m);
+}
+
+/* El envoltorio de un [acceptance] no va dentro de la etiqueta, así que no le
+   alcanza la regla de display:block de más arriba. */
+.wpcf7-form .form-consent .wpcf7-form-control-wrap {
+	display: block;
+}
+
+.wpcf7-form .form-consent .wpcf7-acceptance .wpcf7-list-item {
+	margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+	.wpcf7-form .form-split,
+	.wpcf7-form .form-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 .wpcf7-form .wpcf7-list-item {
@@ -559,12 +697,101 @@ textarea::placeholder,
 	margin-top: 1rem;
 }
 
-.wpcf7 form .wpcf7-response-output {
+/* Caja de aviso al final del formulario. La clase extra .wpcf7-form es para
+   ganar al borde de 2px que CF7 trae de serie sin depender del orden de carga
+   de las hojas. */
+.wpcf7 form.wpcf7-form .wpcf7-response-output {
 	margin: 0;
+	padding: 8px 15px;
+	border: none;
+	border-radius: var(--wp--custom--radius--m);
+	background-color: var(--wp--preset--color--error);
+	color: var(--wp--preset--color--crema);
+	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
+	font-size: var(--wp--preset--font-size--caption);
+}
+
+/* Enviado con éxito: la caja es la misma, solo cambia el fondo. Sin esto el
+   mensaje de "gracias" saldría en crema sobre rojo. */
+.wpcf7 form.wpcf7-form.sent .wpcf7-response-output {
+	background-color: var(--wp--preset--color--verde);
 }
 
 .wpcf7-form .wpcf7-acceptance .wpcf7-list-item {
 	margin-bottom: 0.5rem;
+}
+
+/* ----- Checkbox como interruptor tipo iOS -----
+   Sin marcado extra: el propio input hace de carril y su ::before de círculo,
+   así vale igual para CF7 (que envuelve cada opción en .wpcf7-list-item) que
+   para un checkbox suelto dentro de su etiqueta. */
+.wpcf7-form .wpcf7-list-item label,
+form .wpcf7-list-item label,
+label:has(> input[type="checkbox"]) {
+	display: flex;
+	align-items: flex-start; /* el interruptor, arriba con la primera línea */
+	gap: 0.5rem;
+	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
+	font-size: var(--wp--preset--font-size--caption);
+	font-weight: 400;
+	color: var(--wp--preset--color--marron);
+}
+
+.wpcf7-form .wpcf7-list-item label a,
+form .wpcf7-list-item label a,
+label:has(> input[type="checkbox"]) a {
+	color: var(--wp--preset--color--naranja);
+}
+
+input[type="checkbox"] {
+	appearance: none;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	position: relative;
+	/* Que no lo encoja ni lo estire el flex de la etiqueta. */
+	flex: 0 0 auto;
+	width: 36px;
+	height: 20px;
+	margin: 0;
+	border: none;
+	border-radius: 62px;
+	background-color: var(--wp--preset--color--marron);
+	cursor: pointer;
+	transition: background-color 0.25s ease;
+}
+
+/* El círculo. Arranca a 2px del borde y recorre los 16px que quedan libres:
+   36 de ancho - 2 de holgura a cada lado - 16 del propio círculo. */
+input[type="checkbox"]::before {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	border-radius: 62px;
+	background-color: var(--wp--preset--color--crema);
+	transition: transform 0.25s ease;
+}
+
+input[type="checkbox"]:checked {
+	background-color: var(--wp--preset--color--verde);
+}
+
+input[type="checkbox"]:checked::before {
+	transform: translateX(16px);
+}
+
+input[type="checkbox"]:focus-visible {
+	outline: none;
+	box-shadow: 0 0 0 2px var(--wp--preset--color--verde-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	input[type="checkbox"],
+	input[type="checkbox"]::before {
+		transition: none;
+	}
 }
 
 .wp-block-video video {

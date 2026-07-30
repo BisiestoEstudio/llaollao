@@ -49,6 +49,11 @@
 					"name": "Gris Light",
 					"slug": "gris-light",
 					"color": "#D9D9D9"
+				},
+				{
+					"name": "Error",
+					"slug": "error",
+					"color": "#F04438"
 				}
 			],
 			"gradients": []
