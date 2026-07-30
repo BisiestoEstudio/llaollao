@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/grid-links",
+	"version": "1.0.0",
+	"title": "Grid links",
+	"category": "design",
+	"icon": "grid-view",
+	"description": "Rejilla de enlaces a tres columnas: cada uno con imagen de fondo y título centrado. Encima, una zona libre para lo que haga falta.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"items": { "type": "array",  "default": [], "items": { "type": "object" } },
+		"gap":   { "type": "number", "default": 20 }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"padding": true,
+			"margin":  true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

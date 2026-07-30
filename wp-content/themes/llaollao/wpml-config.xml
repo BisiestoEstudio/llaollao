@@ -47,6 +47,16 @@
 			</key>
 		</gutenberg-block>
 
+		<!-- Grid links: título y alt de cada elemento (la URL no se traduce) -->
+		<gutenberg-block type="llaollao/grid-links" translate="1">
+			<key name="items">
+				<key name="*">
+					<key name="text" />
+					<key name="imageAlt" />
+				</key>
+			</key>
+		</gutenberg-block>
+
 		<!-- Location: dirección y horario -->
 		<gutenberg-block type="bisiesto/location" translate="1">
 			<key name="address" />

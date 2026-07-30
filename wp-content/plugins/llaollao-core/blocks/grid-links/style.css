@@ -1,0 +1,92 @@
+/* Bloque "Grid links": rejilla de tres columnas de enlaces, cada uno con la
+   imagen a sangre y el título centrado encima. La separación entre elementos
+   la pone render.php en línea a partir del atributo del panel lateral. */
+.wp-block-llaollao-grid-links {
+   /* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
+   --llao-grid-links-gap:   20px;
+   --llao-grid-links-min-h: 250px;
+   /* Cuánto se ve la imagen. Por debajo asoma el negro de la casilla, que es lo
+      que la oscurece para que el texto blanco lea. Bajarlo oscurece más; a 1
+      queda la foto limpia. */
+   --llao-grid-links-img-opacity: 0.8;
+   /* Aire propio del bloque: 40px. Padding y no margin a propósito, porque los
+      global styles traen `:root :where(.is-layout-constrained) > :last-child
+      {margin-block-end:0}` (0,2,0) y se comerían el de abajo si el bloque
+      cierra la página. El control de margen del panel sigue libre. */
+   padding-block: 2.5rem;
+}
+
+/* La zona libre de arriba se separa de la rejilla con la misma medida que la
+   separación entre elementos, así todo el bloque respira igual. */
+.wp-block-llaollao-grid-links .llao-grid-links__header:not(:empty) {
+   margin-bottom: var( --llao-grid-links-gap );
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__grid {
+   display: grid;
+   grid-template-columns: repeat( 3, 1fr );
+   gap: var( --llao-grid-links-gap );
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__item {
+   position: relative;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-height: var( --llao-grid-links-min-h );
+   padding: 1rem;
+   /* Local y no global: el tema no trae border-box para todo, y sin esto el
+      padding se sumaría a los 250px de alto mínimo. */
+   box-sizing: border-box;
+   /* El overflow es lo que recorta la imagen contra las esquinas. */
+   overflow: hidden;
+   border-radius: var( --wp--custom--radius--m, 8px );
+   background-color: var( --wp--preset--color--negro, #121212 );
+   text-align: center;
+   text-decoration: none;
+}
+
+/* La imagen cubre el elemento por debajo del texto. */
+.wp-block-llaollao-grid-links .llao-grid-links__img {
+   position: absolute;
+   inset: 0;
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   opacity: var( --llao-grid-links-img-opacity );
+   /* Mismo acercamiento que las cards de la carta: 1.04 en 0.6s. El
+      overflow:hidden del elemento es lo que recorta lo que se sale. */
+   transition: transform 0.6s ease;
+}
+
+/* Solo en los que llevan enlace: los que aún no tienen URL se pintan como div
+   y no responden al ratón, así que tampoco deben moverse. */
+a.llao-grid-links__item:hover .llao-grid-links__img {
+   transform: scale( 1.04 );
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__text {
+   position: relative; /* por encima de la imagen */
+   font-family:  var( --wp--preset--font-family--bree );
+   font-size:    34px;
+   font-weight:  700;
+   line-height:  1.2;
+   color:        var( --wp--preset--color--blanco, #FFFFFF );
+   text-shadow:  2px 2px 5px rgba( 0, 0, 0, 0.35 );
+}
+
+@media ( max-width: 768px ) {
+   .wp-block-llaollao-grid-links .llao-grid-links__grid {
+      grid-template-columns: 1fr;
+   }
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+   .wp-block-llaollao-grid-links .llao-grid-links__img {
+      transition: none;
+   }
+   a.llao-grid-links__item:hover .llao-grid-links__img {
+      transform: none;
+   }
+}

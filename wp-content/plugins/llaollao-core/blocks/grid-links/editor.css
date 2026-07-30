@@ -1,0 +1,39 @@
+/* Solo editor: los mandos de cada elemento (imagen y enlace) cuelgan debajo de
+   su casilla, así que en el editor la celda es la columna del grid y el
+   elemento va dentro. En el front el elemento es hijo directo del grid. */
+.wp-block-llaollao-grid-links .llao-grid-links__cell {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5rem;
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__cell .llao-grid-links__item {
+   flex: 1 1 auto;
+}
+
+/* Sin imagen todavía: recuadro punteado y el texto en el color del editor para
+   que se lea sobre el fondo claro. */
+.wp-block-llaollao-grid-links .llao-grid-links__item--empty {
+   border: 2px dashed #ccc;
+   background-color: #f0f0f0;
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__item--empty .llao-grid-links__text {
+   color: #757575;
+   text-shadow: none;
+}
+
+/* Fila de mandos bajo cada casilla. */
+.wp-block-llaollao-grid-links .llao-grid-links__edit {
+   display: flex;
+   flex-direction: column;
+   gap: 0.25rem;
+   font-size: 12px;
+}
+
+.wp-block-llaollao-grid-links .llao-grid-links__edit-row {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 0.5rem;
+}
