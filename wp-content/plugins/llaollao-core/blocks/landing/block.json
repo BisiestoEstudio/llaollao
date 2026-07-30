@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/landing",
+	"version": "1.0.0",
+	"title": "Landing",
+	"category": "design",
+	"icon": "align-pull-left",
+	"description": "Dos columnas: a la izquierda una zona libre y a la derecha tres columnas de imágenes en movimiento continuo. Pensado para la 404 y la página de gracias.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"images": { "type": "array",  "default": [], "items": { "type": "object" } },
+		"speed":  { "type": "number", "default": 30 }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"padding": true,
+			"margin":  true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

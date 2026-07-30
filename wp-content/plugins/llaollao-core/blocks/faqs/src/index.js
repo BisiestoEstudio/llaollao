@@ -42,7 +42,7 @@ registerBlockType( metadata.name, {
         return (
             <div { ...blockProps }>
                 { /* Zona superior libre */ }
-                <div className="faqs__header">
+                <div className="faqs__header is-layout-flow">
                     <InnerBlocks />
                 </div>
 

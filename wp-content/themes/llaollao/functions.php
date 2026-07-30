@@ -5,7 +5,6 @@
 
 // Block registration
 require_once get_theme_file_path( 'includes/blocks.php' );
-require_once get_theme_file_path( 'includes/settings.php' );
 require_once get_theme_file_path( 'includes/lang-switcher.php' );
 
 /**

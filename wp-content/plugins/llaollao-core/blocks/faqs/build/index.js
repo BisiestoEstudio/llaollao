@@ -95,7 +95,7 @@
 			}, __( '+ Añadir FAQ', 'llaollao-core' ) ) );
 
 			return el( 'div', blockProps,
-				el( 'div', { className: 'faqs__header' }, el( InnerBlocks ) ),
+				el( 'div', { className: 'faqs__header is-layout-flow' }, el( InnerBlocks ) ),
 				el( 'div', { className: 'faqs__list' }, faqs )
 			);
 		},

@@ -16,4 +16,5 @@ function llao_register_blocks() {
 	register_block_type( LLAO_CORE_DIR . 'blocks/image-slider-item' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/faqs' );
 	register_block_type( LLAO_CORE_DIR . 'blocks/grid-links' );
+	register_block_type( LLAO_CORE_DIR . 'blocks/landing' );
 }

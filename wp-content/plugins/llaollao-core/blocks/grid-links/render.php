@@ -18,7 +18,7 @@ $wrapper = get_block_wrapper_attributes( array(
 ) );
 ?>
 <div <?php echo $wrapper; ?>>
-	<div class="llao-grid-links__header"><?php echo $content; ?></div>
+	<div class="llao-grid-links__header is-layout-flow"><?php echo $content; ?></div>
 
 	<div class="llao-grid-links__grid">
 		<?php

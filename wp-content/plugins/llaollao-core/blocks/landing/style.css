@@ -1,0 +1,83 @@
+/* Bloque "Landing": zona libre a la izquierda y tres columnas de imágenes en
+   movimiento continuo a la derecha. La del centro sube y las de los lados
+   bajan. La velocidad la pone render.php en línea desde el atributo. */
+.wp-block-llaollao-landing {
+   /* Separación entre las tres columnas de imágenes. Se usa también entre las
+      dos mitades del bloque, para no meter una segunda medida. */
+   --llao-landing-gap-cols: 40px;
+   --llao-landing-gap-imgs: 50px;
+   /* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
+   --llao-landing-speed: 30s;
+   /* Alto de la ventana por la que asoman las imágenes. */
+   --llao-landing-media-h: 600px;
+
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: var( --llao-landing-gap-cols );
+   align-items: center;
+}
+
+/* La ventana: recorta las pistas, que son mucho más altas que ella. */
+.wp-block-llaollao-landing .llao-landing__media {
+   display: grid;
+   grid-template-columns: repeat( 3, 1fr );
+   gap: var( --llao-landing-gap-cols );
+   height: var( --llao-landing-media-h );
+   overflow: hidden;
+}
+
+.wp-block-llaollao-landing .llao-landing__col {
+   overflow: hidden;
+}
+
+.wp-block-llaollao-landing .llao-landing__track {
+   display: flex;
+   flex-direction: column;
+   gap: var( --llao-landing-gap-imgs );
+   animation: llao-landing-scroll var( --llao-landing-speed ) linear infinite;
+   will-change: transform;
+}
+
+/* Los lados van al revés que el centro. Misma animación, reproducida hacia
+   atrás, así no hace falta un segundo bloque de keyframes. */
+.wp-block-llaollao-landing .llao-landing__col--down .llao-landing__track {
+   animation-direction: reverse;
+}
+
+.wp-block-llaollao-landing .llao-landing__img {
+   display: block;
+   width: 100%;
+   height: auto;
+   /* Que no las aplaste el flex: cada una conserva su alto. */
+   flex: 0 0 auto;
+}
+
+/* El recorrido es la altura de UNA tanda de imágenes, no la mitad exacta de la
+   pista: entre las dos tandas hay un hueco más (el gap que las separa), así que
+   -50% se queda corto por medio hueco y el bucle daría un tirón. De ahí el
+   ajuste de gap/2. */
+@keyframes llao-landing-scroll {
+   from {
+      transform: translateY( 0 );
+   }
+   to {
+      transform: translateY( calc( -50% - var( --llao-landing-gap-imgs ) / 2 ) );
+   }
+}
+
+@media ( max-width: 768px ) {
+   .wp-block-llaollao-landing {
+      grid-template-columns: 1fr;
+   }
+   /* En móvil solo queda la zona libre: las columnas son adorno y apiladas
+      debajo del contenido no aportan. */
+   .wp-block-llaollao-landing .llao-landing__media {
+      display: none;
+   }
+}
+
+@media ( prefers-reduced-motion: reduce ) {
+   .wp-block-llaollao-landing .llao-landing__track {
+      animation: none;
+   }
+}

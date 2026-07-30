@@ -12,7 +12,7 @@ $items   = is_array( $attributes['items'] ?? null ) ? $attributes['items'] : [];
 $wrapper = get_block_wrapper_attributes( array( 'class' => 'faqs' ) );
 ?>
 <div <?php echo $wrapper; ?>>
-	<div class="faqs__header"><?php echo $content; ?></div>
+	<div class="faqs__header is-layout-flow"><?php echo $content; ?></div>
 
 	<div class="faqs__list">
 		<?php foreach ( $items as $item ) : ?>

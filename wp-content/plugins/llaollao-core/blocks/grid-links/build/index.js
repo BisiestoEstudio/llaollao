@@ -144,7 +144,7 @@
 			return el( Fragment, null,
 				inspector,
 				el( 'div', blockProps,
-					el( 'div', { className: 'llao-grid-links__header' }, el( InnerBlocks ) ),
+					el( 'div', { className: 'llao-grid-links__header is-layout-flow' }, el( InnerBlocks ) ),
 					el( 'div', { className: 'llao-grid-links__grid' }, cells ),
 					el( Button, {
 						onClick: addItem,

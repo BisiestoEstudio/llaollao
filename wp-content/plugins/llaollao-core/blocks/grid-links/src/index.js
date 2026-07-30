@@ -45,7 +45,7 @@ registerBlockType( metadata.name, {
 
                 <div { ...blockProps }>
                     { /* Zona superior libre */ }
-                    <div className="llao-grid-links__header">
+                    <div className="llao-grid-links__header is-layout-flow">
                         <InnerBlocks />
                     </div>
 
