@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/faqs",
+	"version": "1.0.0",
+	"title": "FAQs",
+	"category": "design",
+	"icon": "editor-help",
+	"description": "Sección de preguntas frecuentes con zona de cabecera libre.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"items": { "type": "array", "default": [], "items": { "type": "object" } }
+	},
+	"supports": {
+		"html":  false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"padding": true,
+			"margin":  true
+		}
+	},
+	"editorScript": "file:./build/index.js",
+	"style":        "file:./style.css",
+	"render":       "file:./render.php"
+}

@@ -54,6 +54,15 @@
 	display: none; /* Chrome/Safari */
 }
 
+/* Que la pista llegue al borde derecho de la pantalla en vez de cortarse en el
+   de la columna de contenido: si no, las etiquetas desaparecen a media página y
+   el recorte canta. Es el mismo espejo del margin-left del .alignfull del tema
+   que ya usan history e image-slider. Se excluye alignfull, donde el wrapper ya
+   ocupa todo el ancho y este margen duplicaría el sangrado. */
+.wp-block-llaollao-vista-producto-simple:not(.alignfull) .llao-vp__tipos-track {
+	margin-right: calc(50% - 50vw);
+}
+
 .wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track.is-dragging {
 	cursor: grabbing;
 	user-select: none;

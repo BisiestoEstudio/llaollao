@@ -1,0 +1,96 @@
+.wp-block-llaollao-faqs{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    /* Duración y curva compartidas por todo lo que se mueve al abrir la FAQ
+       (alto, padding del summary y giro del chevron), para que vayan juntos. */
+    --faq-speed: 0.35s;
+    --faq-ease:  cubic-bezier( 0.4, 0, 0.2, 1 );
+}
+.faqs__header {
+    margin-bottom: 2rem;
+}
+.faqs__list {
+    display: flex;
+    flex-direction: column;
+    max-width: 884px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.faq {
+    border-bottom: 1px solid var( --wp--preset--color--marron );
+}
+.wp-block-llaollao-faqs details{
+    padding: 1rem 0;
+}
+.faq__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    /* El summary queda fuera de ::details-content, así que su padding no se
+       anima solo: sin esto los 2rem de abajo entran y salen de golpe. */
+    transition: padding-bottom var( --faq-speed ) var( --faq-ease );
+}
+details[open] .faq__summary {
+    padding-bottom: 2rem;
+}
+.faq__summary::-webkit-details-marker { display: none; }
+.faq__summary::marker               { content: none; }
+.faq__question {
+    font-family: var( --wp--preset--font-family--bree );
+    font-size:   var( --wp--preset--font-size--h-4 );
+    font-weight: 400;
+    flex: 1;
+}
+.faq__chevron {
+    width:      1.25rem;
+    height:     1.25rem;
+    flex-shrink: 0;
+    stroke:     var( --wp--preset--color--marron, #70421F );
+    fill:       none;
+    transition: transform var( --faq-speed ) var( --faq-ease );
+}
+details[open] > .faq__summary .faq__chevron {
+    transform: rotate( 180deg );
+}
+/* El desplegado se anima con grid-template-rows 0fr → 1fr en vez de
+   height 0 → auto: 0fr y 1fr interpolan de serie, mientras que animar hasta
+   "auto" exige interpolate-size, que hoy solo tiene Chrome (en Safari y
+   Firefox el panel aparecía de golpe). */
+details.faq::details-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: clip;
+    transition:
+            grid-template-rows  var( --faq-speed ) var( --faq-ease ),
+            content-visibility  var( --faq-speed ) var( --faq-ease ) allow-discrete;
+}
+details.faq[open]::details-content {
+    grid-template-rows: 1fr;
+}
+.faq__answer {
+    margin:      0;
+    font-size:   var( --wp--preset--font-size--caption );
+    font-weight: 400;
+    /* Sin esto la respuesta no deja que la fila baje de su alto natural y
+       la animación se queda a medias. */
+    min-height: 0;
+}
+.faq--editing .faq__summary {
+    cursor: default;
+}
+@media ( max-width: 768px ) {
+    .wp-block-llaollao-faqs{
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+@media ( prefers-reduced-motion: reduce ) {
+    .wp-block-llaollao-faqs{
+        --faq-speed: 0s;
+    }
+}

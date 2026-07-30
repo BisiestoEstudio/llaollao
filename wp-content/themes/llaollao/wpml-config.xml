@@ -37,15 +37,14 @@
 			</key>
 		</gutenberg-block>
 
-		<!-- FAQs: pregunta/respuesta de cada item + alt de la imagen -->
-		<gutenberg-block type="bisiesto/faqs" translate="1">
+		<!-- FAQs: pregunta/respuesta de cada item -->
+		<gutenberg-block type="llaollao/faqs" translate="1">
 			<key name="items">
 				<key name="*">
 					<key name="question" />
 					<key name="answer" />
 				</key>
 			</key>
-			<key name="imageAlt" />
 		</gutenberg-block>
 
 		<!-- Location: dirección y horario -->
