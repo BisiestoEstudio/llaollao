@@ -65,9 +65,8 @@
 .wp-block-bisiesto-history .history__nav-link {
    flex: 0 0 auto;
    white-space: nowrap;
-   font-family: var(--wp--preset--font-family--bree);
-   font-size: var(--wp--preset--font-size--h4, 24px);
-   font-weight: 700;
+   font-size: var(--wp--preset--font-size--s);
+   font-weight: 600;
 }
 
 /* El año activo (el que está a la vista) se queda como el hover de button-tag:
@@ -142,4 +141,44 @@
    pointer-events: none;
    -webkit-user-drag: none;
    user-select: none;
+}
+
+/* Móvil: un ítem ocupa toda la ventana (solo se ve el siguiente si se hace
+   scroll), sin el hueco inicial de alineación con el contenido; y el año pasa
+   de vertical a la izquierda a horizontal arriba (sin el zigzag, que era cosa
+   del layout en fila). */
+@media (max-width: 768px) {
+   .wp-block-bisiesto-history.alignfull .history__items::before {
+      flex-basis: 0;
+   }
+
+   .wp-block-bisiesto-history .history__items {
+      gap: 0;
+   }
+
+   .wp-block-bisiesto-history .history-item {
+      flex: 0 0 100%;
+      max-width: 100%;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+   }
+
+   .wp-block-bisiesto-history .history-item__year {
+      writing-mode: horizontal-tb;
+      transform: none;
+   }
+
+   .wp-block-bisiesto-history .history-item:nth-child(odd) .history-item__year,
+   .wp-block-bisiesto-history .history-item:nth-child(even) .history-item__year {
+      align-self: flex-start;
+   }
+   .wp-block-bisiesto-history .history__nav-line {
+      flex: 0 0 8px;
+   }
+   .wp-block-bisiesto-history.alignfull .history__nav::before,
+   .wp-block-bisiesto-history.alignfull .history__items::before {
+      flex: 0 0 max(1rem, calc((100vw - var(--wp--style--global--content-size, 1399px)) / 2));
+   }
 }
