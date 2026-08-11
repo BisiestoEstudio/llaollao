@@ -124,13 +124,13 @@ header.wp-block-template-part {
 	pointer-events: auto;
 }
 
-/* Mitad izquierda: el listado de siempre, ahora ocupando solo medio ancho.
+/* Mitad izquierda: el listado de siempre, ahora al 60% del ancho.
    box-sizing: border-box porque el tema no lo pone global (ver theme-no-
-   global-border-box): si no, el padding se suma al 50% y desborda. */
+   global-border-box): si no, el padding se suma encima y desborda. */
 .site-header__menu-left {
 	box-sizing: border-box;
-	flex: 0 0 50%;
-	max-width: 50%;
+	flex: 0 0 40%;
+	max-width: 40%;
 	display: flex;
 	align-items: center;
 	padding-left: 4rem;
@@ -165,8 +165,8 @@ header.wp-block-template-part {
 .site-header__menu-right {
 	box-sizing: border-box;
 	position: relative;
-	flex: 0 0 50%;
-	max-width: 50%;
+	flex: 0 0 60%;
+	max-width: 60%;
 	overflow: hidden;
 	padding: 6rem 4rem 0;
 }
@@ -200,6 +200,7 @@ header.wp-block-template-part {
 	grid-template-columns: repeat(3, 1fr);
 	gap: 16px;
 	height: 100%;
+	padding: 0 10%;
 }
 
 .site-header__panel-grid-col {
@@ -226,16 +227,21 @@ header.wp-block-template-part {
 	border-radius: 8px;
 }
 
-/* Panel "Scroll vertical": una columna, zigzag (izq/der alternando). */
+/* Panel "Scroll vertical": una columna, zigzag (izq/der alternando), centrada
+   en el panel (la columna tiene ancho propio; si no, ocupa todo el ancho
+   disponible y el zigzag queda pegado a los bordes en vez de como bloque). */
 .site-header__panel-scroll-vertical {
 	height: 100%;
-	max-width: 380px;
 	overflow: hidden;
+	padding: 0 10%;
+	display: flex;
+	justify-content: center;
 }
 
 .site-header__panel-scroll-vertical-track {
 	display: flex;
 	flex-direction: column;
+	width: 260px;
 	gap: 16px;
 	animation: site-header-panel-scroll-y 30s linear infinite;
 	will-change: transform;
@@ -254,6 +260,7 @@ header.wp-block-template-part {
 	width: 100%;
 	height: auto;
 	border-radius: 8px;
+	max-width: fit-content;
 }
 
 /* Panel "Scroll oblicuo": una columna a 15°. El wrapper va sobredimensionado
@@ -262,6 +269,7 @@ header.wp-block-template-part {
 	position: relative;
 	height: 100%;
 	overflow: hidden;
+	padding: 0 10%;
 }
 
 .site-header__panel-scroll-oblique-rotate {
@@ -296,6 +304,7 @@ header.wp-block-template-part {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	padding: 0 10%;
 }
 
 .site-header__panel-children-row {
@@ -311,12 +320,11 @@ header.wp-block-template-part {
 	color: var(--wp--preset--color--marron);
 	font-family: var(--wp--preset--font-family--bree);
 	font-size: var(--wp--preset--font-size--h-2-cards);
-	font-weight: 400;
+	font-weight: 700;
 }
 
 .site-header__panel-children-text:hover {
 	color: var(--wp--preset--color--verde);
-	font-weight: 700;
 }
 
 .site-header__panel-children-image {
@@ -458,6 +466,8 @@ body:has(.site-header.is-open) {
 		flex: 1 1 100%;
 		max-width: 100%;
 		padding-left: 1rem;
+		align-items: flex-start;
+		padding-top: 16vh;
 	}
 
 	.site-header__menu-right {

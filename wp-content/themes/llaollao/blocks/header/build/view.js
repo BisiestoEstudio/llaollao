@@ -65,7 +65,6 @@ function initMenuPanels() {
 	document.querySelectorAll( '.site-header__menu-overlay' ).forEach( function ( overlay ) {
 		const links  = overlay.querySelectorAll( '.site-header__menu-list a[data-menu-item]' );
 		const panels = overlay.querySelectorAll( '.site-header__menu-panel' );
-		const list   = overlay.querySelector( '.site-header__menu-list' );
 		if ( ! links.length || ! panels.length ) return;
 
 		function activate( id ) {
@@ -83,11 +82,13 @@ function initMenuPanels() {
 			} );
 		} );
 
-		if ( list ) {
-			list.addEventListener( 'mouseleave', function () {
-				activate( null );
-			} );
-		}
+		// En el overlay entero (no solo en el <ul>): si limpiáramos al salir
+		// del listado, mover el ratón desde un padre hasta el panel de la
+		// derecha (para llegar a sus hijos) desactivaría el panel a mitad de
+		// camino, antes de llegar a él.
+		overlay.addEventListener( 'mouseleave', function () {
+			activate( null );
+		} );
 	} );
 }
 
