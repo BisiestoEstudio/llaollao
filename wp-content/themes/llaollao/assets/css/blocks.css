@@ -5,6 +5,11 @@ var(--wp--preset--font-family--bree)
  */
 html {
 	scroll-behavior: smooth;
+	/* Fuerza la scrollbar siempre visible: si no, al abrir el menú
+	   hamburguesa (body con overflow:hidden) la scrollbar desaparece, el
+	   viewport se ensancha esos ~15px y todo el contenido fixed/centrado
+	   (cabecera, overlay del menú) da un salto hacia la derecha. */
+	overflow-y: scroll;
 }
 
 body {
@@ -175,6 +180,31 @@ h5,
 	position: relative;
 	left: calc(50% - min(860px, 50vw - 2rem));
 	box-sizing: border-box;
+}
+
+/* Aire lateral del contenido. Por encima de 1428px no hace falta: el contenido
+   está topado en los 1399px de contentSize y sobra sitio a los lados. Por
+   debajo, llega al borde de la ventana, así que se le dan 16px.
+
+   Va sobre los hijos directos de <main> y no sobre los de .entry-content para
+   que valga en todas las plantillas: en el blog, la cabecera del post, la
+   imagen destacada y el índice cuelgan de <main>, y home/category ni siquiera
+   tienen post-content. Al ir en un solo nivel tampoco se acumula: lo que hay
+   dentro de post-content ya entra desplazado por el padding de su envoltorio.
+
+   Se excluyen alignfull y alignwide a propósito: los dos se maquetan contra el
+   ancho de la ventana (100vw / min(wide-size, 100vw - 4rem)) en las reglas de
+   aquí arriba y no deben llevar padding. Ojo, ambos siguen cuadrando aunque su
+   padre lo tenga, porque sus cálculos van con porcentajes del contenedor y se
+   compensan solos.
+
+   Va en :where() para dejar la especificidad en (0,1,0) y que cualquier bloque
+   pueda pisarlo con una sola clase. */
+@media (max-width: 1428px) {
+	.wp-site-blocks > main > :where(:not(.alignfull):not(.alignwide)) {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
 }
 
 .wp-block-button:not([class*="is-style-"]) .wp-block-button__link,
@@ -615,10 +645,6 @@ form label + select {
 	gap: 1rem;
 }
 
-/* ----- Formulario a dos columnas: campos | consentimientos ----- */
-/* La columna de consentimientos nunca pasa de 265px; el resto del ancho se lo
-   queda la de campos. minmax(0, …) en vez de una medida fija para que en
-   pantallas estrechas pueda encoger. */
 .wpcf7-form .form-split {
 	display: grid;
 	grid-template-columns: 1fr minmax(0, 265px);
@@ -626,7 +652,6 @@ form label + select {
 	align-items: start;
 }
 
-/* Los campos cortos, de dos en dos. */
 .wpcf7-form .form-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -634,8 +659,6 @@ form label + select {
 	margin-bottom: 10px;
 }
 
-/* Dentro de la rejilla manda el gap: el margen inferior que lleva de serie el
-   envoltorio de campo se sumaría encima y descuadraría los 20px. */
 .wpcf7-form .form-grid label span.wpcf7-form-control-wrap {
 	margin-bottom: 0;
 }
@@ -646,10 +669,6 @@ form label + select {
 	justify-content: flex-end;
 }
 
-/* CF7 oculta el spinner con visibility:hidden, que sigue ocupando su caja
-   (24px + 24px de margen a cada lado): son ~72px muertos que separan el botón
-   del borde derecho. Lo sacamos del flujo en reposo y lo devolvemos solo
-   mientras se envía, para no perder el aviso de carga. */
 .wpcf7-form .form-actions .wpcf7-spinner {
 	display: none;
 }
@@ -663,16 +682,12 @@ form label + select {
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	/* Local y no global: el tema no trae border-box para todo, y sin esto los
-	   30px de padding se sumarían al ancho de la columna del grid. */
 	box-sizing: border-box;
 	padding: 20px 30px;
 	border: 1px solid var(--wp--preset--color--marron);
 	border-radius: var(--wp--custom--radius--m);
 }
 
-/* El envoltorio de un [acceptance] no va dentro de la etiqueta, así que no le
-   alcanza la regla de display:block de más arriba. */
 .wpcf7-form .form-consent .wpcf7-form-control-wrap {
 	display: block;
 }

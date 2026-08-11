@@ -1,20 +1,8 @@
-/* Bloque "Carta": nube de etiquetas de Tipo arriba y mosaico de productos a dos
-   columnas debajo. El escalonado tipo masonry no necesita JS: el mosaico es un
-   multi-columna de CSS y cada card trae su alto (745 / 504 / 660px) en línea
-   desde render.php, así que las columnas se desfasan solas. */
 .wp-block-llaollao-carta {
-	/* Respaldo por si el bloque se pinta sin los estilos en línea del wrapper. */
 	--llao-carta-gap: 20px;
-	/* Factor sobre el alto de cada card. En escritorio manda el valor de
-	   diseño; en móvil se reduce desde aquí (ver abajo) sin tocar el HTML. */
 	--llao-carta-scale: 1;
-	/* Padding y no margin: los global styles traen
-	   `:root :where(.is-layout-constrained) > :last-child{margin-block-end:0}`
-	   (0,2,0), que se comería el margen de abajo si la carta cierra la página. */
 	padding-block: 2rem;
 }
-
-/* --- Nube de etiquetas ------------------------------------------------- */
 
 .wp-block-llaollao-carta .llao-carta__filters {
 	display: flex;
@@ -23,9 +11,6 @@
 	margin-bottom: 2.5rem;
 }
 
-/* Las etiquetas reutilizan .button-tag del tema (pill con relleno verde que
-   sube al hover). Al ser <button> y no <a>, hay que devolverles la tipografía:
-   los botones no heredan la fuente del documento. */
 .wp-block-llaollao-carta .llao-carta__filter {
 	font-family: var(--wp--preset--font-family--neue-haas-grotesk-text-pro);
 	font-size: var(--wp--preset--font-size--s, 16px);
@@ -36,9 +21,6 @@
 	appearance: none;
 }
 
-/* La etiqueta activa se queda en el estado final del hover de .button-tag:
-   relleno verde completo, borde verde y el texto blanco ya revelado. Mismo
-   truco que la nav de años del bloque history. */
 .wp-block-llaollao-carta .llao-carta__filter.is-active {
 	border-color: var(--wp--preset--color--verde);
 }
@@ -51,16 +33,11 @@
 	clip-path: inset(0 0 0 0);
 }
 
-/* --- Mosaico ----------------------------------------------------------- */
-
 .wp-block-llaollao-carta .llao-carta__grid {
 	column-count: 2;
 	column-gap: var(--llao-carta-gap);
 }
 
-/* break-inside: avoid es lo que impide que una card se parta entre el pie de
-   una columna y la cabeza de la siguiente. El margin-bottom hace de separación
-   vertical: en multi-columna no hay row-gap que valga para los hijos. */
 .wp-block-llaollao-carta .llao-carta__card {
 	position: relative;
 	display: block;
@@ -68,23 +45,17 @@
 	height: calc(var(--llao-carta-card-h, 660px) * var(--llao-carta-scale));
 	margin-bottom: var(--llao-carta-gap);
 	overflow: hidden;
-	border-radius: 9px; /* mismo radio que side-images, el slider y el footer */
+	border-radius: 9px;
 	background-color: var(--wp--preset--color--beige);
 	text-decoration: none;
 	break-inside: avoid;
 	-webkit-column-break-inside: avoid; /* Safari antiguo */
 }
 
-/* Card de apertura: ocupa las dos columnas. column-span es de multi-columna y
-   hace justo esto —parte el flujo, se pone a todo el ancho y lo que viene
-   detrás sigue repartiéndose en dos columnas debajo—, así que no hace falta
-   sacarla del mosaico ni maquetarla aparte. */
 .wp-block-llaollao-carta .llao-carta__card.is-wide {
 	column-span: all;
 }
 
-/* Card oculta por el filtro. Con display:none el multi-columna recoloca el
-   resto solo, que es justo lo que se busca al pulsar una etiqueta. */
 .wp-block-llaollao-carta .llao-carta__card.is-hidden {
 	display: none;
 }
@@ -106,8 +77,6 @@
 	transform: scale(1.04);
 }
 
-/* Título sobre la imagen. El degradado sube desde abajo para que el texto se
-   lea siempre, tenga la foto que tenga detrás. */
 .wp-block-llaollao-carta .llao-carta__body {
 	position: absolute;
 	inset: auto 0 0 0;
@@ -115,9 +84,6 @@
 	background-image: linear-gradient(to top, rgba(18, 18, 18, 0.65), transparent);
 }
 
-/* El slug "h2-cards" de theme.json se emite como --h-2-cards: WordPress separa
-   letra y dígito en tokens al pasar el slug a kebab. Sin ese guion la var no
-   existe y el tamaño se cae al fallback sin avisar. */
 .wp-block-llaollao-carta .llao-carta__title {
 	margin: 0;
 	color: var(--wp--preset--color--crema);
@@ -127,8 +93,6 @@
 	line-height: 1.1;
 }
 
-/* Aviso de "sin resultados": lo enseña view.js quitando el atributo hidden
-   cuando el filtro activo no deja ninguna card a la vista. */
 .wp-block-llaollao-carta .llao-carta__empty {
 	margin: 0;
 	color: var(--wp--preset--color--marron);

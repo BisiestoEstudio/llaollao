@@ -2,8 +2,11 @@
 /**
  * Registro de Custom Post Types del proyecto.
  *
- * Los CPTs tienen vista de single en el front, pero no generan un archivo
- * (index) ni pertenecen a ninguna taxonomía. Se gestionan desde el admin.
+ * - Producto: tiene vista de single en el front, pero no genera archivo (index).
+ * - Local: no se asoma al front en absoluto (ni single ni archivo); existe solo
+ *   como contenido que consultan los bloques.
+ *
+ * Todos se gestionan desde el admin.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -48,5 +51,42 @@ function llao_register_post_types() {
 		'menu_icon'    => llao_helado_icon(),
 		'supports'     => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' ),
 		'rewrite'      => array( 'slug' => 'productos' ),
+	) );
+
+	// Locales.
+	//
+	// No es público: no tiene single ni archivo en el front, no entra en la
+	// búsqueda y no reserva ninguna URL. Aun así se administra con normalidad
+	// (show_ui) y se puede consultar desde el código: WP_Query no distingue
+	// entre público y privado, así que un bloque puede listar locales sin
+	// problema. show_in_rest sí hace falta: es lo que permite al editor de
+	// bloques leerlos (por ejemplo con useSelect) y da el editor moderno en la
+	// ficha.
+	register_post_type( 'local', array(
+		'labels'             => array(
+			'name'               => __( 'Locales', 'llaollao-core' ),
+			'singular_name'      => __( 'Local', 'llaollao-core' ),
+			'menu_name'          => __( 'Locales', 'llaollao-core' ),
+			'add_new'            => __( 'Añadir nuevo', 'llaollao-core' ),
+			'add_new_item'       => __( 'Añadir nuevo local', 'llaollao-core' ),
+			'edit_item'          => __( 'Editar local', 'llaollao-core' ),
+			'new_item'           => __( 'Nuevo local', 'llaollao-core' ),
+			'view_item'          => __( 'Ver local', 'llaollao-core' ),
+			'search_items'       => __( 'Buscar locales', 'llaollao-core' ),
+			'not_found'          => __( 'No se han encontrado locales', 'llaollao-core' ),
+			'not_found_in_trash' => __( 'No hay locales en la papelera', 'llaollao-core' ),
+		),
+		'public'             => false,
+		'publicly_queryable' => false,
+		'exclude_from_search' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'show_in_rest'       => true,
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_icon'          => 'dashicons-location',
+		'supports'           => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
+		'rewrite'            => false,
+		'query_var'          => false,
 	) );
 }

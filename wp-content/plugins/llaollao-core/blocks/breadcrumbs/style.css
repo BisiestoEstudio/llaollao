@@ -1,10 +1,3 @@
-/* Tipografía común de las migas. El color base es el marrón aclarado, que
-   heredan enlaces y separadores; solo el escalón actual va en marrón entero.
-
-   Nota: no hay preset "marron-light" en la paleta (existen verde-light y
-   gris-light, pero de marrón solo marron), así que se aclara mezclándolo con
-   blanco. Al partir de la variable, si el marrón cambia en theme.json este
-   tono le sigue. */
 .llao-breadcrumbs {
 	font-family: var(--wp--preset--font-family--souvenir-std);
 	font-size: var(--wp--preset--font-size--s, 16px);
@@ -28,8 +21,6 @@
 	gap: .5em;
 }
 
-/* color:inherit para que el enlace tome el tono de las migas y no el color de
-   enlace de los global styles. */
 .llao-breadcrumbs__link {
 	color: inherit;
 	text-decoration: none;
@@ -40,10 +31,6 @@
 	text-decoration: underline;
 }
 
-/* El escalón actual, en marrón entero. Se apunta por aria-current y no por la
-   clase __current: render.php le pone esa clase a cualquier escalón sin enlace
-   (un ancestro en borrador, por ejemplo), mientras que aria-current="page"
-   marca solo el último, que es el actual de verdad. */
 .llao-breadcrumbs [aria-current="page"] {
 	color: var(--wp--preset--color--marron);
 }

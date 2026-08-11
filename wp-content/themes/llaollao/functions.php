@@ -6,6 +6,8 @@
 // Block registration
 require_once get_theme_file_path( 'includes/blocks.php' );
 require_once get_theme_file_path( 'includes/lang-switcher.php' );
+require_once get_theme_file_path( 'includes/menu-item-fields.php' );
+require_once get_theme_file_path( 'includes/menu-panels.php' );
 
 /**
  * Enqueue block styles (frontend)
@@ -40,6 +42,17 @@ add_action( 'after_setup_theme', function () {
 		'width'       => 98,
 		'flex-width'  => false,
 		'flex-height' => true,
+	] );
+} );
+
+/**
+ * Menú del overlay a pantalla completa del header (botón hamburguesa),
+ * gestionable en Apariencia → Menús. Independiente del bloque de navegación
+ * que ya lleva el header (blocks/header/render.php).
+ */
+add_action( 'after_setup_theme', function () {
+	register_nav_menus( [
+		'menu-hamburguesa' => __( 'Menú hamburguesa (pantalla completa)', 'bisiesto' ),
 	] );
 } );
 

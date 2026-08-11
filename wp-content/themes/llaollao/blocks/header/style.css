@@ -44,6 +44,8 @@ header.wp-block-template-part {
 }
 
 .site-header__bar {
+	position: relative;
+	z-index: 2;
 	display: flex;
 	align-items: center;
 	gap: 2rem;
@@ -82,19 +84,278 @@ header.wp-block-template-part {
 	flex-shrink: 0;
 }
 
-.site-header__hamburger {
-	display: none;
+.site-header__menu-toggle {
+	display: flex;
+	align-items: center;
 	background: none;
 	border: none;
 	cursor: pointer;
 	padding: 0.25rem;
-	color: currentColor;
 	line-height: 0;
 	flex-shrink: 0;
 }
 
-.site-header__close-icon {
+.site-header__menu-toggle-icon--close {
 	display: none;
+}
+
+.site-header.is-open .site-header__menu-toggle-icon--open {
+	display: none;
+}
+
+.site-header.is-open .site-header__menu-toggle-icon--close {
+	display: block;
+}
+
+.site-header__menu-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 1;
+	display: flex;
+	align-items: stretch;
+	background: var(--wp--preset--color--crema);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.25s ease;
+}
+
+.site-header.is-open .site-header__menu-overlay {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+/* Mitad izquierda: el listado de siempre, ahora ocupando solo medio ancho.
+   box-sizing: border-box porque el tema no lo pone global (ver theme-no-
+   global-border-box): si no, el padding se suma al 50% y desborda. */
+.site-header__menu-left {
+	box-sizing: border-box;
+	flex: 0 0 50%;
+	max-width: 50%;
+	display: flex;
+	align-items: center;
+	padding-left: 4rem;
+}
+
+.site-header__menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+	text-align: left;
+}
+
+.site-header__menu-list a {
+	text-decoration: none;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-2-cards);
+	font-weight: 400;
+}
+
+.site-header__menu-list a:hover {
+	color: var(--wp--preset--color--verde);
+	font-weight: 700;
+}
+
+/* Mitad derecha: contenedor de paneles apilados; el hover en un item de la
+   izquierda añade .is-active al panel con el mismo data-menu-item (JS). */
+.site-header__menu-right {
+	box-sizing: border-box;
+	position: relative;
+	flex: 0 0 50%;
+	max-width: 50%;
+	overflow: hidden;
+	padding: 6rem 4rem 0;
+}
+
+.site-header__menu-panel {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease;
+}
+
+.site-header__menu-panel.is-active {
+	opacity: 1;
+	visibility: visible;
+}
+
+@keyframes site-header-panel-scroll-y {
+	from {
+		transform: translateY(0);
+	}
+	to {
+		transform: translateY(calc(-50% - 8px));
+	}
+}
+
+/* Panel "Grid": 3 columnas, igual que el bloque Landing (centro sube, lados
+   bajan; cada pista duplicada x2 para el loop sin costura). */
+.site-header__panel-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+	height: 100%;
+}
+
+.site-header__panel-grid-col {
+	overflow: hidden;
+}
+
+.site-header__panel-grid-track {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	animation: site-header-panel-scroll-y 30s linear infinite;
+	will-change: transform;
+}
+
+.site-header__panel-grid-col--down .site-header__panel-grid-track {
+	animation-direction: reverse;
+}
+
+.site-header__panel-grid-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	flex: 0 0 auto;
+	border-radius: 8px;
+}
+
+/* Panel "Scroll vertical": una columna, zigzag (izq/der alternando). */
+.site-header__panel-scroll-vertical {
+	height: 100%;
+	max-width: 380px;
+	overflow: hidden;
+}
+
+.site-header__panel-scroll-vertical-track {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	animation: site-header-panel-scroll-y 30s linear infinite;
+	will-change: transform;
+}
+
+.site-header__panel-scroll-vertical-item {
+	width: 70%;
+}
+
+.site-header__panel-scroll-vertical-item--right {
+	align-self: flex-end;
+}
+
+.site-header__panel-scroll-vertical-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+/* Panel "Scroll oblicuo": una columna a 15°. El wrapper va sobredimensionado
+   (inset negativo) para que, al rotar, no queden huecos en las esquinas. */
+.site-header__panel-scroll-oblique {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+
+.site-header__panel-scroll-oblique-rotate {
+	position: absolute;
+	inset: -25%;
+	display: flex;
+	justify-content: center;
+	transform: rotate(15deg);
+}
+
+.site-header__panel-scroll-oblique-track {
+	display: flex;
+	flex-direction: column;
+	width: 260px;
+	gap: 16px;
+	animation: site-header-panel-scroll-y 30s linear infinite;
+	will-change: transform;
+}
+
+.site-header__panel-scroll-oblique-img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Panel de hijos: cuando el item tiene submenú, se listan sus hijos con scroll
+   normal del navegador (texto a la izquierda, imagen destacada del hijo a la
+   derecha), sin animación ni contenido duplicado. */
+.site-header__panel-children {
+	height: 100%;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.site-header__panel-children-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.site-header__panel-children-text {
+	min-width: 0;
+	text-decoration: none;
+	color: var(--wp--preset--color--marron);
+	font-family: var(--wp--preset--font-family--bree);
+	font-size: var(--wp--preset--font-size--h-2-cards);
+	font-weight: 400;
+}
+
+.site-header__panel-children-text:hover {
+	color: var(--wp--preset--color--verde);
+	font-weight: 700;
+}
+
+.site-header__panel-children-image {
+	flex: 0 1 auto;
+	max-width: 40%;
+}
+
+.site-header__panel-children-img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	border-radius: 8px;
+}
+
+/* Panel "Imagen destacada": estática, sin loop. Tamaño natural (nunca se
+   estira más allá de su propio tamaño), solo encoge si no cabe. */
+.site-header__panel-featured {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.site-header__panel-featured-img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	border-radius: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.site-header__panel-grid-track,
+	.site-header__panel-scroll-vertical-track,
+	.site-header__panel-scroll-oblique-track {
+		animation: none;
+	}
 }
 
 .site-header__lang {
@@ -168,6 +429,14 @@ header.wp-block-template-part {
 		padding-left: 2rem;
 		padding-right: 2rem;
 	}
+
+	.site-header__menu-left {
+		padding-left: 2rem;
+	}
+
+	.site-header__menu-right {
+		padding: 4rem 2rem;
+	}
 }
 
 body:has(.site-header.is-open) {
@@ -185,14 +454,24 @@ body:has(.site-header.is-open) {
 		padding-right: 1rem;
 	}
 
+	.site-header__menu-left {
+		flex: 1 1 100%;
+		max-width: 100%;
+		padding-left: 1rem;
+	}
+
+	.site-header__menu-right {
+		display: none;
+	}
+
 	.wp-block-bisiesto-megamenu {
 		width: 100%;
 	}
 
 	.site-header__bar {
 		position: relative;
-		justify-content: space-between;
-		gap: 0;
+		justify-content: flex-end;
+		gap: 0.75rem;
 	}
 
 	.site-header__logo {
@@ -203,49 +482,6 @@ body:has(.site-header.is-open) {
 	}
 
 	.site-header__nav {
-		position: absolute;
-		/* 100dvh (no 100vh): la barra del navegador en móvil hace que 100vh
-		   sobresalga por debajo del área visible y el final del menú (con todo
-		   desplegado) queda fuera de pantalla, sin poder llegar con scroll. */
-		height: calc(100vh - var(--header-height));
-		/* fallback */
-		height: calc(100dvh - var(--header-height));
-		top: 100%;
-		left: -1rem;
-		right: -1rem;
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: start;
-		background: white;
-		padding: 1rem 1rem 2rem;
-		/* aire extra abajo para el último item */
-		border-top: 1px solid rgba(0, 0, 0, 0.08);
-		overflow-y: auto;
-		overscroll-behavior: contain;
-		-webkit-overflow-scrolling: touch;
-		opacity: 0;
-		pointer-events: none;
-		transform: translateY(-6px);
-		transition: opacity 0.25s ease, transform 0.25s ease;
-		z-index: 99;
-	}
-
-	.site-header.is-open .site-header__nav {
-		opacity: 1;
-		pointer-events: auto;
-		transform: translateY(0);
-	}
-
-	.site-header__hamburger {
-		display: flex;
-		align-items: center;
-	}
-
-	.site-header.is-open .site-header__hamburger-icon {
 		display: none;
-	}
-
-	.site-header.is-open .site-header__close-icon {
-		display: block;
 	}
 }

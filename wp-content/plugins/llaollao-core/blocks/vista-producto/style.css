@@ -1,7 +1,3 @@
-/* Bloque "Vista producto con slide vertical": fila de hermanos arriba y, debajo,
-   tres columnas repartidas con space-between. Izquierda (tope 400px) título +
-   descripción + variantes + alérgenos; centro la pieza grande (tope 30%);
-   derecha la tira vertical de miniaturas que la cambia. */
 .wp-block-llaollao-vista-producto {
 	--llao-vista-gap: 7%;
 	--llao-vista-left: 400px;
@@ -11,10 +7,6 @@
 	padding-block: 1.5rem;
 }
 
-/* --- Hermanos ---------------------------------------------------------- */
-
-/* El marcador va fuera de la pista, así que se queda quieto a la izquierda
-   mientras las etiquetas se desplazan. */
 .wp-block-llaollao-vista-producto .llao-vista__siblings {
 	display: flex;
 	align-items: center;
@@ -26,16 +18,11 @@
 	flex: 0 0 16px;
 	width: 16px;
 	height: 16px;
-	/* Mismo criterio que el galón de los alérgenos: data URI con el # del color
-	   escapado a %23, porque sin escapar el navegador lo lee como fragmento de
-	   URL y el icono no carga. */
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
-/* Pista en una sola línea: lo que no cabe se pierde por la derecha y se llega a
-   ello arrastrando o con gesto lateral. La barra va oculta a propósito. */
 .wp-block-llaollao-vista-producto .llao-vista__siblings-track {
 	flex: 1 1 auto;
 	min-width: 0;
@@ -44,7 +31,7 @@
 	gap: 0.625rem; /* 10px */
 	overflow-x: auto;
 	overflow-y: hidden;
-	overscroll-behavior-x: contain; /* que el gesto no navegue atrás */
+	overscroll-behavior-x: contain;
 	scrollbar-width: none; /* Firefox */
 	-webkit-overflow-scrolling: touch;
 	cursor: grab;
@@ -54,10 +41,6 @@
 	display: none; /* Chrome/Safari */
 }
 
-/* Que la pista llegue al borde derecho de la pantalla en vez de cortarse en el
-   de la columna de contenido. Mismo espejo del margin-left del .alignfull del
-   tema que usan history e image-slider; se excluye alignfull, donde el wrapper
-   ya ocupa todo el ancho y este margen duplicaría el sangrado. */
 .wp-block-llaollao-vista-producto:not(.alignfull) .llao-vista__siblings-track {
 	margin-right: calc(50% - 50vw);
 }
@@ -67,9 +50,6 @@
 	user-select: none;
 }
 
-/* Ni se encogen ni parten el texto: es lo que hace que se salgan de la fila en
-   lugar de apretarse unas contra otras. En reposo van en verde, no en el marrón
-   que trae .button-tag; el hover no cambia. */
 .wp-block-llaollao-vista-producto .llao-vista__sibling {
 	flex: 0 0 auto;
 	white-space: nowrap;
@@ -78,9 +58,6 @@
 	color: var(--wp--preset--color--verde);
 }
 
-/* El hermano actual se queda en el estado final del hover de .button-tag:
-   relleno verde, borde verde y texto blanco ya revelado. Mismo recurso que la
-   nav de años de history y los filtros de carta. */
 .wp-block-llaollao-vista-producto .llao-vista__sibling.is-active {
 	border-color: var(--wp--preset--color--verde);
 	pointer-events: none;
@@ -94,12 +71,6 @@
 	clip-path: inset(0 0 0 0);
 }
 
-/* --- Tres columnas ------------------------------------------------------ */
-
-/* Izquierda el texto, centro la pieza grande y derecha la tira. Reparto con
-   space-between; el gap actúa de separación mínima, para que las columnas no
-   se toquen cuando no sobra espacio que repartir. El gap en % de un flex se
-   resuelve contra el ancho del contenedor, que es lo que se busca aquí. */
 .wp-block-llaollao-vista-producto .llao-vista__cols {
 	display: flex;
 	align-items: flex-start;
@@ -107,14 +78,11 @@
 	gap: var(--llao-vista-gap);
 }
 
-/* Izquierda: nunca pasa de 400px, pero puede encoger si no cabe. */
 .wp-block-llaollao-vista-producto .llao-vista__info {
 	flex: 0 1 var(--llao-vista-left);
 	max-width: var(--llao-vista-left);
 	min-width: 0;
 }
-
-/* --- Columna izquierda -------------------------------------------------- */
 
 .wp-block-llaollao-vista-producto .llao-vista__title {
 	margin: 0 0 1rem;
@@ -130,17 +98,12 @@
 .wp-block-llaollao-vista-producto .llao-vista__variantes {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.625rem; /* 10px */
+	gap: 0.625rem;
 	margin: 0 0 1.5rem;
 	padding: 0;
 	list-style: none;
 }
 
-/* Misma pastilla que las etiquetas de hermanos de arriba: la cápsula y el
-   relleno verde del hover los pone .button-tag. Aquí, además del tamaño y el
-   respiro, el color de reposo pasa a verde en lugar del marrón que trae por
-   defecto. El hover no cambia: el relleno sube igual y el texto se revela en
-   blanco. El cursor se queda en default: no son enlaces. */
 .wp-block-llaollao-vista-producto .llao-vista__variante {
 	padding: 0.25rem 1rem;
 	font-size: var(--wp--preset--font-size--m, 18px);
@@ -244,8 +207,6 @@
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__thumb {
-	/* Devuelve el sentido normal: el rtl del contenedor es solo para sacar la
-	   barra a la izquierda y no debe heredarse al contenido. */
 	direction: ltr;
 	flex: 0 0 auto;
 	position: relative;
@@ -254,8 +215,6 @@
 	aspect-ratio: 1 / 1;
 	padding: 0;
 	overflow: hidden;
-	/* border:0 explícito: es un <button> y, sin esto, saldría el borde que le
-	   pone el navegador por defecto. */
 	border: 0;
 	border-radius: 9px;
 	background: var(--wp--preset--color--beige);
@@ -268,8 +227,6 @@
 	opacity: 1;
 }
 
-/* La miniatura activa se distingue solo por la opacidad: el resto se quedan
-   atenuadas al 65%. */
 .wp-block-llaollao-vista-producto .llao-vista__thumb.is-active {
 	opacity: 1;
 }
@@ -281,7 +238,6 @@
 	object-fit: cover;
 }
 
-/* Miniatura de un vídeo: marcador de play encima. */
 .wp-block-llaollao-vista-producto .llao-vista__thumb.is-video::after {
 	content: "▶";
 	position: absolute;
@@ -295,40 +251,24 @@
 	pointer-events: none;
 }
 
-/* --- Móvil -------------------------------------------------------------- */
-
 @media (max-width: 781px) {
-	/* En móvil manda la imagen: se apila todo y se reordena para que lo primero
-	   sea la pieza grande, debajo los puntos que la cambian y al final el texto.
-	   El orden del marcado no se toca (ahí el texto va primero, que es el orden
-	   que tiene sentido leído); solo se reordena visualmente con `order`. */
 	.wp-block-llaollao-vista-producto .llao-vista__cols {
 		flex-direction: column;
 		gap: 1.25rem;
 	}
 
-	/* El slide. En móvil las piezas se ponen en fila dentro de la pista y esta
-	   se arrastra con el dedo: es scroll nativo con scroll-snap, así que el
-	   gesto, la inercia y el frenado en cada imagen los pone el navegador. No
-	   hay JS de arrastre; view.js solo lee dónde ha quedado para encender el
-	   punto que toca. */
 	.wp-block-llaollao-vista-producto .llao-vista__stage {
 		order: 1;
 		flex-basis: auto;
 		max-width: none;
 		width: 100%;
 		display: flex;
-		/* flex-start y no el stretch por defecto: con stretch cada pieza tomaría
-		   el alto de la pista, y view.js necesita medir su alto natural para
-		   dárselo a la pista. Sería una pescadilla que se muerde la cola. */
 		align-items: flex-start;
 		overflow-x: auto;
-		overflow-y: hidden; /* recorta la vecina más alta durante el arrastre */
+		overflow-y: hidden;
 		scroll-snap-type: x mandatory;
 		overscroll-behavior-x: contain;
-		scrollbar-width: none; /* la posición ya la cantan los puntos */
-		/* El alto lo pone view.js, el de la pieza activa; la transición evita
-		   que el salto entre una alta y una baja sea seco. */
+		scrollbar-width: none;
 		transition: height 0.3s ease;
 	}
 
@@ -336,8 +276,6 @@
 		display: none;
 	}
 
-	/* En escritorio solo se enseña la activa; aquí conviven todas en la pista,
-	   una por pantalla. */
 	.wp-block-llaollao-vista-producto .llao-vista__media {
 		display: block;
 		flex: 0 0 100%;
@@ -361,36 +299,19 @@
 		font-size: var(--wp--preset--font-size--h-3, 30px);
 	}
 
-	/* La tira de miniaturas se convierte en la paginación del slide: una fila
-	   de puntos centrada, uno por recurso. Son los mismos <button> del
-	   escritorio, así que view.js sigue funcionando sin tocar nada. */
 	.wp-block-llaollao-vista-producto .llao-vista__thumbs {
 		flex: 0 0 auto;
 		width: 100%;
-		/* El tema no trae un box-sizing:border-box global, así que sin esto el
-		   width:100% y el padding de abajo se suman: la fila mediría 100%+48px
-		   y el margen derecho se saldría de la pantalla. */
 		box-sizing: border-box;
 		align-self: auto;
-		max-height: none; /* en fila el tope de 517px no pinta nada */
+		max-height: none;
 		flex-direction: row;
 		gap: 0.5rem;
-		overflow: visible; /* las barras no necesitan desplazamiento */
-		/* De vuelta a ltr: en fila el eje principal sí es horizontal y el rtl
-		   invertiría el orden. Y sin scroll no hay barra que colocar, así que el
-		   1rem que le dejaba hueco en escritorio se sustituye por los 24px de
-		   margen lateral de la fila de botones. */
+		overflow: visible;
 		direction: ltr;
 		padding-inline: 1.5rem; /* 24px */
 	}
 
-	/* Barras alargadas que se reparten el ancho a partes iguales: flex:1 1 0
-	   hace que el reparto salga del ancho disponible, sea cual sea la pantalla
-	   y haya los recursos que haya.
-
-	   El botón hace de área táctil (24px de alto) y la barra visible (7px) se
-	   dibuja dentro con ::before. Un botón de 7px de alto sería un blanco
-	   demasiado fino para un dedo. */
 	.wp-block-llaollao-vista-producto .llao-vista__thumb {
 		flex: 1 1 0;
 		width: auto;
@@ -410,8 +331,6 @@
 		height: 7px;
 		transform: translateY(-50%);
 		border-radius: 22px;
-		/* Beige y no crema: el fondo global del tema es crema, así que una barra
-		   inactiva en crema sería invisible. */
 		background-color: var(--wp--preset--color--beige);
 		transition: background-color 0.3s ease;
 	}
@@ -420,7 +339,6 @@
 		background-color: var(--wp--preset--color--marron);
 	}
 
-	/* Dentro de un punto no cabe ni la miniatura ni el marcador de vídeo. */
 	.wp-block-llaollao-vista-producto .llao-vista__thumb-img,
 	.wp-block-llaollao-vista-producto .llao-vista__thumb.is-video::after {
 		display: none;

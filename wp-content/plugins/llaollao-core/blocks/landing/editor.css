@@ -1,18 +1,11 @@
-/* Solo editor. Las imágenes se quedan quietas mientras se edita: verlas correr
-   estorba para colocar el contenido de la izquierda. */
 .wp-block-llaollao-landing .llao-landing__track {
    animation: none;
 }
 
-/* En el editor no duplicamos las tandas ni recortamos con alto fijo: la
-   columna se ve entera para poder quitar imágenes cómodamente. */
 .wp-block-llaollao-landing .llao-landing__media--editing {
    height: auto;
 }
 
-/* En el front las columnas se ocultan en móvil, pero el editor comparte ese
-   CSS y el lienzo puede ser estrecho: aquí se siguen viendo para poder
-   gestionarlas. */
 @media ( max-width: 768px ) {
    .wp-block-llaollao-landing .llao-landing__media--editing {
       display: grid;
@@ -29,7 +22,6 @@
    height: auto;
 }
 
-/* Botón de quitar, en la esquina de cada miniatura. */
 .wp-block-llaollao-landing .llao-landing__remove {
    position: absolute;
    top: 4px;
@@ -47,7 +39,6 @@
    margin-top: 1rem;
 }
 
-/* Sin imágenes todavía. */
 .wp-block-llaollao-landing .llao-landing__media--empty {
    display: block;
    padding: 2rem;

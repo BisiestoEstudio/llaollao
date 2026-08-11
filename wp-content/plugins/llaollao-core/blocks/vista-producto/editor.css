@@ -1,7 +1,3 @@
-/* Solo editor. La vista previa es un ServerSideRender, así que el bloque ya se
-   ve con los estilos del front; aquí solo se neutraliza lo interactivo, que en
-   el editor no hace nada (view.js no corre) y estorba al seleccionar. */
-
 .editor-styles-wrapper .wp-block-llaollao-vista-producto .llao-vista__thumb,
 .editor-styles-wrapper .wp-block-llaollao-vista-producto .llao-vista__sibling {
 	pointer-events: none;

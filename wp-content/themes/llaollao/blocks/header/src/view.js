@@ -41,23 +41,53 @@ function initHeader() {
 	const headers = document.querySelectorAll( '.site-header' );
 
 	headers.forEach( function ( header ) {
-		const hamburger = header.querySelector( '.site-header__hamburger' );
-		if ( ! hamburger ) return;
+		const toggle = header.querySelector( '.site-header__menu-toggle' );
+		if ( ! toggle ) return;
 
-		hamburger.addEventListener( 'click', function () {
+		toggle.addEventListener( 'click', function () {
 			const isOpen = header.classList.toggle( 'is-open' );
-			hamburger.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
-			hamburger.setAttribute( 'aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú' );
+			toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
+			toggle.setAttribute( 'aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú' );
 		} );
 
 		document.addEventListener( 'keydown', function ( e ) {
 			if ( e.key === 'Escape' && header.classList.contains( 'is-open' ) ) {
 				header.classList.remove( 'is-open' );
-				hamburger.setAttribute( 'aria-expanded', 'false' );
-				hamburger.setAttribute( 'aria-label', 'Abrir menú' );
-				hamburger.focus();
+				toggle.setAttribute( 'aria-expanded', 'false' );
+				toggle.setAttribute( 'aria-label', 'Abrir menú' );
+				toggle.focus();
 			}
 		} );
+	} );
+}
+
+function initMenuPanels() {
+	document.querySelectorAll( '.site-header__menu-overlay' ).forEach( function ( overlay ) {
+		const links  = overlay.querySelectorAll( '.site-header__menu-list a[data-menu-item]' );
+		const panels = overlay.querySelectorAll( '.site-header__menu-panel' );
+		const list   = overlay.querySelector( '.site-header__menu-list' );
+		if ( ! links.length || ! panels.length ) return;
+
+		function activate( id ) {
+			panels.forEach( function ( panel ) {
+				panel.classList.toggle( 'is-active', panel.dataset.menuItem === id );
+			} );
+		}
+
+		links.forEach( function ( link ) {
+			link.addEventListener( 'mouseenter', function () {
+				activate( link.dataset.menuItem );
+			} );
+			link.addEventListener( 'focus', function () {
+				activate( link.dataset.menuItem );
+			} );
+		} );
+
+		if ( list ) {
+			list.addEventListener( 'mouseleave', function () {
+				activate( null );
+			} );
+		}
 	} );
 }
 
@@ -66,9 +96,11 @@ if ( ! ( window.wp && window.wp.blocks ) ) {
 		document.addEventListener( 'DOMContentLoaded', function () {
 			initLangSwitcher();
 			initHeader();
+			initMenuPanels();
 		} );
 	} else {
 		initLangSwitcher();
 		initHeader();
+		initMenuPanels();
 	}
 }

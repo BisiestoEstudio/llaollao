@@ -77,6 +77,50 @@ function llao_settings_init() {
 		'llaollao-core-settings',
 		'llao_settings_paginas'
 	);
+
+	// Integraciones.
+	register_setting( 'llao_settings', 'llao_geocoding_api_key', array(
+		'type'              => 'string',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => '',
+		'show_in_rest'      => false,
+	) );
+
+	add_settings_section(
+		'llao_settings_integraciones',
+		__( 'Integraciones', 'llaollao-core' ),
+		'__return_false',
+		'llaollao-core-settings'
+	);
+
+	add_settings_field(
+		'llao_geocoding_api_key',
+		__( 'Clave de Geocoding API', 'llaollao-core' ),
+		'llao_field_geocoding_key',
+		'llaollao-core-settings',
+		'llao_settings_integraciones'
+	);
+}
+
+function llao_field_geocoding_key() {
+
+	// Si está en wp-config.php manda esa y el campo se muestra bloqueado: así
+	// se ve de dónde sale el valor en lugar de parecer que no hay ninguna.
+	if ( defined( 'LLAO_GEOCODING_API_KEY' ) && LLAO_GEOCODING_API_KEY ) {
+		echo '<input type="text" class="regular-text" value="' . esc_attr( __( '(definida en wp-config.php)', 'llaollao-core' ) ) . '" disabled>';
+		echo '<p class="description">'
+			. esc_html__( 'La constante LLAO_GEOCODING_API_KEY tiene preferencia sobre este campo.', 'llaollao-core' )
+			. '</p>';
+		return;
+	}
+
+	printf(
+		'<input type="text" class="regular-text" name="llao_geocoding_api_key" id="llao_geocoding_api_key" value="%s" autocomplete="off">',
+		esc_attr( (string) get_option( 'llao_geocoding_api_key', '' ) )
+	);
+	echo '<p class="description">'
+		. esc_html__( 'Clave de servidor con la Geocoding API activada; se usa al importar locales para obtener sus coordenadas. Restríngela por IP, no por dominio: la llama PHP, no el navegador. Mejor aún, defínela en wp-config.php como LLAO_GEOCODING_API_KEY para que no quede en la base de datos.', 'llaollao-core' )
+		. '</p>';
 }
 
 function llao_field_carta_page() {

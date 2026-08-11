@@ -35,4 +35,28 @@ function llao_register_taxonomies() {
 		'rewrite'            => false,
 		'query_var'          => false,
 	) );
+
+	// País (del local).
+	register_taxonomy( 'pais', 'local', array(
+		'labels'             => array(
+			'name'          => __( 'Países', 'llaollao-core' ),
+			'singular_name' => __( 'País', 'llaollao-core' ),
+			'menu_name'     => __( 'País', 'llaollao-core' ),
+			'all_items'     => __( 'Todos los países', 'llaollao-core' ),
+			'edit_item'     => __( 'Editar país', 'llaollao-core' ),
+			'update_item'   => __( 'Actualizar país', 'llaollao-core' ),
+			'add_new_item'  => __( 'Añadir nuevo país', 'llaollao-core' ),
+			'new_item_name' => __( 'Nombre del nuevo país', 'llaollao-core' ),
+			'search_items'  => __( 'Buscar países', 'llaollao-core' ),
+		),
+		'public'             => false,
+		'publicly_queryable' => false,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'show_admin_column'  => true,
+		'show_in_rest'       => true,
+		'hierarchical'       => true,
+		'rewrite'            => false,
+		'query_var'          => false,
+	) );
 }
