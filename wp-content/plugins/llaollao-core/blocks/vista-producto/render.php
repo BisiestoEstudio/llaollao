@@ -2,11 +2,11 @@
 /**
  * Render del bloque "Vista producto con slide vertical".
  *
- * Arriba, los hermanos del producto (los demás hijos de su mismo padre) como
- * etiquetas, con el actual marcado. Debajo, dos columnas separadas un 7%: a la
- * izquierda título, contenido, variantes y alérgenos; a la derecha la galería
- * de recursos, con la pieza grande y una tira vertical al lado para cambiarla
- * (view.js).
+ * Arriba, la nube de etiquetas de la taxonomía "tipo" y luego los hermanos del
+ * producto (los demás hijos de su mismo padre) como etiquetas, con el actual
+ * marcado. Debajo, dos columnas separadas un 7%: a la izquierda título,
+ * contenido, variantes y alérgenos; a la derecha la galería de recursos, con
+ * la pieza grande y una tira vertical al lado para cambiarla (view.js).
  *
  * Todo lo que pinta son post meta del CPT (ver meta-fields.php): llao_descripcion
  * (texto), llao_recursos (IDs de adjuntos, imagen o vídeo), llao_variantes
@@ -41,10 +41,42 @@ if ( ! $post_id || 'producto' !== get_post_type( $post_id ) ) {
 $gap            = max( 0, (float) ( $attributes['columnGap'] ?? 7 ) );
 $left_max       = max( 100, (int) ( $attributes['leftMaxWidth'] ?? 400 ) );
 $show_siblings  = ! empty( $attributes['showSiblings'] );
+$show_tipos     = ! empty( $attributes['showTipos'] );
 $alergenos_lbl  = trim( (string) ( $attributes['alergenosLabel'] ?? '' ) );
 
 if ( '' === $alergenos_lbl ) {
 	$alergenos_lbl = __( 'Alérgenos', 'llaollao-core' );
+}
+
+// --- Etiquetas de tipo ---------------------------------------------------
+// La fila no enseña solo los términos del producto: enseña también los de su
+// mismo nivel, para que se vean las alternativas y no una etiqueta suelta. En
+// una taxonomía jerárquica como esta, "mismo nivel" es compartir padre.
+// Los que el producto sí tiene salen marcados.
+//
+// La taxonomía no es pública (sin archivo ni query var), así que van como
+// etiquetas de solo lectura, sin enlace.
+$tipos         = array();
+$tipos_activos = array();
+
+if ( $show_tipos ) {
+	$propios = get_the_terms( $post_id, 'tipo' );
+
+	if ( $propios && ! is_wp_error( $propios ) ) {
+		$tipos_activos = wp_list_pluck( $propios, 'term_id' );
+
+		$primero     = reset( $propios );
+		$mismo_nivel = get_terms( array(
+			'taxonomy'   => 'tipo',
+			'parent'     => (int) $primero->parent,
+			'hide_empty' => false,
+			'orderby'    => 'name',
+			'order'      => 'ASC',
+		) );
+
+		// Si la consulta falla, al menos se pintan los del producto.
+		$tipos = ( $mismo_nivel && ! is_wp_error( $mismo_nivel ) ) ? $mismo_nivel : $propios;
+	}
 }
 
 // --- Hermanos ----------------------------------------------------------
@@ -85,6 +117,25 @@ $wrapper = get_block_wrapper_attributes( array(
 ) );
 ?>
 <div <?php echo $wrapper; ?>>
+
+	<?php if ( $tipos ) : ?>
+		<div class="llao-vista__tipos">
+			<?php /* Marcador decorativo: fuera de la pista para no irse con el desplazamiento. */ ?>
+			<span class="llao-vista__tipos-icon" aria-hidden="true"></span>
+
+			<ul class="llao-vista__tipos-track">
+				<?php foreach ( $tipos as $tipo ) : ?>
+					<?php $suyo = in_array( (int) $tipo->term_id, array_map( 'intval', $tipos_activos ), true ); ?>
+					<li>
+						<span
+							class="llao-vista__tipo button-tag<?php echo $suyo ? ' is-active' : ''; ?>"
+							data-text="<?php echo esc_attr( $tipo->name ); ?>"
+						><?php echo esc_html( $tipo->name ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+	<?php endif; ?>
 
 	<?php if ( $siblings ) : ?>
 		<nav class="llao-vista__siblings" aria-label="<?php esc_attr_e( 'Otros productos de la misma familia', 'llaollao-core' ); ?>">

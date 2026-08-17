@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "llaollao/vista-producto",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"title": "Vista producto con slide vertical",
 	"category": "widgets",
 	"icon": "images-alt",
-	"description": "Elige un producto y pinta su ficha donde quieras: arriba los hermanos como etiquetas y debajo dos columnas. A la izquierda título, descripción, variantes y alérgenos; a la derecha la galería de recursos, con la imagen grande y una tira vertical al lado para cambiarla. Todo sale de los campos del producto, así que puede ir dentro del propio producto.",
+	"description": "Elige un producto y pinta su ficha donde quieras: arriba la nube de etiquetas de Tipo y los hermanos como etiquetas, y debajo dos columnas. A la izquierda título, descripción, variantes y alérgenos; a la derecha la galería de recursos, con la imagen grande y una tira vertical al lado para cambiarla. Todo sale de los campos del producto, así que puede ir dentro del propio producto.",
 	"textdomain": "llaollao-core",
 	"usesContext": [ "postId", "postType" ],
 	"attributes": {
@@ -14,6 +14,7 @@
 		"columnGap":      { "type": "number", "default": 7 },
 		"leftMaxWidth":   { "type": "number", "default": 400 },
 		"showSiblings":   { "type": "boolean", "default": true },
+		"showTipos":      { "type": "boolean", "default": true },
 		"alergenosLabel": { "type": "string", "default": "Alérgenos" }
 	},
 	"supports": {

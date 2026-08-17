@@ -7,6 +7,72 @@
 	padding-block: 1.5rem;
 }
 
+.wp-block-llaollao-vista-producto .llao-vista__tipos {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin: 0 0 1.5rem;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipos-icon {
+	flex: 0 0 16px;
+	width: 16px;
+	height: 16px;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipos-track {
+	flex: 1 1 auto;
+	min-width: 0;
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 0.625rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow-x: auto;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain;
+	scrollbar-width: none; /* Firefox */
+	-webkit-overflow-scrolling: touch;
+	cursor: grab;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipos-track::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+.wp-block-llaollao-vista-producto:not(.alignfull) .llao-vista__tipos-track {
+	margin-right: calc(50% - 50vw);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipos-track.is-dragging {
+	cursor: grabbing;
+	user-select: none;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipos-track > li {
+	flex: 0 0 auto;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipo {
+	white-space: nowrap;
+	font-size: var(--wp--preset--font-size--h-4);
+	border-color: var(--wp--preset--color--verde);
+	color: var(--wp--preset--color--verde);
+	cursor: default;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipo.is-active::before {
+	transform: scaleY(1);
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__tipo.is-active::after {
+	clip-path: inset(0 0 0 0);
+}
+
 .wp-block-llaollao-vista-producto .llao-vista__siblings {
 	display: flex;
 	align-items: center;

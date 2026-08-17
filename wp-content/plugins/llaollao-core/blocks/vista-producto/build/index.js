@@ -100,7 +100,13 @@
 						__nextHasNoMarginBottom: true,
 					} )
 				),
-				el( PanelBody, { title: __( 'Hermanos y alérgenos', 'llaollao-core' ), initialOpen: false },
+				el( PanelBody, { title: __( 'Etiquetas, hermanos y alérgenos', 'llaollao-core' ), initialOpen: false },
+					el( ToggleControl, {
+						label: __( 'Mostrar la nube de etiquetas de Tipo', 'llaollao-core' ),
+						checked: !! attributes.showTipos,
+						onChange: function ( v ) { setAttributes( { showTipos: !! v } ); },
+						__nextHasNoMarginBottom: true,
+					} ),
 					el( ToggleControl, {
 						label: __( 'Mostrar los hermanos como etiquetas', 'llaollao-core' ),
 						help: __( 'Solo salen si el producto tiene padre y algún hermano más.', 'llaollao-core' ),

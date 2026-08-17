@@ -1011,7 +1011,10 @@ input[type="checkbox"]:focus-visible {
 
 /* --- Nube de categorías ---------------------------------------------------
    Cada enlace es un pill con la estética de .button-tag (borde marrón; al
-   hover se rellena de verde y el texto pasa a blanco). */
+   hover se rellena de verde y el texto pasa a blanco). El tamaño (14px, igual
+   para todas) lo pone el propio bloque (smallestFontSize = largestFontSize
+   en templates/home.html), no CSS: un inline style siempre gana a una regla
+   normal, así que ponerlo aquí también sería papel mojado. */
 .blog-home__categories.wp-block-tag-cloud {
 	display: flex;
 	flex-wrap: wrap;
@@ -1019,7 +1022,6 @@ input[type="checkbox"]:focus-visible {
 }
 
 .blog-home__categories .tag-cloud-link {
-	font-size: 14px;
 	font-family: var(--wp--preset--font-family--souvenir-std);
 	line-height: 1;
 	padding: 0.5rem 0.75rem;
