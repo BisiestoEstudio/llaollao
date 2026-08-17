@@ -122,6 +122,16 @@ h5,
 	margin-bottom: 2.75rem;
 }
 
+/* Texto corrido de la entrada en Souvenir. Va sobre los propios elementos de
+   texto (no sobre .single-post__content entero) para no pisar los headings
+   que pueda haber dentro, que se quedan en Bree (theme.json). */
+.single-post__content p,
+.single-post__content li,
+.single-post__content blockquote,
+.single-post__content figcaption {
+	font-family: var(--wp--preset--font-family--souvenir-std);
+}
+
 .single-post__image {
 	margin-top: 2rem;
 	margin-bottom: 4rem;
