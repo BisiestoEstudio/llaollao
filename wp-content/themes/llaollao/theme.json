@@ -243,26 +243,26 @@
 					]
 				},
 				{
-					"fontFamily": "Neue Haas Grotesk Text Pro, sans-serif",
-					"name": "Neue Haas Grotesk Text Pro",
+					"fontFamily": "Schibsted Grotesk, sans-serif",
+					"name": "Schibsted Grotesk",
 					"slug": "neue-haas-grotesk-text-pro",
 					"fontFace": [
 						{
-							"fontFamily": "Neue Haas Grotesk Text Pro",
-							"fontWeight": "400",
+							"fontFamily": "Schibsted Grotesk",
+							"fontWeight": "400 900",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/Neue Haas Grotesk Text Pro.woff2"
+								"file:./assets/fonts/SchibstedGrotesk-VariableFont_wght.ttf"
 							]
 						},
 						{
-							"fontFamily": "Neue Haas Grotesk Text Pro",
-							"fontWeight": "700",
-							"fontStyle": "normal",
+							"fontFamily": "Schibsted Grotesk",
+							"fontWeight": "400 900",
+							"fontStyle": "italic",
 							"fontDisplay": "swap",
 							"src": [
-								"file:./assets/fonts/Neue Haas Grotesk Text Pro Bold.woff2"
+								"file:./assets/fonts/SchibstedGrotesk-Italic-VariableFont_wght.ttf"
 							]
 						}
 					]

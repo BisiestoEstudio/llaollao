@@ -898,9 +898,92 @@ input[type="checkbox"]:focus-visible {
 	text-decoration: underline;
 }
 
-/* Placeholder visible del formulario mientras no esté cableado. */
 .site-footer__newsletter-form {
-	opacity: .5;
+	padding: 0;
+}
+
+/* Grid en vez de flex: el form de CF7 trae más hijos aparte del campo y el
+   submit (spinner, wpcf7-response-output con el aviso de enviado/error), y en
+   flex con wrap acababan afectando a la fila. Con grid se ancla explícito qué
+   va en la fila de arriba (columna 1: campo, columna 2: submit) y el resto se
+   fuerza a ocupar las dos columnas, cayendo siempre debajo. */
+.site-footer__newsletter-form .wpcf7-form {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Por si acaso: CF7 ya lo oculta con su propio CSS, pero si por lo que sea no
+   carga, este fieldset no debe contar como celda del grid. */
+.site-footer__newsletter-form .hidden-fields-container {
+	display: none;
+}
+
+.site-footer__newsletter-form .wpcf7-form-control-wrap {
+	grid-column: 1;
+	grid-row: 1;
+	min-width: 0;
+}
+
+.site-footer__newsletter-form input[type="email"] {
+	box-sizing: border-box;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid var(--wp--preset--color--blanco);
+	border-radius: 0;
+	background: transparent;
+	color: var(--wp--preset--color--blanco);
+	padding: 0.625rem 1.125rem;
+}
+
+.site-footer__newsletter-form input[type="email"]::placeholder {
+	color: var(--wp--preset--color--crema);
+	opacity: 1; /* Firefox le baja la opacidad al placeholder por defecto */
+}
+
+.site-footer__newsletter-form input[type="email"]:focus {
+	outline: none;
+}
+
+/* Icono solo (sin texto): value queda como nombre accesible, pero se oculta
+   visualmente. El icono es background-image (no máscara) porque un
+   input[type=submit] no soporta ::before/::after de forma fiable, así que no
+   hay currentColor posible sobre una imagen: en reposo se usa el mismo trazo
+   de button_arrow_white_right.svg pero recodificado con fill verde (no hay
+   archivo verde entre los que subiste); al hover se invierte a fondo verde
+   con el SVG blanco original. */
+.site-footer__newsletter-form input[type="submit"] {
+	grid-column: 2;
+	grid-row: 1;
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	border: none;
+	color: transparent;
+	border-radius: var(--wp--custom--radius--100, 100px);
+	background-color: var(--wp--preset--color--blanco);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M20.7806 12.5306L14.0306 19.2806C13.8899 19.4213 13.699 19.5004 13.5 19.5004C13.301 19.5004 13.1101 19.4213 12.9694 19.2806C12.8286 19.1399 12.7496 18.949 12.7496 18.75C12.7496 18.551 12.8286 18.3601 12.9694 18.2194L18.4397 12.75H3.75C3.55109 12.75 3.36032 12.671 3.21967 12.5303C3.07902 12.3897 3 12.1989 3 12C3 11.8011 3.07902 11.6103 3.21967 11.4697C3.36032 11.329 3.55109 11.25 3.75 11.25H18.4397L12.9694 5.78061C12.8286 5.63988 12.7496 5.44901 12.7496 5.24999C12.7496 5.05097 12.8286 4.8601 12.9694 4.71936C13.1101 4.57863 13.301 4.49957 13.5 4.49957C13.699 4.49957 13.8899 4.57863 14.0306 4.71936L20.7806 11.4694C20.8504 11.539 20.9057 11.6217 20.9434 11.7128C20.9812 11.8038 21.0006 11.9014 21.0006 12C21.0006 12.0986 20.9812 12.1961 20.9434 12.2872C20.9057 12.3782 20.8504 12.461 20.7806 12.5306Z' fill='%2364A50A'/%3E%3C/svg%3E");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 18px 18px;
+	cursor: pointer;
+	transition: background-color 0.25s ease;
+}
+
+.site-footer__newsletter-form input[type="submit"]:hover {
+	background-color: var(--wp--preset--color--verde);
+	background-image: url("../img/button_arrow_white_right.svg");
+}
+
+.site-footer__newsletter-form .wpcf7-spinner,
+.site-footer__newsletter-form .wpcf7-response-output,
+.site-footer__newsletter-form .wpcf7-not-valid-tip {
+	grid-column: 1 / -1;
+}
+
+.site-footer__newsletter-form .wpcf7-response-output {
+	margin: 0;
 }
 
 /* Fila inferior: separada de la superior 80px en escritorio, 24px en móvil.
@@ -967,18 +1050,49 @@ input[type="checkbox"]:focus-visible {
 }
 
 /* --- Buscador -------------------------------------------------------------
-   Pill con borde marrón, icono como botón interior. */
+   El pill (borde marrón, fondo beige, icono ic_search.svg) es el propio
+   <input>, no un wrapper alrededor: el wrapper solo posiciona el icono. El
+   icono ya trae su propio color marrón, no hace falta máscara currentColor.
+   Botón fuera del pill, mismo tratamiento visual que el estilo de botón
+   "Fill collapsed" (verde/blanco, hover verde-light/negro) — sin el texto que
+   ese estilo revela al hover, porque con buttonUseIcon:true el bloque search
+   no pinta ningún texto en el DOM, solo el icono. */
+.blog-home__search.wp-block-search {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
 .blog-home__search .wp-block-search__inside-wrapper {
-	border: 1px solid var(--wp--preset--color--marron);
-	border-radius: 100px;
-	overflow: hidden;
-	padding: 0.25rem 0.25rem 0.25rem 1.125rem;
+	position: relative;
+	flex: 1 1 auto;
+}
+
+.blog-home__search .wp-block-search__inside-wrapper::before {
+	content: "";
+	position: absolute;
+	left: 1.125rem;
+	top: 50%;
+	width: 24px;
+	height: 24px;
+	transform: translateY(-50%);
+	background: url("../img/ic_search.svg") no-repeat center / contain;
+	pointer-events: none;
 }
 
 .blog-home__search .wp-block-search__input {
-	border: 0;
-	background: transparent;
+	box-sizing: border-box;
+	width: 100%;
+	border: 1px solid var(--wp--preset--color--marron);
+	border-radius: 100px;
+	background: var(--wp--preset--color--beige);
 	color: var(--wp--preset--color--negro);
+	padding: 0.625rem 1.125rem 0.625rem calc(1.125rem + 24px + 10px);
+}
+
+.blog-home__search .wp-block-search__input::placeholder {
+	color: var(--wp--preset--color--marron);
+	opacity: 1; /* Firefox le baja la opacidad al placeholder por defecto */
 }
 
 .blog-home__search .wp-block-search__input:focus {
@@ -986,27 +1100,44 @@ input[type="checkbox"]:focus-visible {
 }
 
 .blog-home__search .wp-block-search__button {
-	margin: 0;
-	padding: 0;
-	width: 2.25rem;
+	margin: 0 0 0 0.5rem;
+	padding: 0.625rem 1.5rem;
+	width: auto;
 	height: 2.25rem;
-	border-radius: 100px;
-	background-color: var(--wp--preset--color--negro);
+	border-radius: var(--wp--custom--radius--100, 100px);
+	background-color: var(--wp--preset--color--verde);
 	color: var(--wp--preset--color--blanco);
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	transition: background-color 0.3s ease;
+	transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .blog-home__search .wp-block-search__button:hover {
-	background-color: var(--wp--preset--color--verde);
+	background-color: var(--wp--preset--color--verde-light);
+	color: var(--wp--preset--color--negro);
 }
 
 .blog-home__search .wp-block-search__button svg {
-	width: 1.125rem;
-	height: 1.125rem;
-	fill: currentColor;
+	display: none;
+}
+
+/* Misma flecha (y misma animación de rotación al hover) que el estilo de
+   botón "Fill collapsed" (ver .wp-block-button.is-style-fill-collapsed más
+   arriba), en vez del icono de lupa que trae el bloque search por defecto. */
+.blog-home__search .wp-block-search__button::after {
+	content: "";
+	width: 12px;
+	height: 12px;
+	background-color: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M0.5 10.6165L10.6165 0.5L0.5 10.6165ZM10.6165 0.5L1.51165 0.5L10.6165 0.5ZM10.6165 0.5V9.60481V0.5Z' fill='white'/%3E%3Cpath d='M0.5 10.6165L10.6165 0.5M10.6165 9.60481V0.5L1.51165 0.5' stroke='white' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain;
+	transform: rotate(45deg);
+	transition: transform 0.25s ease;
+}
+
+.blog-home__search .wp-block-search__button:hover::after {
+	transform: rotate(0deg);
 }
 
 /* --- Nube de categorías ---------------------------------------------------
@@ -1091,7 +1222,9 @@ input[type="checkbox"]:focus-visible {
 
 .post-card__title {
 	margin: 0.75rem 0;
+	font-family: var(--wp--preset--font-family--bree);
 	font-size: var(--wp--preset--font-size--h-3);
+	font-weight: 400;
 }
 
 .post-card__title a {
