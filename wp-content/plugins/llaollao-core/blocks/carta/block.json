@@ -6,7 +6,7 @@
 	"title": "Carta",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Nube de etiquetas de Tipo arriba y, debajo, los productos en un mosaico de dos columnas. La primera card abre a todo el ancho y el resto toma uno de los tres altos (745, 504 y 660px) según su posición; las etiquetas ocultan o muestran las cards de ese tipo.",
+	"description": "Nube de etiquetas de Tipo arriba y, debajo, los productos en un mosaico de dos columnas. La primera card abre a todo el ancho y el resto toma un alto de un ciclo fijo de 8 posiciones según su lugar en la lista; las etiquetas ocultan o muestran las cards de ese tipo.",
 	"textdomain": "llaollao-core",
 	"attributes": {
 		"productIds":  { "type": "array", "default": [], "items": { "type": "number" } },

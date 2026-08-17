@@ -3,10 +3,10 @@
  * Render del bloque "Carta".
  *
  * Dos piezas: la nube de etiquetas de la taxonomía "tipo" y el mosaico de
- * productos a dos columnas. El alto de cada card sale de un ciclo fijo por
- * posición (745 / 504 / 660) para dar el escalonado del masonry; el mosaico en
- * sí es un multi-columna de CSS (ver style.css) y el filtrado lo hace view.js
- * ocultando cards, sin recargar.
+ * productos a dos columnas. El alto de cada card sale de un ciclo fijo de 8
+ * posiciones (745 / 504 / 660 / 745 / 745 / 660 / 504 / 745) para dar el
+ * escalonado del masonry; el mosaico en sí es un multi-columna de CSS (ver
+ * style.css) y el filtrado lo hace view.js ocultando cards, sin recargar.
  *
  * La primera card lleva .is-wide y ocupa las dos columnas (column-span). Al
  * filtrar, view.js pasa esa clase a la primera que quede visible, para que el
@@ -89,7 +89,7 @@ wp_reset_postdata();
 asort( $types, SORT_NATURAL | SORT_FLAG_CASE );
 
 // Ciclo de altos en escritorio, en el orden en que se pidió el escalonado.
-$heights = array( 745, 504, 660 );
+$heights = array( 745, 504, 660, 745, 745, 660, 504, 745 );
 
 $wrapper = get_block_wrapper_attributes( array(
 	'class' => 'llao-carta',

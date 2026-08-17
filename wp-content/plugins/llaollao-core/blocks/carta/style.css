@@ -1,6 +1,5 @@
 .wp-block-llaollao-carta {
 	--llao-carta-gap: 20px;
-	--llao-carta-scale: 1;
 	padding-block: 2rem;
 }
 
@@ -42,7 +41,7 @@
 	position: relative;
 	display: block;
 	width: 100%;
-	height: calc(var(--llao-carta-card-h, 660px) * var(--llao-carta-scale));
+	height: var(--llao-carta-card-h, 660px);
 	margin-bottom: var(--llao-carta-gap);
 	overflow: hidden;
 	border-radius: 9px;
@@ -103,12 +102,16 @@
 }
 
 @media (max-width: 781px) {
-	.wp-block-llaollao-carta {
-		--llao-carta-scale: 0.55;
-	}
-
 	.wp-block-llaollao-carta .llao-carta__grid {
 		column-count: 1;
+	}
+
+	/* En móvil las cards van cuadradas (ignora el ciclo de altos de
+	   escritorio, que solo tiene sentido para el escalonado del masonry a
+	   dos columnas). */
+	.wp-block-llaollao-carta .llao-carta__card {
+		height: auto;
+		aspect-ratio: 1 / 1;
 	}
 
 	.wp-block-llaollao-carta .llao-carta__title {

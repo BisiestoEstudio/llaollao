@@ -36,11 +36,14 @@ add_action( 'after_setup_theme', 'bisiesto_editor_styles' );
  * Soporte de logotipo del sitio (lo lee el header en blocks/header/render.php
  * vía get_theme_mod( 'custom_logo' )). El ancho real de visualización lo fija el
  * CSS (.site-header__logo-img); aquí solo declaramos el tamaño de referencia.
+ * flex-width a true (sin forzar recorte): con flex-width:false WordPress
+ * intenta recortar la imagen a ese ancho exacto al subirla, y un SVG no se
+ * puede recortar (es vectorial) — el recorte fallaba con SVG.
  */
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'custom-logo', [
 		'width'       => 98,
-		'flex-width'  => false,
+		'flex-width'  => true,
 		'flex-height' => true,
 	] );
 } );
@@ -55,6 +58,26 @@ add_action( 'after_setup_theme', function () {
 		'menu-hamburguesa' => __( 'Menú hamburguesa (pantalla completa)', 'bisiesto' ),
 	] );
 } );
+
+/**
+ * WordPress oculta "Personalizar" bajo Apariencia cuando el tema es de
+ * bloques (wp_is_block_theme()). Lo volvemos a añadir a mano: es el mismo
+ * código que usa el core para temas clásicos (wp-admin/menu.php), así que
+ * el enlace apunta directo a customize.php, no a una página propia.
+ */
+add_action( 'admin_menu', function () {
+	global $submenu;
+
+	if ( ! isset( $submenu['themes.php'] ) || ! current_user_can( 'customize' ) ) {
+		return;
+	}
+
+	$submenu['themes.php'][6] = array(
+		__( 'Personalizar' ),
+		'customize',
+		add_query_arg( 'return', urlencode( $_SERVER['REQUEST_URI'] ?? '' ), 'customize.php' ),
+	);
+}, 999 );
 
 /**
  * Permite subir SVG a la biblioteca de medios.
