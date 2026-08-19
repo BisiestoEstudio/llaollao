@@ -1,5 +1,6 @@
 .wp-block-llaollao-grid-links {
    --llao-grid-links-gap:   20px;
+   --llao-grid-links-cols:  3;
    --llao-grid-links-min-h: 250px;
    --llao-grid-links-img-opacity: 0.8;
    padding-block: 2.5rem;
@@ -11,7 +12,7 @@
 
 .wp-block-llaollao-grid-links .llao-grid-links__grid {
    display: grid;
-   grid-template-columns: repeat( 3, 1fr );
+   grid-template-columns: repeat( var( --llao-grid-links-cols, 3 ), 1fr );
    gap: var( --llao-grid-links-gap );
 }
 

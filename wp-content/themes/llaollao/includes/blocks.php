@@ -88,6 +88,19 @@ add_action('enqueue_block_editor_assets', function (): void {
 	);
 });
 
+/**
+ * Añade la opción "Ocultar en móvil" al bloque core/spacer.
+ */
+add_action('enqueue_block_editor_assets', function (): void {
+	wp_enqueue_script(
+		'bisiesto-spacer-hide-mobile',
+		get_theme_file_uri('assets/js/spacer-hide-mobile.js'),
+		array('wp-blocks', 'wp-block-editor', 'wp-components', 'wp-element', 'wp-hooks', 'wp-compose', 'wp-i18n'),
+		'1.0.0',
+		true
+	);
+});
+
 add_action('init', 'bisiesto_register_blocks');
 
 /**

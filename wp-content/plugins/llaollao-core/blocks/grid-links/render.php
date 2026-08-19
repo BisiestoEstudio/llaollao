@@ -9,12 +9,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$items = is_array( $attributes['items'] ?? null ) ? $attributes['items'] : [];
-$gap   = (int) ( $attributes['gap'] ?? 20 );
+$items   = is_array( $attributes['items'] ?? null ) ? $attributes['items'] : [];
+$gap     = (int) ( $attributes['gap'] ?? 20 );
+$columns = (int) ( $attributes['columns'] ?? 3 );
+$columns = in_array( $columns, array( 2, 3 ), true ) ? $columns : 3;
 
 $wrapper = get_block_wrapper_attributes( array(
 	'class' => 'llao-grid-links',
-	'style' => sprintf( '--llao-grid-links-gap:%dpx;', max( 0, $gap ) ),
+	'style' => sprintf( '--llao-grid-links-gap:%dpx;--llao-grid-links-cols:%d;', max( 0, $gap ), $columns ),
 ) );
 ?>
 <div <?php echo $wrapper; ?>>

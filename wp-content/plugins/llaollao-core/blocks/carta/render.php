@@ -50,6 +50,22 @@ if ( ! $query->have_posts() ) {
 	return;
 }
 
+/**
+ * Sube hasta el término raíz (sin padre) de la rama de $term. La nube de
+ * filtros solo lista tipos de nivel superior, aunque las cards estén
+ * etiquetadas con un tipo más concreto (hijo/nieto) de esa rama.
+ */
+$llao_carta_root_term = static function ( $term ) {
+	while ( $term->parent ) {
+		$parent = get_term( $term->parent, 'tipo' );
+		if ( ! $parent || is_wp_error( $parent ) ) {
+			break;
+		}
+		$term = $parent;
+	}
+	return $term;
+};
+
 /*
  * Primero se recorre la consulta entera y luego se pinta: la nube de etiquetas
  * va arriba, pero solo debe listar los tipos que de verdad tienen alguna card
@@ -67,9 +83,16 @@ while ( $query->have_posts() ) {
 	$terms = get_the_terms( $post_id, 'tipo' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
-			$slugs[]              = $term->slug;
-			$types[ $term->slug ] = $term->name;
+			$root = $llao_carta_root_term( $term );
+
+			// data-tipos lleva el slug de la raíz (no el del término asignado
+			// al producto), porque el filtro solo tiene botones de nivel
+			// superior: si dejáramos el slug original, clicar "Bebidas" no
+			// encontraría las cards etiquetadas con "Granizados".
+			$slugs[]              = $root->slug;
+			$types[ $root->slug ] = $root->name;
 		}
+		$slugs = array_values( array_unique( $slugs ) );
 	}
 
 	$cards[] = array(

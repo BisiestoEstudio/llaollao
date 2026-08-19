@@ -42,6 +42,7 @@ $gap            = max( 0, (float) ( $attributes['columnGap'] ?? 7 ) );
 $left_max       = max( 100, (int) ( $attributes['leftMaxWidth'] ?? 400 ) );
 $show_siblings  = ! empty( $attributes['showSiblings'] );
 $show_tipos     = ! empty( $attributes['showTipos'] );
+$reduced_info   = ! empty( $attributes['reducedInfo'] );
 $alergenos_lbl  = trim( (string) ( $attributes['alergenosLabel'] ?? '' ) );
 
 if ( '' === $alergenos_lbl ) {
@@ -101,10 +102,11 @@ if ( $show_siblings && $parent ) {
 $descripcion = (string) get_post_meta( $post_id, 'llao_descripcion', true );
 $recursos    = get_post_meta( $post_id, 'llao_recursos', true );
 $variantes   = get_post_meta( $post_id, 'llao_variantes', true );
-$alergenos   = (string) get_post_meta( $post_id, 'llao_alergenos', true );
+$alergenos   = get_post_meta( $post_id, 'llao_alergenos', true );
 
 $recursos  = is_array( $recursos ) ? array_values( array_filter( array_map( 'intval', $recursos ) ) ) : array();
 $variantes = is_array( $variantes ) ? array_values( array_filter( array_map( 'trim', array_map( 'strval', $variantes ) ) ) ) : array();
+$alergenos = is_array( $alergenos ) ? array_values( array_filter( array_map( 'intval', $alergenos ) ) ) : array();
 
 // El campo es texto plano: se escapa y luego se reparte en párrafos, de modo
 // que un salto de línea doble en el textarea salga como <p> y nada de lo que
@@ -156,6 +158,7 @@ $wrapper = get_block_wrapper_attributes( array(
 		</nav>
 	<?php endif; ?>
 
+	<?php if ( ! $reduced_info ) : ?>
 	<div class="llao-vista__cols">
 
 		<div class="llao-vista__info">
@@ -173,10 +176,21 @@ $wrapper = get_block_wrapper_attributes( array(
 				</ul>
 			<?php endif; ?>
 
-			<?php if ( trim( $alergenos ) ) : ?>
+			<?php if ( $alergenos ) : ?>
 				<details class="llao-vista__alergenos">
 					<summary class="llao-vista__alergenos-label"><?php echo esc_html( $alergenos_lbl ); ?></summary>
-					<div class="llao-vista__alergenos-body"><?php echo nl2br( esc_html( $alergenos ) ); ?></div>
+					<div class="llao-vista__alergenos-body">
+						<div class="llao-vista__alergenos-grid">
+							<?php foreach ( $alergenos as $alergeno_id ) : ?>
+								<?php
+								echo wp_get_attachment_image( $alergeno_id, 'thumbnail', false, array(
+									'class'   => 'llao-vista__alergeno-img',
+									'loading' => 'lazy',
+								) );
+								?>
+							<?php endforeach; ?>
+						</div>
+					</div>
 				</details>
 			<?php endif; ?>
 		</div>
@@ -243,4 +257,6 @@ $wrapper = get_block_wrapper_attributes( array(
 		<?php endif; ?>
 
 	</div>
+	<?php endif; ?>
+
 </div>

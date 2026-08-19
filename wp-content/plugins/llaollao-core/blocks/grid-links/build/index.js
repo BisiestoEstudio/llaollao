@@ -128,6 +128,18 @@
 			var inspector = el( InspectorControls, null,
 				el( PanelBody, { title: __( 'Grid links', 'llaollao-core' ), initialOpen: true },
 					el( RangeControl, {
+						label:    __( 'Columnas en escritorio', 'llaollao-core' ),
+						help:     __( 'En móvil siempre es una columna.', 'llaollao-core' ),
+						value:    attributes.columns === undefined ? 3 : attributes.columns,
+						onChange: function ( v ) {
+							setAttributes( { columns: v === undefined ? 3 : v } );
+						},
+						min:  2,
+						max:  3,
+						step: 1,
+						__nextHasNoMarginBottom: true,
+					} ),
+					el( RangeControl, {
 						label:    __( 'Separación entre elementos (px)', 'llaollao-core' ),
 						value:    attributes.gap,
 						onChange: function ( v ) {

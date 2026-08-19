@@ -77,6 +77,15 @@
 							__nextHasNoMarginBottom: true,
 						} )
 				),
+				el( PanelBody, { title: __( 'Visualización', 'llaollao-core' ), initialOpen: true },
+					el( ToggleControl, {
+						label: __( 'Ver solo información reducida', 'llaollao-core' ),
+						help: __( 'Oculta el título, la descripción, alérgenos y el recurso; deja solo lo de arriba (tipos, familia y hermanos).', 'llaollao-core' ),
+						checked: !! attributes.reducedInfo,
+						onChange: function ( v ) { setAttributes( { reducedInfo: !! v } ); },
+						__nextHasNoMarginBottom: true,
+					} )
+				),
 				el( PanelBody, { title: __( 'Columnas', 'llaollao-core' ), initialOpen: false },
 					el( RangeControl, {
 						label: __( 'Ancho del recurso (%)', 'llaollao-core' ),

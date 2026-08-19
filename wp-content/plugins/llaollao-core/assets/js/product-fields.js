@@ -2,8 +2,8 @@
  * Panel de "Datos del producto" en la barra lateral del editor.
  *
  * Campos: Descripción (texto), Recursos (imágenes/vídeos), Variantes (repeater
- * de textos) y Alérgenos (texto). Escrito a mano con wp.element.createElement,
- * sin build.
+ * de textos) y Alérgenos (iconos, array de IDs de adjuntos). Escrito a mano
+ * con wp.element.createElement, sin build.
  */
 ( function ( wp ) {
 	var el       = wp.element.createElement;
@@ -37,7 +37,7 @@
 		var descripcion = meta.llao_descripcion || '';
 		var recursos    = meta.llao_recursos || [];
 		var variantes   = meta.llao_variantes || [];
-		var alergenos   = meta.llao_alergenos || '';
+		var alergenos   = meta.llao_alergenos || [];
 
 		// Resolver los adjuntos para la previsualización.
 		var mediaItems = useSelect( function ( select ) {
@@ -45,6 +45,12 @@
 				return select( 'core' ).getMedia( id );
 			} );
 		}, [ recursos.join( ',' ) ] );
+
+		var alergenosItems = useSelect( function ( select ) {
+			return alergenos.map( function ( id ) {
+				return select( 'core' ).getMedia( id );
+			} );
+		}, [ alergenos.join( ',' ) ] );
 
 		if ( postType !== 'producto' ) {
 			return null;
@@ -182,13 +188,70 @@
 			}, __( 'Añadir variante', 'llaollao-core' ) )
 		);
 
-		// --- Alérgenos ------------------------------------------------------
-		var alergenosField = el( c.TextareaControl, {
-			value: alergenos,
-			rows: 2,
-			onChange: function ( val ) { update( 'llao_alergenos', val ); },
-			__nextHasNoMarginBottom: true
-		} );
+		// --- Alérgenos --------------------------------------------------------
+		// Iconos, no texto: se pintan en el front en un grid de 35x35 (ver
+		// render.php de vista-producto y vista-producto-simple).
+		function onSelectAlergenos( items ) {
+			update( 'llao_alergenos', items.map( function ( i ) { return i.id; } ) );
+		}
+		function removeAlergeno( id ) {
+			update( 'llao_alergenos', alergenos.filter( function ( a ) { return a !== id; } ) );
+		}
+
+		var alergenosPreview = el(
+			'div',
+			{ style: { display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' } },
+			alergenosItems.map( function ( m ) {
+				if ( ! m ) {
+					return null;
+				}
+				var thumb = ( m.media_details && m.media_details.sizes && m.media_details.sizes.thumbnail )
+					? m.media_details.sizes.thumbnail.source_url
+					: m.source_url;
+
+				return el(
+					'div',
+					{ key: m.id, style: { position: 'relative', width: '48px' } },
+					el( 'img', {
+						src: thumb,
+						alt: '',
+						style: { width: '48px', height: '48px', objectFit: 'contain', borderRadius: '4px', display: 'block', background: '#f0f0f1' }
+					} ),
+					el( c.Button, {
+						icon: 'no-alt',
+						label: __( 'Quitar', 'llaollao-core' ),
+						onClick: function () { removeAlergeno( m.id ); },
+						style: {
+							position: 'absolute', top: '-8px', right: '-8px',
+							minWidth: '24px', width: '24px', height: '24px', padding: 0,
+							background: '#fff', borderRadius: '50%', boxShadow: '0 0 0 1px #ccc'
+						}
+					} )
+				);
+			} )
+		);
+
+		var alergenosField = el(
+			Fragment,
+			null,
+			el( media.MediaUploadCheck, null,
+				el( media.MediaUpload, {
+					multiple: true,
+					gallery: false,
+					allowedTypes: [ 'image' ],
+					value: alergenos,
+					onSelect: onSelectAlergenos,
+					render: function ( o ) {
+						return el( c.Button, { variant: 'secondary', onClick: o.open },
+							alergenos.length
+								? __( 'Editar alérgenos', 'llaollao-core' )
+								: __( 'Añadir alérgenos', 'llaollao-core' )
+						);
+					}
+				} )
+			),
+			alergenos.length ? alergenosPreview : null
+		);
 
 		// --- Panel ----------------------------------------------------------
 		return el(
@@ -213,6 +276,7 @@
 			el( 'hr', { style: { margin: '16px 0' } } ),
 			el( c.BaseControl, {
 				label: __( 'Alérgenos', 'llaollao-core' ),
+				help: __( 'Iconos (35x35 en el front, grid con 10px de separación).', 'llaollao-core' ),
 				__nextHasNoMarginBottom: true
 			}, alergenosField )
 		);

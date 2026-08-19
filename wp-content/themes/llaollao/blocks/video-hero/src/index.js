@@ -17,14 +17,14 @@ const TEMPLATE = [
 
 registerBlockType( metadata.name, {
 	edit( { attributes, setAttributes } ) {
-		const { videoUrl, videoId, posterUrl, posterId, posterAlt } = attributes;
+		const { videoUrl, videoId, videoMobileUrl, videoMobileId, posterUrl, posterId, posterAlt } = attributes;
 
 		const blockProps = useBlockProps( { className: 'video-hero' } );
 
 		return (
 			<>
 				<InspectorControls>
-					<PanelBody title={ __( 'Vídeo', 'bisiesto' ) } initialOpen={ true }>
+					<PanelBody title={ __( 'Vídeo (escritorio)', 'bisiesto' ) } initialOpen={ true }>
 						<MediaUploadCheck>
 							<MediaUpload
 								onSelect={ ( media ) =>
@@ -49,6 +49,42 @@ registerBlockType( metadata.name, {
 												isDestructive
 											>
 												{ __( 'Eliminar vídeo', 'bisiesto' ) }
+											</Button>
+										) }
+									</div>
+								) }
+							/>
+						</MediaUploadCheck>
+					</PanelBody>
+
+					<PanelBody title={ __( 'Vídeo (móvil, opcional)', 'bisiesto' ) } initialOpen={ false }>
+						<p style={ { marginTop: 0 } }>
+							{ __( 'Si lo dejas vacío, se usa el mismo vídeo que en escritorio.', 'bisiesto' ) }
+						</p>
+						<MediaUploadCheck>
+							<MediaUpload
+								onSelect={ ( media ) =>
+									setAttributes( { videoMobileUrl: media.url, videoMobileId: media.id } )
+								}
+								allowedTypes={ [ 'video' ] }
+								value={ videoMobileId }
+								render={ ( { open } ) => (
+									<div style={ { display: 'flex', flexDirection: 'column', gap: 8 } }>
+										{ videoMobileUrl && (
+											<video src={ videoMobileUrl } muted controls style={ { width: '100%', borderRadius: 4 } } />
+										) }
+										<Button onClick={ open } variant={ videoMobileUrl ? 'secondary' : 'primary' }>
+											{ videoMobileUrl
+												? __( 'Cambiar vídeo de móvil', 'bisiesto' )
+												: __( 'Seleccionar vídeo de móvil', 'bisiesto' ) }
+										</Button>
+										{ videoMobileUrl && (
+											<Button
+												onClick={ () => setAttributes( { videoMobileUrl: '', videoMobileId: undefined } ) }
+												variant="link"
+												isDestructive
+											>
+												{ __( 'Eliminar vídeo de móvil', 'bisiesto' ) }
 											</Button>
 										) }
 									</div>

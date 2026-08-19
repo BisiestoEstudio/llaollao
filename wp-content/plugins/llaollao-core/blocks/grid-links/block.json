@@ -2,15 +2,16 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "llaollao/grid-links",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"title": "Grid links",
 	"category": "design",
 	"icon": "grid-view",
 	"description": "Rejilla de enlaces a tres columnas: cada uno con imagen de fondo y título centrado. Encima, una zona libre para lo que haga falta.",
 	"textdomain": "llaollao-core",
 	"attributes": {
-		"items": { "type": "array",  "default": [], "items": { "type": "object" } },
-		"gap":   { "type": "number", "default": 20 }
+		"items":   { "type": "array",  "default": [], "items": { "type": "object" } },
+		"gap":     { "type": "number", "default": 20 },
+		"columns": { "type": "number", "default": 3 }
 	},
 	"supports": {
 		"html":  false,

@@ -80,6 +80,15 @@
 							__nextHasNoMarginBottom: true,
 						} )
 				),
+				el( PanelBody, { title: __( 'Visualización', 'llaollao-core' ), initialOpen: true },
+					el( ToggleControl, {
+						label: __( 'Ver solo información reducida', 'llaollao-core' ),
+						help: __( 'Oculta el título, la descripción, variantes, alérgenos y la galería; deja solo lo de arriba (tipos y hermanos).', 'llaollao-core' ),
+						checked: !! attributes.reducedInfo,
+						onChange: function ( v ) { setAttributes( { reducedInfo: !! v } ); },
+						__nextHasNoMarginBottom: true,
+					} )
+				),
 				el( PanelBody, { title: __( 'Columnas', 'llaollao-core' ), initialOpen: true },
 					el( RangeControl, {
 						label: __( 'Separación entre columnas (%)', 'llaollao-core' ),

@@ -1,13 +1,30 @@
 /**
  * Frontend del bloque "Video hero".
  * Escritorio (hover): reproduce al entrar el ratón, pausa y reinicia al salir.
- * Móvil/táctil (sin hover): muestra la portada; al tocar arranca/pausa el vídeo.
- * La clase .is-playing desvanece la portada (ver style.css).
+ * Móvil/táctil (sin hover): arranca solo en cuanto entra en el viewport
+ * (IntersectionObserver), sin esperar a un toque; tocar sigue pudiendo
+ * pausar/reanudar. La clase .is-playing desvanece la portada (ver style.css).
+ *
+ * Con vídeo de móvil propio hay dos <video> en el DOM (--desktop/--mobile,
+ * ver render.php); aquí se elige el que toque según el ancho (mismo criterio
+ * que la media query de style.css, 768px) y solo a ese se le engancha todo:
+ * el otro se queda sin `src`, así que tampoco se descarga.
  */
 function initVideoHero( hero ) {
-	const video = hero.querySelector( '.video-hero__video' );
-	if ( ! video ) {
+	const videos = hero.querySelectorAll( '.video-hero__video' );
+	if ( ! videos.length ) {
 		return;
+	}
+
+	let video = videos[ 0 ];
+	if ( videos.length > 1 ) {
+		const isMobile = window.matchMedia( '(max-width: 768px)' ).matches;
+		const preferred = hero.querySelector(
+			isMobile ? '.video-hero__video--mobile' : '.video-hero__video--desktop'
+		);
+		if ( preferred ) {
+			video = preferred;
+		}
 	}
 
 	const play = () => {
@@ -37,6 +54,21 @@ function initVideoHero( hero ) {
 				hero.classList.remove( 'is-playing' );
 			}
 		} );
+
+		// Arranca en cuanto sea visible, sin esperar al primer toque.
+		if ( 'IntersectionObserver' in window ) {
+			const observer = new IntersectionObserver( ( entries ) => {
+				entries.forEach( ( entry ) => {
+					if ( entry.isIntersecting ) {
+						play();
+						observer.unobserve( hero );
+					}
+				} );
+			} );
+			observer.observe( hero );
+		} else {
+			play();
+		}
 	}
 }
 

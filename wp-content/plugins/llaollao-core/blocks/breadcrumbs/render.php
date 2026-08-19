@@ -2,14 +2,18 @@
 /**
  * Migas de pan del single de producto.
  *
- * Estructura: Carta / Productos / {Productos superiores} / {Producto}
+ * Estructura: Carta / {Tipo de primer nivel} / {Productos superiores} / {Producto}
  *
- * El camino lo marca la jerarquía del CPT, no la taxonomía: cada escalón es un
- * producto padre del actual.
+ * Los productos superiores salen de la jerarquía del CPT (cada escalón es un
+ * producto padre del actual); el escalón de Tipo es el término raíz (sin
+ * padre) de la rama de la taxonomía "tipo" a la que pertenece el producto —
+ * no toda la cadena, solo el de primer nivel (si tiene varios términos
+ * "tipo", se usa el primero).
  *
  * - "Carta" enlaza a la página configurada en Ajustes → Llaollao.
- * - "Productos" va sin enlace: el CPT no tiene archivo público, así que no hay
- *   URL válida a la que apuntar.
+ * - El escalón de Tipo enlaza a esa misma página de Carta con ?tipo={slug}:
+ *   el bloque Carta (view.js) lee ese parámetro al cargar y aplica el filtro
+ *   de esa etiqueta solo. Sin página de Carta configurada, sin enlace.
  * - Los productos superiores sí enlazan a su single, salvo que no estén
  *   publicados (un borrador no tiene URL pública que ofrecer).
  */
@@ -32,14 +36,26 @@ $crumbs[] = array(
 	'url'   => $carta_url,
 );
 
-// 2. Productos. El CPT no tiene archivo público, así que el escalón apunta
-// también a la página de Carta: es la que hace de índice de productos. Sin
-// página configurada en los ajustes se queda sin enlace, como antes.
-$pt       = get_post_type_object( 'producto' );
-$crumbs[] = array(
-	'label' => $pt ? $pt->labels->name : __( 'Productos', 'llaollao-core' ),
-	'url'   => $carta_url,
-);
+// 2. Taxonomía "tipo": solo el término raíz (primer nivel) de la rama del
+// producto (el primero, si tiene varios). Enlaza a la Carta con ese tipo
+// filtrado (?tipo=slug); sin página de Carta, se queda sin enlace.
+$tipo_terms = get_the_terms( $product_id, 'tipo' );
+if ( $tipo_terms && ! is_wp_error( $tipo_terms ) ) {
+	$tipo_term = reset( $tipo_terms );
+
+	while ( $tipo_term->parent ) {
+		$tipo_parent = get_term( $tipo_term->parent, 'tipo' );
+		if ( ! $tipo_parent || is_wp_error( $tipo_parent ) ) {
+			break;
+		}
+		$tipo_term = $tipo_parent;
+	}
+
+	$crumbs[] = array(
+		'label' => $tipo_term->name,
+		'url'   => $carta_url ? add_query_arg( 'tipo', $tipo_term->slug, $carta_url ) : '',
+	);
+}
 
 // 3. Productos superiores, del más lejano al más cercano.
 foreach ( array_reverse( get_post_ancestors( $product_id ) ) as $ancestor_id ) {

@@ -27,6 +27,8 @@
 			var setAttributes = props.setAttributes;
 			var videoUrl = a.videoUrl;
 			var videoId = a.videoId;
+			var videoMobileUrl = a.videoMobileUrl;
+			var videoMobileId = a.videoMobileId;
 			var posterUrl = a.posterUrl;
 			var posterId = a.posterId;
 			var posterAlt = a.posterAlt;
@@ -35,7 +37,7 @@
 
 			var videoPanel = el(
 				PanelBody,
-				{ title: __( 'Vídeo', 'bisiesto' ), initialOpen: true },
+				{ title: __( 'Vídeo (escritorio)', 'bisiesto' ), initialOpen: true },
 				el(
 					MediaUploadCheck,
 					null,
@@ -72,6 +74,59 @@
 											isDestructive: true,
 										},
 										__( 'Eliminar vídeo', 'bisiesto' )
+									)
+							);
+						},
+					} )
+				)
+			);
+
+			var videoMobilePanel = el(
+				PanelBody,
+				{ title: __( 'Vídeo (móvil, opcional)', 'bisiesto' ), initialOpen: false },
+				el(
+					'p',
+					{ style: { marginTop: 0 } },
+					__( 'Si lo dejas vacío, se usa el mismo vídeo que en escritorio.', 'bisiesto' )
+				),
+				el(
+					MediaUploadCheck,
+					null,
+					el( MediaUpload, {
+						onSelect: function ( media ) {
+							setAttributes( { videoMobileUrl: media.url, videoMobileId: media.id } );
+						},
+						allowedTypes: [ 'video' ],
+						value: videoMobileId,
+						render: function ( o ) {
+							return el(
+								'div',
+								{ style: { display: 'flex', flexDirection: 'column', gap: 8 } },
+								videoMobileUrl &&
+									el( 'video', {
+										src: videoMobileUrl,
+										muted: true,
+										controls: true,
+										style: { width: '100%', borderRadius: 4 },
+									} ),
+								el(
+									Button,
+									{ onClick: o.open, variant: videoMobileUrl ? 'secondary' : 'primary' },
+									videoMobileUrl
+										? __( 'Cambiar vídeo de móvil', 'bisiesto' )
+										: __( 'Seleccionar vídeo de móvil', 'bisiesto' )
+								),
+								videoMobileUrl &&
+									el(
+										Button,
+										{
+											onClick: function () {
+												setAttributes( { videoMobileUrl: '', videoMobileId: undefined } );
+											},
+											variant: 'link',
+											isDestructive: true,
+										},
+										__( 'Eliminar vídeo de móvil', 'bisiesto' )
 									)
 							);
 						},
@@ -157,7 +212,7 @@
 			return el(
 				Fragment,
 				null,
-				el( InspectorControls, null, videoPanel, posterPanel ),
+				el( InspectorControls, null, videoPanel, videoMobilePanel, posterPanel ),
 				canvas
 			);
 		},

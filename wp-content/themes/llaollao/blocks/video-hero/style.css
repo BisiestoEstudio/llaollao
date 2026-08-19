@@ -17,6 +17,20 @@
 	display:    block;
 }
 
+/* Con vídeo de móvil propio (dos <video> en el DOM), solo se ve uno según el
+   ancho; view.js no le pone `src` al oculto, así que tampoco se descarga. */
+@media (min-width: 769px) {
+	.video-hero__video--mobile {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.video-hero__video--desktop {
+		display: none;
+	}
+}
+
 /* Portada por encima del vídeo; se desvanece al reproducir (clase que pone view.js). */
 .video-hero__poster {
 	z-index:    1;

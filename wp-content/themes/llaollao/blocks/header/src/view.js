@@ -92,16 +92,65 @@ function initMenuPanels() {
 	} );
 }
 
+/**
+ * El header (fixed, siempre encima) pasa a transparente solo mientras sigue
+ * tapando físicamente al Video hero durante el scroll — no por el simple
+ * hecho de que la página tenga uno (eso lo resolvía CSS solo con :has(), pero
+ * no distinguía si ya se había hecho scroll más allá del hero). rootMargin
+ * negativo en el top = el alto del header: así "intersecta" mientras el hero
+ * siga extendiéndose por debajo de esa línea, que es justo cuando el header
+ * lo tapa. Se recalcula en resize por si el alto del header cambia (logo/menú
+ * de móvil vs escritorio).
+ */
+function initHeroTransparency() {
+	if ( ! ( 'IntersectionObserver' in window ) ) {
+		return;
+	}
+
+	const header = document.querySelector( 'header.wp-block-template-part' );
+	const hero   = document.querySelector( '.video-hero' );
+	if ( ! header || ! hero ) {
+		return;
+	}
+
+	let observer;
+
+	function connect() {
+		if ( observer ) {
+			observer.disconnect();
+		}
+		observer = new IntersectionObserver(
+			function ( entries ) {
+				entries.forEach( function ( entry ) {
+					header.classList.toggle( 'is-over-hero', entry.isIntersecting );
+				} );
+			},
+			{ rootMargin: '-' + header.offsetHeight + 'px 0px 0px 0px', threshold: 0 }
+		);
+		observer.observe( hero );
+	}
+
+	connect();
+
+	let resizeTimer;
+	window.addEventListener( 'resize', function () {
+		clearTimeout( resizeTimer );
+		resizeTimer = setTimeout( connect, 150 );
+	} );
+}
+
 if ( ! ( window.wp && window.wp.blocks ) ) {
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', function () {
 			initLangSwitcher();
 			initHeader();
 			initMenuPanels();
+			initHeroTransparency();
 		} );
 	} else {
 		initLangSwitcher();
 		initHeader();
 		initMenuPanels();
+		initHeroTransparency();
 	}
 }

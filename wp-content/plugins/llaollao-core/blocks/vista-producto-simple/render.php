@@ -39,6 +39,7 @@ if ( ! $post_id || 'producto' !== get_post_type( $post_id ) ) {
 $media_width   = min( 95, max( 20, (int) ( $attributes['mediaWidth'] ?? 70 ) ) );
 $gap           = max( 0, (int) ( $attributes['columnGap'] ?? 64 ) );
 $show_tipos    = ! empty( $attributes['showTipos'] );
+$reduced_info  = ! empty( $attributes['reducedInfo'] );
 $alergenos_lbl = trim( (string) ( $attributes['alergenosLabel'] ?? '' ) );
 
 if ( '' === $alergenos_lbl ) {
@@ -94,7 +95,8 @@ if ( $parent ) {
 
 // --- Campos personalizados ---------------------------------------------
 $descripcion = (string) get_post_meta( $post_id, 'llao_descripcion', true );
-$alergenos   = (string) get_post_meta( $post_id, 'llao_alergenos', true );
+$alergenos   = get_post_meta( $post_id, 'llao_alergenos', true );
+$alergenos   = is_array( $alergenos ) ? array_values( array_filter( array_map( 'intval', $alergenos ) ) ) : array();
 $recursos    = get_post_meta( $post_id, 'llao_recursos', true );
 $recursos    = is_array( $recursos ) ? array_values( array_filter( array_map( 'intval', $recursos ) ) ) : array();
 
@@ -160,6 +162,7 @@ $wrapper = get_block_wrapper_attributes( array(
 		</nav>
 	<?php endif; ?>
 
+	<?php if ( ! $reduced_info ) : ?>
 	<div class="llao-vp__cols">
 
 		<div class="llao-vp__info">
@@ -169,10 +172,21 @@ $wrapper = get_block_wrapper_attributes( array(
 				<div class="llao-vp__content"><?php echo $descripcion_html; ?></div>
 			<?php endif; ?>
 
-			<?php if ( trim( $alergenos ) ) : ?>
+			<?php if ( $alergenos ) : ?>
 				<details class="llao-vp__alergenos">
 					<summary class="llao-vp__alergenos-label"><?php echo esc_html( $alergenos_lbl ); ?></summary>
-					<div class="llao-vp__alergenos-body"><?php echo nl2br( esc_html( $alergenos ) ); ?></div>
+					<div class="llao-vp__alergenos-body">
+						<div class="llao-vp__alergenos-grid">
+							<?php foreach ( $alergenos as $alergeno_id ) : ?>
+								<?php
+								echo wp_get_attachment_image( $alergeno_id, 'thumbnail', false, array(
+									'class'   => 'llao-vp__alergeno-img',
+									'loading' => 'lazy',
+								) );
+								?>
+							<?php endforeach; ?>
+						</div>
+					</div>
 				</details>
 			<?php endif; ?>
 		</div>
@@ -203,4 +217,6 @@ $wrapper = get_block_wrapper_attributes( array(
 		<?php endif; ?>
 
 	</div>
+	<?php endif; ?>
+
 </div>

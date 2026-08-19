@@ -218,6 +218,19 @@
 	padding-top: 0.75rem;
 }
 
+.wp-block-llaollao-vista-producto .llao-vista__alergenos-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 35px);
+	gap: 10px;
+}
+
+.wp-block-llaollao-vista-producto .llao-vista__alergeno-img {
+	display: block;
+	width: 35px;
+	height: 35px;
+	object-fit: contain;
+}
+
 .wp-block-llaollao-vista-producto .llao-vista__stage {
 	flex: 0 1 var(--llao-vista-stage);
 	max-width: var(--llao-vista-stage);

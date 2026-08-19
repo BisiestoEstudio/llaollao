@@ -56,13 +56,19 @@ function llao_register_product_meta() {
 		),
 	) );
 
-	// Alérgenos: texto.
+	// Alérgenos: array de IDs de adjuntos (iconos), no texto. Se muestran en
+	// grid de 35x35 (ver render.php de vista-producto y vista-producto-simple).
 	register_post_meta( 'producto', 'llao_alergenos', array(
-		'type'          => 'string',
+		'type'          => 'array',
 		'single'        => true,
-		'default'       => '',
+		'default'       => array(),
 		'auth_callback' => $can_edit,
-		'show_in_rest'  => true,
+		'show_in_rest'  => array(
+			'schema' => array(
+				'type'  => 'array',
+				'items' => array( 'type' => 'integer' ),
+			),
+		),
 	) );
 }
 

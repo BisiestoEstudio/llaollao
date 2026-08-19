@@ -66,6 +66,13 @@
 				apply( button.getAttribute( 'data-filter' ) || '' );
 			} );
 		} );
+
+		// Filtro inicial por URL (?tipo=slug): así las migas de pan del
+		// producto pueden enlazar directo a la Carta ya filtrada por su tipo.
+		var initial = new URLSearchParams( window.location.search ).get( 'tipo' );
+		if ( initial ) {
+			apply( initial );
+		}
 	}
 
 	function initAll() {

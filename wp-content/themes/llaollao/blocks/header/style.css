@@ -4,11 +4,19 @@ header.wp-block-template-part {
 	left: 0;
 	right: 0;
 	z-index: 999;
-	background: transparent;
+	background-color: var(--wp--preset--color--crema);
+	transition: background-color 0.4s ease;
 }
 
 .admin-bar header.wp-block-template-part {
 	top: var(--wp-admin--admin-bar--height, 32px);
+}
+
+/* Transparente solo mientras el header (fixed) siga tapando físicamente al
+   Video hero al hacer scroll, no por el simple hecho de que la página tenga
+   uno; la clase la pone/quita view.js con un IntersectionObserver. */
+header.wp-block-template-part.is-over-hero {
+	background-color: transparent;
 }
 
 .site-header {
@@ -49,7 +57,7 @@ header.wp-block-template-part {
 	display: flex;
 	align-items: center;
 	gap: 2rem;
-	padding: 0.75rem 0 0;
+	padding: 0.75rem 0;
 	max-width: var(--wp--style--global--content-size, 100vw);
 	margin-left: auto;
 	margin-right: auto;

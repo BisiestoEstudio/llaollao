@@ -15,7 +15,7 @@ const EMPTY_ITEM = { imageId: 0, imageUrl: '', imageAlt: '', text: '', url: '' }
 
 registerBlockType( metadata.name, {
     edit( { attributes, setAttributes } ) {
-        const { items, gap } = attributes;
+        const { items, gap, columns } = attributes;
         const blockProps = useBlockProps( { className: 'llao-grid-links' } );
 
         const updateItem = ( index, patch ) =>
@@ -31,6 +31,16 @@ registerBlockType( metadata.name, {
             <>
                 <InspectorControls>
                     <PanelBody title={ __( 'Grid links', 'llaollao-core' ) } initialOpen>
+                        <RangeControl
+                            label={ __( 'Columnas en escritorio', 'llaollao-core' ) }
+                            help={ __( 'En móvil siempre es una columna.', 'llaollao-core' ) }
+                            value={ columns === undefined ? 3 : columns }
+                            onChange={ ( v ) => setAttributes( { columns: v === undefined ? 3 : v } ) }
+                            min={ 2 }
+                            max={ 3 }
+                            step={ 1 }
+                            __nextHasNoMarginBottom
+                        />
                         <RangeControl
                             label={ __( 'Separación entre elementos (px)', 'llaollao-core' ) }
                             value={ gap }
