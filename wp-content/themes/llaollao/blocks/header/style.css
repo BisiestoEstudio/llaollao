@@ -12,9 +12,6 @@ header.wp-block-template-part {
 	top: var(--wp-admin--admin-bar--height, 32px);
 }
 
-/* Transparente solo mientras el header (fixed) siga tapando físicamente al
-   Video hero al hacer scroll, no por el simple hecho de que la página tenga
-   uno; la clase la pone/quita view.js con un IntersectionObserver. */
 header.wp-block-template-part.is-over-hero {
 	background-color: transparent;
 }
@@ -58,7 +55,7 @@ header.wp-block-template-part.is-over-hero {
 	align-items: center;
 	gap: 2rem;
 	padding: 0.75rem 0;
-	max-width: var(--wp--style--global--content-size, 100vw);
+	max-width: 1280px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -286,6 +283,10 @@ header.wp-block-template-part.is-over-hero {
 	display: flex;
 	justify-content: center;
 	transform: rotate(15deg);
+	/* Capa propia y estable: sin esto, el rotate del padre + la animación del
+	   hijo hacen que el navegador redondee mal los píxeles cada frame y las
+	   imágenes tiemblan/deforman durante el scroll. */
+	backface-visibility: hidden;
 }
 
 .site-header__panel-scroll-oblique-track {
@@ -295,12 +296,16 @@ header.wp-block-template-part.is-over-hero {
 	gap: 16px;
 	animation: site-header-panel-scroll-y 30s linear infinite;
 	will-change: transform;
+	backface-visibility: hidden;
 }
 
 .site-header__panel-scroll-oblique-img {
 	display: block;
-	width: 100%;
+	align-self: center;
+	width: auto;
 	height: auto;
+	max-width: 353px;
+	border-radius: 12px;
 }
 
 /* Panel de hijos: cuando el item tiene submenú, se listan sus hijos con scroll

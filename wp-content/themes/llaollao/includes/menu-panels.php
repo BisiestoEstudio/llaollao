@@ -129,9 +129,13 @@ function bisiesto_render_panel_scroll_vertical( $item_id ) {
 	for ( $copy = 0; $copy < 2; $copy++ ) {
 		foreach ( $ids as $i => $id ) {
 			$align = ( 0 === $i % 2 ) ? 'left' : 'right';
+			// sizes fijo (70% de los 260px de la columna): mismo motivo que en
+			// el panel oblicuo, para que no lo calcule mal a partir del ancho
+			// original de cada imagen.
 			$html .= '<div class="site-header__panel-scroll-vertical-item site-header__panel-scroll-vertical-item--' . esc_attr( $align ) . '">' . wp_get_attachment_image( $id, 'medium_large', false, array(
 				'class'   => 'site-header__panel-scroll-vertical-img',
 				'loading' => 'lazy',
+				'sizes'   => '182px',
 			) ) . '</div>';
 		}
 	}
@@ -149,9 +153,15 @@ function bisiesto_render_panel_scroll_oblique( $item_id ) {
 	$html = '<div class="site-header__panel-scroll-oblique" aria-hidden="true"><div class="site-header__panel-scroll-oblique-rotate"><div class="site-header__panel-scroll-oblique-track">';
 	for ( $copy = 0; $copy < 2; $copy++ ) {
 		foreach ( $ids as $id ) {
+			// sizes fijo, igual que el max-width real de la imagen en style.css
+			// (.site-header__panel-scroll-oblique-img): sin esto, WordPress
+			// calcula un "sizes" a partir del ancho original de la imagen (ej.
+			// 335px), y el navegador termina pintándola más pequeña de lo que
+			// le toca.
 			$html .= wp_get_attachment_image( $id, 'medium_large', false, array(
 				'class'   => 'site-header__panel-scroll-oblique-img',
 				'loading' => 'lazy',
+				'sizes'   => '210px',
 			) );
 		}
 	}

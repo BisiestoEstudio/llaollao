@@ -7,6 +7,16 @@
 	box-sizing:    border-box;
 }
 
+/* Con vídeo de móvil propio (normalmente vertical), el contenedor pasa a
+   proporción retrato en móvil: con el 16/9 de escritorio, object-fit:cover
+   recortaba un vídeo vertical muchísimo. Sin vídeo de móvil no se toca nada,
+   para no afectar a los heroes que solo tienen el de escritorio. */
+@media (max-width: 768px) {
+	.video-hero:has(.video-hero__video--mobile) {
+		aspect-ratio: 9 / 16;
+	}
+}
+
 .video-hero__video,
 .video-hero__poster {
 	position:   absolute;
