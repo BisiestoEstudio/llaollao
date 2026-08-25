@@ -46,31 +46,33 @@ $site_name       = get_bloginfo( 'name' );
 	<?php $menu_items = bisiesto_get_menu_tree( 'menu-hamburguesa' ); ?>
 
 	<div class="site-header__menu-overlay" id="site-header-menu">
+		<div class="site-header__menu-inner">
 
-		<div class="site-header__menu-left">
-			<ul class="site-header__menu-list">
+			<div class="site-header__menu-left">
+				<ul class="site-header__menu-list">
+					<?php foreach ( $menu_items as $item ) : ?>
+						<li>
+							<a href="<?php echo esc_url( $item->url ); ?>" data-menu-item="<?php echo esc_attr( $item->ID ); ?>">
+								<?php echo esc_html( $item->title ); ?>
+							</a>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+
+			<div class="site-header__menu-right">
 				<?php foreach ( $menu_items as $item ) : ?>
-					<li>
-						<a href="<?php echo esc_url( $item->url ); ?>" data-menu-item="<?php echo esc_attr( $item->ID ); ?>">
-							<?php echo esc_html( $item->title ); ?>
-						</a>
-					</li>
+					<?php $panel_html = bisiesto_render_menu_panel( $item ); ?>
+					<?php if ( '' === $panel_html ) : ?>
+						<?php continue; ?>
+					<?php endif; ?>
+					<div class="site-header__menu-panel" data-menu-item="<?php echo esc_attr( $item->ID ); ?>">
+						<?php echo $panel_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- construido en includes/menu-panels.php ya escapado pieza a pieza. ?>
+					</div>
 				<?php endforeach; ?>
-			</ul>
-		</div>
+			</div>
 
-		<div class="site-header__menu-right">
-			<?php foreach ( $menu_items as $item ) : ?>
-				<?php $panel_html = bisiesto_render_menu_panel( $item ); ?>
-				<?php if ( '' === $panel_html ) : ?>
-					<?php continue; ?>
-				<?php endif; ?>
-				<div class="site-header__menu-panel" data-menu-item="<?php echo esc_attr( $item->ID ); ?>">
-					<?php echo $panel_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- construido en includes/menu-panels.php ya escapado pieza a pieza. ?>
-				</div>
-			<?php endforeach; ?>
 		</div>
-
 	</div>
 
 </div>

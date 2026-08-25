@@ -90,6 +90,8 @@ header.wp-block-template-part.is-over-hero {
 }
 
 .site-header__menu-toggle {
+	position: relative;
+	left: 0.75rem;
 	display: flex;
 	align-items: center;
 	background: none;
@@ -116,12 +118,23 @@ header.wp-block-template-part.is-over-hero {
 	position: fixed;
 	inset: 0;
 	z-index: 1;
-	display: flex;
-	align-items: stretch;
 	background: var(--wp--preset--color--crema);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s ease;
+}
+
+/* El fondo (arriba) ocupa toda la pantalla; el contenido (listado + panel)
+   se limita al mismo ancho que .site-header__bar, para que no se vea a
+   ancho completo. */
+.site-header__menu-inner {
+	width: 100%;
+	max-width: 1280px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	align-items: stretch;
 }
 
 .site-header.is-open .site-header__menu-overlay {
@@ -318,6 +331,14 @@ header.wp-block-template-part.is-over-hero {
 	flex-direction: column;
 	gap: 16px;
 	padding: 0 10%;
+	/* Sigue haciendo scroll, solo se oculta la barra visual (pedido del
+	   cliente). */
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.site-header__panel-children::-webkit-scrollbar {
+	display: none;
 }
 
 .site-header__panel-children-row {
@@ -325,6 +346,7 @@ header.wp-block-template-part.is-over-hero {
 	align-items: center;
 	justify-content: space-between;
 	gap: 16px;
+	min-height: 33vh;
 }
 
 .site-header__panel-children-text {
@@ -452,7 +474,7 @@ header.wp-block-template-part.is-over-hero {
 	}
 
 	.site-header__menu-left {
-		padding-left: 2rem;
+		padding-left: 0;
 	}
 
 	.site-header__menu-right {

@@ -15,9 +15,13 @@
 	flex: 0 0 16px;
 	width: 16px;
 	height: 16px;
+	padding: 0;
+	border: none;
+	background-color: transparent;
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: center;
+	cursor: pointer;
 }
 
 .wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track {
@@ -81,16 +85,41 @@
 
 .wp-block-llaollao-vista-producto-simple .llao-vp__hermanos {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	align-items: flex-start;
 	gap: 1.5rem;
 	margin-bottom: 2.5rem;
+	overflow-x: auto;
+	scrollbar-color: var(--wp--preset--color--marron) var(--wp--preset--color--crema);
+	padding-right: 1rem;
+}
+
+/* Igual que .llao-vp__tipos-track: si hay muchos hermanos, la fila se sale
+   por la derecha hasta el borde de la pantalla en vez de quedarse dentro del
+   ancho del contenido. */
+.wp-block-llaollao-vista-producto-simple:not(.alignfull) .llao-vp__hermanos {
+	margin-right: calc(50% - 50vw);
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermanos::-webkit-scrollbar {
+	height: 6px;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermanos::-webkit-scrollbar-track {
+	background-color: var(--wp--preset--color--crema);
+	border-radius: 100px;
+}
+
+.wp-block-llaollao-vista-producto-simple .llao-vp__hermanos::-webkit-scrollbar-thumb {
+	background-color: var(--wp--preset--color--marron);
+	border-radius: 100px;
 }
 
 .wp-block-llaollao-vista-producto-simple .llao-vp__hermano {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	flex-shrink: 0;
 	width: 80px;
 	text-decoration: none;
 }

@@ -70,6 +70,14 @@
 		document
 			.querySelectorAll( '.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-track' )
 			.forEach( hacerArrastrable );
+
+		document
+			.querySelectorAll( '.wp-block-llaollao-vista-producto-simple .llao-vp__tipos-icon' )
+			.forEach( function ( boton ) {
+				boton.addEventListener( 'click', function () {
+					history.back();
+				} );
+			} );
 	}
 
 	if ( 'loading' === document.readyState ) {

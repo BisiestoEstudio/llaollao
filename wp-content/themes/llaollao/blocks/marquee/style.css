@@ -30,13 +30,15 @@
    font-weight: 700;
    line-height: 1;
    white-space: nowrap;
+   width: 100%;
 }
 
-/* Separador · pegado a cada texto, con hueco a ambos lados. Al ir en cada item
-   la separación es igual también en el empalme entre el último y el primero. */
 .wp-block-bisiesto-marquee .marquee__item::after {
-   content: "\00B7"; /* · */
+   content: "\00B7";
    margin-inline: 0.75rem;
+   width: 100%;
+   display: flex;
+   justify-content: center;
 }
 
 @keyframes marquee-scroll {
@@ -44,7 +46,6 @@
    to   { transform: translateX(-100%); }
 }
 
-/* Accesibilidad: sin animación si el usuario reduce el movimiento. */
 @media (prefers-reduced-motion: reduce) {
    .wp-block-bisiesto-marquee .marquee__group {
       animation: none;

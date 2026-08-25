@@ -116,8 +116,8 @@ $wrapper = get_block_wrapper_attributes( array(
 
 	<?php if ( $tipos ) : ?>
 		<div class="llao-vp__tipos">
-			<?php /* Marcador decorativo: fuera de la pista para no irse con el desplazamiento. */ ?>
-			<span class="llao-vp__tipos-icon" aria-hidden="true"></span>
+			<?php /* Vuelve a la página anterior (JS, view.js); fuera de la pista para no irse con el desplazamiento. */ ?>
+			<button type="button" class="llao-vp__tipos-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></button>
 
 			<ul class="llao-vp__tipos-track">
 				<?php foreach ( $tipos as $tipo ) : ?>

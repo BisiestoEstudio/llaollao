@@ -23,10 +23,6 @@ $show_filters = ! empty( $attributes['showFilters'] );
 $all_label    = trim( (string) ( $attributes['allLabel'] ?? '' ) );
 $gap          = max( 0, (int) ( $attributes['gap'] ?? 20 ) );
 
-if ( '' === $all_label ) {
-	$all_label = __( 'Todos', 'llaollao-core' );
-}
-
 $args = array(
 	'post_type'           => 'producto',
 	'post_status'         => 'publish',
@@ -123,13 +119,15 @@ $wrapper = get_block_wrapper_attributes( array(
 
 	<?php if ( $show_filters && $types ) : ?>
 		<div class="llao-carta__filters" role="group" aria-label="<?php esc_attr_e( 'Filtrar por tipo', 'llaollao-core' ); ?>">
-			<button
-				type="button"
-				class="llao-carta__filter button-tag is-active"
-				data-filter=""
-				data-text="<?php echo esc_attr( $all_label ); ?>"
-				aria-pressed="true"
-			><?php echo esc_html( $all_label ); ?></button>
+			<?php if ( '' !== $all_label ) : ?>
+				<button
+					type="button"
+					class="llao-carta__filter button-tag is-active"
+					data-filter=""
+					data-text="<?php echo esc_attr( $all_label ); ?>"
+					aria-pressed="true"
+				><?php echo esc_html( $all_label ); ?></button>
+			<?php endif; ?>
 
 			<?php foreach ( $types as $slug => $name ) : ?>
 				<button

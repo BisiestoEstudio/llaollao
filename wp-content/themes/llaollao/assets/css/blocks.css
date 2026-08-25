@@ -72,12 +72,42 @@ h5,
 	border-radius: 0.563rem;
 }
 
+/* Estilo "Redondeado" de core/image: por defecto WordPress lo deja
+   circular (border-radius:9999px), pero la regla de arriba ya lo pisa (más
+   especificidad que el :where() de WP); esta lo deja explícito en 9px en
+   vez de depender de esa coincidencia. */
+.wp-block-image.is-style-rounded img {
+	border-radius: 9px;
+}
+
 /* Opción "Ocultar en móvil" del bloque core/spacer (ver
    assets/js/spacer-hide-mobile.js). */
 @media (max-width: 768px) {
 	.wp-block-spacer.is-hidden-mobile {
 		display: none !important;
 	}
+}
+
+/* Opción "Zoom con hover" del bloque core/image (ver
+   assets/js/image-hover-zoom.js). overflow:hidden en el wrapper para que la
+   imagen ampliada no se salga de su caja; el wrapper necesita el mismo
+   border-radius que la imagen, si no, el recorte se hace en ángulo recto y
+   las esquinas redondeadas desaparecen durante el hover. */
+.wp-block-image.has-hover-zoom {
+	overflow: hidden;
+	border-radius: 0.563rem;
+}
+
+.wp-block-image.has-hover-zoom.is-style-rounded {
+	border-radius: 9px;
+}
+
+.wp-block-image.has-hover-zoom img {
+	transition: transform 0.4s ease;
+}
+
+.wp-block-image.has-hover-zoom:hover img {
+	transform: scale(1.08);
 }
 
 .wp-site-blocks>main {
