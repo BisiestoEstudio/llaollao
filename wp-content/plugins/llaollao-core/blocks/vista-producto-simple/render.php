@@ -46,38 +46,9 @@ if ( '' === $alergenos_lbl ) {
 	$alergenos_lbl = __( 'Alérgenos', 'llaollao-core' );
 }
 
-// --- Etiquetas de tipo -------------------------------------------------
-// La fila no enseña solo los términos del producto: enseña también los de su
-// mismo nivel, para que se vean las alternativas y no una etiqueta suelta. En
-// una taxonomía jerárquica como esta, "mismo nivel" es compartir padre.
-// Los que el producto sí tiene salen marcados.
-//
-// La taxonomía no es pública (sin archivo ni query var), así que van como
-// etiquetas de solo lectura, sin enlace.
-$tipos         = array();
-$tipos_activos = array();
-
-if ( $show_tipos ) {
-	$propios = get_the_terms( $post_id, 'tipo' );
-
-	if ( $propios && ! is_wp_error( $propios ) ) {
-		$tipos_activos = wp_list_pluck( $propios, 'term_id' );
-
-		$primero = reset( $propios );
-		$mismo_nivel = get_terms( array(
-			'taxonomy'   => 'tipo',
-			'parent'     => (int) $primero->parent,
-			'hide_empty' => false,
-			'orderby'    => 'name',
-			'order'      => 'ASC',
-		) );
-
-		// Si la consulta falla, al menos se pintan los del producto.
-		$tipos = ( $mismo_nivel && ! is_wp_error( $mismo_nivel ) ) ? $mismo_nivel : $propios;
-	}
-}
-
-// --- Padre y hermanos --------------------------------------------------
+// --- Padre y hermanos ----------------------------------------------------
+// $siblings: hermanos del propio producto actual (hijos de $parent), para la
+// fila de abajo (.llao-vp__hermanos).
 $parent   = wp_get_post_parent_id( $post_id );
 $siblings = array();
 
@@ -91,6 +62,34 @@ if ( $parent ) {
 		'order'            => 'ASC',
 		'suppress_filters' => false,
 	) );
+}
+
+// $parent_siblings: hermanos del PADRE (comparten el abuelo de $post_id) que
+// además comparten con él al menos un término de "tipo", para la fila de
+// arriba (.llao-vp__tipos-track): el padre marcado + sus hermanos.
+$parent_siblings = array();
+
+if ( $parent ) {
+	$grandparent  = wp_get_post_parent_id( $parent );
+	$parent_tipos = wp_get_post_terms( $parent, 'tipo', array( 'fields' => 'ids' ) );
+
+	if ( $parent_tipos && ! is_wp_error( $parent_tipos ) ) {
+		$parent_siblings = get_posts( array(
+			'post_type'        => 'producto',
+			'post_status'      => 'publish',
+			'post_parent'      => $grandparent,
+			'post__not_in'     => array( $parent ),
+			'numberposts'      => -1,
+			'orderby'          => 'menu_order title',
+			'order'            => 'ASC',
+			'suppress_filters' => false,
+			'tax_query'        => array( array(
+				'taxonomy' => 'tipo',
+				'field'    => 'term_id',
+				'terms'    => $parent_tipos,
+			) ),
+		) );
+	}
 }
 
 // --- Campos personalizados ---------------------------------------------
@@ -114,19 +113,26 @@ $wrapper = get_block_wrapper_attributes( array(
 ?>
 <div <?php echo $wrapper; ?>>
 
-	<?php if ( $tipos ) : ?>
+	<?php if ( $show_tipos && $parent ) : ?>
 		<div class="llao-vp__tipos">
 			<?php /* Vuelve a la página anterior (JS, view.js); fuera de la pista para no irse con el desplazamiento. */ ?>
 			<button type="button" class="llao-vp__tipos-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></button>
 
 			<ul class="llao-vp__tipos-track">
-				<?php foreach ( $tipos as $tipo ) : ?>
-					<?php $suyo = in_array( (int) $tipo->term_id, array_map( 'intval', $tipos_activos ), true ); ?>
+				<li>
+					<a
+						class="llao-vp__tipo button-tag is-active"
+						href="<?php echo esc_url( get_permalink( $parent ) ); ?>"
+						data-text="<?php echo esc_attr( get_the_title( $parent ) ); ?>"
+					><?php echo esc_html( get_the_title( $parent ) ); ?></a>
+				</li>
+				<?php foreach ( $parent_siblings as $parent_sibling ) : ?>
 					<li>
-						<span
-							class="llao-vp__tipo button-tag<?php echo $suyo ? ' is-active' : ''; ?>"
-							data-text="<?php echo esc_attr( $tipo->name ); ?>"
-						><?php echo esc_html( $tipo->name ); ?></span>
+						<a
+							class="llao-vp__tipo button-tag"
+							href="<?php echo esc_url( get_permalink( $parent_sibling->ID ) ); ?>"
+							data-text="<?php echo esc_attr( get_the_title( $parent_sibling->ID ) ); ?>"
+						><?php echo esc_html( get_the_title( $parent_sibling->ID ) ); ?></a>
 					</li>
 				<?php endforeach; ?>
 			</ul>

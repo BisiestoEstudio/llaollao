@@ -63,7 +63,6 @@
 	font-size: var(--wp--preset--font-size--h-4);
 	border-color: var(--wp--preset--color--verde);
 	color: var(--wp--preset--color--verde);
-	cursor: default;
 }
 
 .wp-block-llaollao-vista-producto-simple .llao-vp__tipo.is-active::before {
