@@ -36,7 +36,7 @@ function bisiesto_menu_item_custom_fields( $item_id, $item ) {
 	</p>
 
 	<p class="field-llao-featured-image description description-wide llao-media-field" data-kind="single">
-		<label><?php esc_html_e( 'Imagen destacada (panel)', 'bisiesto' ); ?></label><br />
+		<label><?php esc_html_e( 'Imagen destacada (miniatura cuando este item aparece como hijo)', 'bisiesto' ); ?></label><br />
 		<span class="llao-media-preview">
 			<?php if ( $image_id ) : ?>
 				<?php echo wp_get_attachment_image( $image_id, 'thumbnail' ); ?>
@@ -48,7 +48,7 @@ function bisiesto_menu_item_custom_fields( $item_id, $item ) {
 	</p>
 
 	<p class="field-llao-gallery description description-wide llao-media-field" data-kind="gallery">
-		<label><?php esc_html_e( 'Galería (panel: Grid / Scroll vertical / Scroll oblicuo)', 'bisiesto' ); ?></label><br />
+		<label><?php esc_html_e( 'Galería (panel: Imagen destacada / Grid / Scroll vertical / Scroll oblicuo)', 'bisiesto' ); ?></label><br />
 		<span class="llao-media-preview">
 			<?php foreach ( $gallery as $gid ) : ?>
 				<?php echo wp_get_attachment_image( $gid, 'thumbnail' ); ?>

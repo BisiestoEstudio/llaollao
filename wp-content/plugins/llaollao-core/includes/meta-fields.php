@@ -70,6 +70,15 @@ function llao_register_product_meta() {
 			),
 		),
 	) );
+
+	// Oculta el bloque de migas de pan (breadcrumbs) en este producto.
+	register_post_meta( 'producto', 'llao_ocultar_breadcrumbs', array(
+		'type'          => 'boolean',
+		'single'        => true,
+		'default'       => false,
+		'auth_callback' => $can_edit,
+		'show_in_rest'  => true,
+	) );
 }
 
 /**

@@ -18,9 +18,13 @@
 	flex: 0 0 16px;
 	width: 16px;
 	height: 16px;
+	padding: 0;
+	border: none;
+	background-color: transparent;
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: center;
+	cursor: pointer;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__tipos-track {
@@ -62,7 +66,6 @@
 	font-size: var(--wp--preset--font-size--h-4);
 	border-color: var(--wp--preset--color--verde);
 	color: var(--wp--preset--color--verde);
-	cursor: default;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__tipo.is-active::before {
@@ -84,9 +87,13 @@
 	flex: 0 0 16px;
 	width: 16px;
 	height: 16px;
+	padding: 0;
+	border: none;
+	background-color: transparent;
 	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cline x1='0.707595' y1='7.29289' x2='8.7072' y2='15.2925' stroke='%2370421F' stroke-width='2'/%3E%3Cline x1='8.70759' y1='0.707107' x2='0.707994' y2='8.70671' stroke='%2370421F' stroke-width='2'/%3E%3C/svg%3E");
 	background-repeat: no-repeat;
 	background-position: center;
+	cursor: pointer;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__siblings-track {
@@ -232,18 +239,29 @@
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__stage {
+	position: relative;
 	flex: 0 1 var(--llao-vista-stage);
 	max-width: var(--llao-vista-stage);
 	min-width: 0;
 }
 
+/* Escritorio: las piezas se superponen (position:absolute) y se cruzan con un
+   fundido; la activa pasa a position:relative para que sea ella la que
+   determine el alto real del stage (así no hace falta calcularlo por JS). */
 .wp-block-llaollao-vista-producto .llao-vista__media {
-	display: none;
+	display: block;
+	position: absolute;
+	inset: 0;
 	margin: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.35s ease;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__media.is-active {
-	display: block;
+	position: relative;
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__media-img,
@@ -357,9 +375,13 @@
 
 	.wp-block-llaollao-vista-producto .llao-vista__media {
 		display: block;
+		position: static;
 		flex: 0 0 100%;
 		width: 100%;
 		scroll-snap-align: center;
+		opacity: 1;
+		pointer-events: auto;
+		transition: none;
 	}
 
 	.wp-block-llaollao-vista-producto .llao-vista__thumbs {
@@ -421,5 +443,11 @@
 	.wp-block-llaollao-vista-producto .llao-vista__thumb-img,
 	.wp-block-llaollao-vista-producto .llao-vista__thumb.is-video::after {
 		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.wp-block-llaollao-vista-producto .llao-vista__media {
+		transition: none;
 	}
 }

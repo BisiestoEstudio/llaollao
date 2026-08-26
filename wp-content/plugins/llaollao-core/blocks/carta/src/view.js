@@ -69,10 +69,14 @@
 
 		// Filtro inicial por URL (?tipo=slug): así las migas de pan del
 		// producto pueden enlazar directo a la Carta ya filtrada por su tipo.
+		// Sin parámetro, se respeta el que haya marcado el propio PHP como
+		// activo por defecto ("Todos", o el primer tipo si no hay "Todos").
 		var initial = new URLSearchParams( window.location.search ).get( 'tipo' );
-		if ( initial ) {
-			apply( initial );
+		if ( ! initial ) {
+			var activo = root.querySelector( '.llao-carta__filter.is-active' );
+			initial = activo ? ( activo.getAttribute( 'data-filter' ) || '' ) : '';
 		}
+		apply( initial );
 	}
 
 	function initAll() {

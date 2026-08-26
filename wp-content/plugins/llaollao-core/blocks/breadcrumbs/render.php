@@ -25,6 +25,10 @@ if ( ! $product_id || 'producto' !== get_post_type( $product_id ) ) {
 	return;
 }
 
+if ( get_post_meta( $product_id, 'llao_ocultar_breadcrumbs', true ) ) {
+	return;
+}
+
 $crumbs = array();
 
 // 1. Carta (página configurable).

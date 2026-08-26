@@ -111,7 +111,7 @@
 				),
 				el( PanelBody, { title: __( 'Etiquetas, hermanos y alérgenos', 'llaollao-core' ), initialOpen: false },
 					el( ToggleControl, {
-						label: __( 'Mostrar la nube de etiquetas de Tipo', 'llaollao-core' ),
+						label: __( 'Mostrar la nube de etiquetas de padre y hermanos', 'llaollao-core' ),
 						checked: !! attributes.showTipos,
 						onChange: function ( v ) { setAttributes( { showTipos: !! v } ); },
 						__nextHasNoMarginBottom: true,

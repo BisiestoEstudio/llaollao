@@ -4,10 +4,11 @@
  * la mitad derecha del menú a pantalla completa (blocks/header/render.php).
  *
  * Regla de prioridad: si un item tiene hijos, el panel siempre muestra esos
- * hijos en scroll continuo (texto izq. + imagen destacada del hijo a la
- * derecha), sin mirar el campo "Panel" del propio item. Solo los items sin
- * hijos usan Nada / Imagen destacada / Grid / Scroll vertical / Scroll
- * oblicuo, con las imágenes del campo Galería.
+ * hijos en dos columnas con scroll continuo (nombres a la izquierda bajando,
+ * imágenes destacadas de los hijos a la derecha subiendo), sin mirar el
+ * campo "Panel" del propio item. Solo los items sin hijos usan Nada / Imagen
+ * destacada / Grid / Scroll vertical / Scroll oblicuo, con las imágenes del
+ * campo Galería.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -74,15 +75,37 @@ function bisiesto_render_menu_panel( $item ) {
 	}
 }
 
+/**
+ * Panel "Imagen destacada": pila de cartas (las imágenes de la Galería),
+ * cada una con su propia rotación fija (por posición, no aleatoria, para que
+ * no cambie de una carga a otra) y un retraso de 1,5s por carta, de modo que
+ * al hacer hover (.is-active en el panel padre) vayan apareciendo una a una.
+ */
 function bisiesto_render_panel_featured( $item_id ) {
-	$image_id = (int) get_post_meta( $item_id, '_llao_menu_featured_image', true );
-	if ( ! $image_id ) {
+	$ids = bisiesto_menu_item_gallery( $item_id );
+	if ( ! $ids ) {
 		return '';
 	}
 
-	return '<div class="site-header__panel-featured">' . wp_get_attachment_image( $image_id, 'large', false, array(
-		'class' => 'site-header__panel-featured-img',
-	) ) . '</div>';
+	$rotations = array( -8, 6, -4, 9, -6, 4, -9, 7 );
+
+	$html = '<div class="site-header__panel-featured" aria-hidden="true"><div class="site-header__panel-featured-cards">';
+	foreach ( $ids as $i => $id ) {
+		$style = sprintf(
+			'--llao-card-rot:%ddeg;--llao-card-delay:%ss;z-index:%d;',
+			$rotations[ $i % count( $rotations ) ],
+			round( $i * 1.5, 2 ),
+			$i
+		);
+		$html .= wp_get_attachment_image( $id, 'large', false, array(
+			'class'   => 'site-header__panel-featured-img',
+			'loading' => 'lazy',
+			'style'   => $style,
+		) );
+	}
+	$html .= '</div></div>';
+
+	return $html;
 }
 
 function bisiesto_render_panel_grid( $item_id ) {
@@ -161,7 +184,7 @@ function bisiesto_render_panel_scroll_oblique( $item_id ) {
 			$html .= wp_get_attachment_image( $id, 'medium_large', false, array(
 				'class'   => 'site-header__panel-scroll-oblique-img',
 				'loading' => 'lazy',
-				'sizes'   => '210px',
+				'sizes'   => '450px',
 			) );
 		}
 	}
@@ -171,28 +194,39 @@ function bisiesto_render_panel_scroll_oblique( $item_id ) {
 }
 
 /**
- * Filas de hijos (texto + imagen). Scroll normal del navegador, sin loop: los
- * hijos se listan una sola vez, sin duplicar contenido.
+ * Panel de hijos: dos columnas independientes con scroll continuo, igual que
+ * Grid/Scroll vertical/Scroll oblicuo (pista duplicada x2 para el loop sin
+ * costura). Ya no van emparejados nombre+imagen en una fila: la de los
+ * nombres baja, la de las imágenes sube, a la misma velocidad.
  */
-function bisiesto_render_menu_children_rows( $children ) {
-	$rows = '';
-	foreach ( $children as $child ) {
-		$image_id = (int) get_post_meta( $child->ID, '_llao_menu_featured_image', true );
+function bisiesto_render_panel_children( $children ) {
+	if ( ! $children ) {
+		return '';
+	}
 
-		$rows .= '<div class="site-header__panel-children-row">';
-		$rows .= '<a class="site-header__panel-children-text" href="' . esc_url( $child->url ) . '">' . esc_html( $child->title ) . '</a>';
+	$links_html  = '';
+	$images_html = '';
+
+	foreach ( $children as $child ) {
+		$links_html .= '<a class="site-header__panel-children-text" href="' . esc_url( $child->url ) . '">' . esc_html( $child->title ) . '</a>';
+
+		$image_id = (int) get_post_meta( $child->ID, '_llao_menu_featured_image', true );
 		if ( $image_id ) {
-			$rows .= '<span class="site-header__panel-children-image">' . wp_get_attachment_image( $image_id, 'medium', false, array(
+			$images_html .= '<span class="site-header__panel-children-image">' . wp_get_attachment_image( $image_id, 'medium', false, array(
 				'class'   => 'site-header__panel-children-img',
 				'loading' => 'lazy',
 			) ) . '</span>';
 		}
-		$rows .= '</div>';
 	}
 
-	return $rows;
-}
+	$html  = '<div class="site-header__panel-children">';
+	$html .= '<div class="site-header__panel-children-links"><div class="site-header__panel-children-links-track">' . str_repeat( $links_html, 2 ) . '</div></div>';
 
-function bisiesto_render_panel_children( $children ) {
-	return '<div class="site-header__panel-children">' . bisiesto_render_menu_children_rows( $children ) . '</div>';
+	if ( $images_html ) {
+		$html .= '<div class="site-header__panel-children-images" aria-hidden="true"><div class="site-header__panel-children-images-track">' . str_repeat( $images_html, 2 ) . '</div></div>';
+	}
+
+	$html .= '</div>';
+
+	return $html;
 }

@@ -91,6 +91,7 @@
 	overflow-x: auto;
 	scrollbar-color: var(--wp--preset--color--marron) var(--wp--preset--color--crema);
 	padding-right: 1rem;
+	padding-top: 0.25rem;
 }
 
 /* Igual que .llao-vp__tipos-track: si hay muchos hermanos, la fila se sale

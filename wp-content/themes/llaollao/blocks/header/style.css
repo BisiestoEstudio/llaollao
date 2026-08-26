@@ -294,11 +294,9 @@ header.wp-block-template-part.is-over-hero {
 	position: absolute;
 	inset: -25%;
 	display: flex;
+	align-items: center;
 	justify-content: center;
 	transform: rotate(15deg);
-	/* Capa propia y estable: sin esto, el rotate del padre + la animación del
-	   hijo hacen que el navegador redondee mal los píxeles cada frame y las
-	   imágenes tiemblan/deforman durante el scroll. */
 	backface-visibility: hidden;
 }
 
@@ -317,40 +315,50 @@ header.wp-block-template-part.is-over-hero {
 	align-self: center;
 	width: auto;
 	height: auto;
-	max-width: 353px;
+	max-width: 450px;
 	border-radius: 12px;
 }
 
-/* Panel de hijos: cuando el item tiene submenú, se listan sus hijos con scroll
-   normal del navegador (texto a la izquierda, imagen destacada del hijo a la
-   derecha), sin animación ni contenido duplicado. */
+/* Panel de hijos: dos columnas independientes con scroll continuo (mismo
+   keyframe que Grid/Scroll vertical/Scroll oblicuo, pista duplicada x2 en
+   PHP para el loop sin costura). Los nombres bajan (animation-direction
+   reverse) y las imágenes suben (dirección normal del keyframe), a la misma
+   velocidad (30s). */
 .site-header__panel-children {
 	height: 100%;
-	overflow-y: auto;
+	display: flex;
+	gap: 16px;
+	padding: 0 10%;
+}
+
+.site-header__panel-children-links,
+.site-header__panel-children-images {
+	flex: 1 1 50%;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.site-header__panel-children-links-track {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
-	padding: 0 10%;
-	/* Sigue haciendo scroll, solo se oculta la barra visual (pedido del
-	   cliente). */
-	scrollbar-width: none;
-	-ms-overflow-style: none;
+	animation: site-header-panel-scroll-y 30s linear infinite reverse;
+	will-change: transform;
 }
 
-.site-header__panel-children::-webkit-scrollbar {
-	display: none;
-}
-
-.site-header__panel-children-row {
+.site-header__panel-children-images-track {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	flex-direction: column;
 	gap: 16px;
-	min-height: 33vh;
+	animation: site-header-panel-scroll-y 30s linear infinite;
+	will-change: transform;
 }
 
 .site-header__panel-children-text {
+	display: flex;
+	align-items: center;
 	min-width: 0;
+	min-height: 33vh;
 	text-decoration: none;
 	color: var(--wp--preset--color--marron);
 	font-family: var(--wp--preset--font-family--bree);
@@ -363,20 +371,24 @@ header.wp-block-template-part.is-over-hero {
 }
 
 .site-header__panel-children-image {
-	flex: 0 1 auto;
-	max-width: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 33vh;
 }
 
 .site-header__panel-children-img {
 	display: block;
-	width: auto;
+	width: 100%;
 	height: auto;
-	max-width: 100%;
 	border-radius: 8px;
 }
 
-/* Panel "Imagen destacada": estática, sin loop. Tamaño natural (nunca se
-   estira más allá de su propio tamaño), solo encoge si no cabe. */
+/* Panel "Imagen destacada": pila de cartas (las imágenes de la Galería),
+   cada una con su propia rotación fija (--llao-card-rot, ver menu-panels.php)
+   para que parezcan un poco desordenadas. Tamaño de carta fijo (con
+   object-fit:cover) para que la pila quede uniforme aunque las imágenes
+   originales tengan proporciones distintas. */
 .site-header__panel-featured {
 	height: 100%;
 	display: flex;
@@ -384,20 +396,46 @@ header.wp-block-template-part.is-over-hero {
 	justify-content: center;
 }
 
+.site-header__panel-featured-cards {
+	position: relative;
+	width: 100%;
+	max-width: 280px;
+	aspect-ratio: 3 / 4;
+}
+
 .site-header__panel-featured-img {
+	position: absolute;
+	inset: 0;
 	display: block;
-	width: auto;
-	height: auto;
-	max-width: 100%;
-	max-height: 100%;
-	border-radius: 8px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(18, 18, 18, 0.2);
+	opacity: 0;
+	transform: rotate(var(--llao-card-rot, 0deg)) scale(0.85);
+	transition: opacity 0.35s ease, transform 0.35s ease;
+	transition-delay: var(--llao-card-delay, 0s);
+}
+
+/* .is-active la pone view.js en el panel al hacer hover del item del menú
+   (mismo mecanismo que el resto de paneles). */
+.site-header__menu-panel.is-active .site-header__panel-featured-img {
+	opacity: 1;
+	transform: rotate(var(--llao-card-rot, 0deg)) scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.site-header__panel-grid-track,
 	.site-header__panel-scroll-vertical-track,
-	.site-header__panel-scroll-oblique-track {
+	.site-header__panel-scroll-oblique-track,
+	.site-header__panel-children-links-track,
+	.site-header__panel-children-images-track {
 		animation: none;
+	}
+
+	.site-header__panel-featured-img {
+		transition: none;
 	}
 }
 

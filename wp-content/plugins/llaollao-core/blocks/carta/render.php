@@ -129,14 +129,16 @@ $wrapper = get_block_wrapper_attributes( array(
 				><?php echo esc_html( $all_label ); ?></button>
 			<?php endif; ?>
 
+			<?php $primero = ( '' === $all_label ); ?>
 			<?php foreach ( $types as $slug => $name ) : ?>
 				<button
 					type="button"
-					class="llao-carta__filter button-tag"
+					class="llao-carta__filter button-tag<?php echo $primero ? ' is-active' : ''; ?>"
 					data-filter="<?php echo esc_attr( $slug ); ?>"
 					data-text="<?php echo esc_attr( $name ); ?>"
-					aria-pressed="false"
+					aria-pressed="<?php echo $primero ? 'true' : 'false'; ?>"
 				><?php echo esc_html( $name ); ?></button>
+				<?php $primero = false; ?>
 			<?php endforeach; ?>
 		</div>
 	<?php endif; ?>

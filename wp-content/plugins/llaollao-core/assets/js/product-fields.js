@@ -34,10 +34,11 @@
 		var meta    = entity[ 0 ] || {};
 		var setMeta = entity[ 1 ];
 
-		var descripcion = meta.llao_descripcion || '';
-		var recursos    = meta.llao_recursos || [];
-		var variantes   = meta.llao_variantes || [];
-		var alergenos   = meta.llao_alergenos || [];
+		var descripcion       = meta.llao_descripcion || '';
+		var recursos          = meta.llao_recursos || [];
+		var variantes         = meta.llao_variantes || [];
+		var alergenos         = meta.llao_alergenos || [];
+		var ocultarBreadcrumbs = !! meta.llao_ocultar_breadcrumbs;
 
 		// Resolver los adjuntos para la previsualización.
 		var mediaItems = useSelect( function ( select ) {
@@ -278,7 +279,14 @@
 				label: __( 'Alérgenos', 'llaollao-core' ),
 				help: __( 'Iconos (35x35 en el front, grid con 10px de separación).', 'llaollao-core' ),
 				__nextHasNoMarginBottom: true
-			}, alergenosField )
+			}, alergenosField ),
+			el( 'hr', { style: { margin: '16px 0' } } ),
+			el( c.ToggleControl, {
+				label: __( 'Ocultar las migas de pan', 'llaollao-core' ),
+				checked: ocultarBreadcrumbs,
+				onChange: function ( val ) { update( 'llao_ocultar_breadcrumbs', !! val ); },
+				__nextHasNoMarginBottom: true
+			} )
 		);
 	}
 

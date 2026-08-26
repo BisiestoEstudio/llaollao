@@ -88,12 +88,25 @@
 		var medias = root.querySelectorAll( '.llao-vista__media' );
 		var stage  = root.querySelector( '.llao-vista__stage' );
 		var pista  = root.querySelector( '.llao-vista__siblings-track' );
+		var tipos  = root.querySelector( '.llao-vista__tipos-track' );
+		var volverTipos    = root.querySelector( '.llao-vista__tipos-icon' );
+		var volverSiblings = root.querySelector( '.llao-vista__siblings-icon' );
 
-		// La fila de hermanos es independiente de la galería: se prepara antes
-		// de la salida por falta de recursos.
+		// Las filas de tipos y de hermanos son independientes de la galería: se
+		// preparan antes de la salida por falta de recursos.
 		if ( pista ) {
 			hacerArrastrable( pista );
 		}
+		if ( tipos ) {
+			hacerArrastrable( tipos );
+		}
+		[ volverTipos, volverSiblings ].forEach( function ( boton ) {
+			if ( boton ) {
+				boton.addEventListener( 'click', function () {
+					history.back();
+				} );
+			}
+		} );
 
 		if ( ! medias.length ) {
 			return;
