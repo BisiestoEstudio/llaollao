@@ -182,7 +182,6 @@
 	font-size: var(--wp--preset--font-size--m, 18px);
 	border-color: var(--wp--preset--color--verde);
 	color: var(--wp--preset--color--verde);
-	cursor: default;
 }
 
 .wp-block-llaollao-vista-producto .llao-vista__alergenos {

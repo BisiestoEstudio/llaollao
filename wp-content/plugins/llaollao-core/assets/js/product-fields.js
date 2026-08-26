@@ -36,9 +36,16 @@
 
 		var descripcion       = meta.llao_descripcion || '';
 		var recursos          = meta.llao_recursos || [];
-		var variantes         = meta.llao_variantes || [];
 		var alergenos         = meta.llao_alergenos || [];
 		var ocultarBreadcrumbs = !! meta.llao_ocultar_breadcrumbs;
+
+		// Admite tanto el formato antiguo (string suelto) como el nuevo
+		// ({texto,url}), para no perder lo ya guardado en productos existentes.
+		var variantes = ( meta.llao_variantes || [] ).map( function ( v ) {
+			return ( v && 'object' === typeof v )
+				? { texto: v.texto || '', url: v.url || '' }
+				: { texto: v || '', url: '' };
+		} );
 
 		// Resolver los adjuntos para la previsualización.
 		var mediaItems = useSelect( function ( select ) {
@@ -147,16 +154,17 @@
 		);
 
 		// --- Variantes ------------------------------------------------------
-		function setVariante( index, value ) {
+		function setVariante( index, field, value ) {
 			var next = variantes.slice();
-			next[ index ] = value;
+			next[ index ] = Object.assign( {}, next[ index ] );
+			next[ index ][ field ] = value;
 			update( 'llao_variantes', next );
 		}
 		function removeVariante( index ) {
 			update( 'llao_variantes', variantes.filter( function ( _v, i ) { return i !== index; } ) );
 		}
 		function addVariante() {
-			update( 'llao_variantes', variantes.concat( [ '' ] ) );
+			update( 'llao_variantes', variantes.concat( [ { texto: '', url: '' } ] ) );
 		}
 
 		var variantesField = el(
@@ -165,12 +173,20 @@
 			variantes.map( function ( v, i ) {
 				return el(
 					'div',
-					{ key: i, style: { display: 'flex', alignItems: 'flex-end', gap: '4px' } },
+					{ key: i, style: { display: 'flex', alignItems: 'flex-end', gap: '4px', marginBottom: '4px' } },
 					el( 'div', { style: { flex: 1 } },
 						el( c.TextControl, {
-							value: v,
+							value: v.texto,
 							placeholder: __( 'Variante', 'llaollao-core' ),
-							onChange: function ( val ) { setVariante( i, val ); },
+							onChange: function ( val ) { setVariante( i, 'texto', val ); },
+							__nextHasNoMarginBottom: true
+						} )
+					),
+					el( 'div', { style: { flex: 1 } },
+						el( c.TextControl, {
+							value: v.url,
+							placeholder: __( 'Enlace (opcional)', 'llaollao-core' ),
+							onChange: function ( val ) { setVariante( i, 'url', val ); },
 							__nextHasNoMarginBottom: true
 						} )
 					),

@@ -42,7 +42,7 @@ function llao_register_product_meta() {
 		),
 	) );
 
-	// Variantes: repeater de textos.
+	// Variantes: repeater de texto + enlace opcional.
 	register_post_meta( 'producto', 'llao_variantes', array(
 		'type'          => 'array',
 		'single'        => true,
@@ -51,7 +51,13 @@ function llao_register_product_meta() {
 		'show_in_rest'  => array(
 			'schema' => array(
 				'type'  => 'array',
-				'items' => array( 'type' => 'string' ),
+				'items' => array(
+					'type'       => 'object',
+					'properties' => array(
+						'texto' => array( 'type' => 'string' ),
+						'url'   => array( 'type' => 'string' ),
+					),
+				),
 			),
 		),
 	) );

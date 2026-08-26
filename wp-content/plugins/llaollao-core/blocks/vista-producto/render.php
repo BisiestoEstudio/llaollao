@@ -10,7 +10,7 @@
  *
  * Todo lo que pinta son post meta del CPT (ver meta-fields.php): llao_descripcion
  * (texto), llao_recursos (IDs de adjuntos, imagen o vídeo), llao_variantes
- * (textos) y llao_alergenos (texto).
+ * ({texto,url}, el enlace es opcional) y llao_alergenos (texto).
  *
  * La descripción es un campo propio y no el contenido del producto justamente
  * para que el bloque pueda insertarse dentro de ese mismo producto: si pintara
@@ -102,8 +102,21 @@ $variantes   = get_post_meta( $post_id, 'llao_variantes', true );
 $alergenos   = get_post_meta( $post_id, 'llao_alergenos', true );
 
 $recursos  = is_array( $recursos ) ? array_values( array_filter( array_map( 'intval', $recursos ) ) ) : array();
-$variantes = is_array( $variantes ) ? array_values( array_filter( array_map( 'trim', array_map( 'strval', $variantes ) ) ) ) : array();
 $alergenos = is_array( $alergenos ) ? array_values( array_filter( array_map( 'intval', $alergenos ) ) ) : array();
+
+// Variantes: admite tanto el formato antiguo (string suelto) como el nuevo
+// ({texto,url}), para no perder lo ya guardado en productos existentes.
+$variantes = is_array( $variantes ) ? $variantes : array();
+$variantes = array_values( array_filter( array_map( function ( $v ) {
+	if ( is_array( $v ) ) {
+		$texto = trim( (string) ( $v['texto'] ?? '' ) );
+		$url   = trim( (string) ( $v['url'] ?? '' ) );
+	} else {
+		$texto = trim( (string) $v );
+		$url   = '';
+	}
+	return '' === $texto ? null : array( 'texto' => $texto, 'url' => $url );
+}, $variantes ) ) );
 
 // El campo es texto plano: se escapa y luego se reparte en párrafos, de modo
 // que un salto de línea doble en el textarea salga como <p> y nada de lo que
@@ -175,7 +188,17 @@ $wrapper = get_block_wrapper_attributes( array(
 			<?php if ( $variantes ) : ?>
 				<ul class="llao-vista__variantes">
 					<?php foreach ( $variantes as $variante ) : ?>
-						<li><span class="llao-vista__variante button-tag" data-text="<?php echo esc_attr( $variante ); ?>"><?php echo esc_html( $variante ); ?></span></li>
+						<li>
+							<?php if ( '' !== $variante['url'] ) : ?>
+								<a
+									class="llao-vista__variante button-tag"
+									href="<?php echo esc_url( $variante['url'] ); ?>"
+									data-text="<?php echo esc_attr( $variante['texto'] ); ?>"
+								><?php echo esc_html( $variante['texto'] ); ?></a>
+							<?php else : ?>
+								<span class="llao-vista__variante button-tag" data-text="<?php echo esc_attr( $variante['texto'] ); ?>"><?php echo esc_html( $variante['texto'] ); ?></span>
+							<?php endif; ?>
+						</li>
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
