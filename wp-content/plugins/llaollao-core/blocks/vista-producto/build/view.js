@@ -89,8 +89,7 @@
 		var stage  = root.querySelector( '.llao-vista__stage' );
 		var pista  = root.querySelector( '.llao-vista__siblings-track' );
 		var tipos  = root.querySelector( '.llao-vista__tipos-track' );
-		var volverTipos    = root.querySelector( '.llao-vista__tipos-icon' );
-		var volverSiblings = root.querySelector( '.llao-vista__siblings-icon' );
+		var volverTipos = root.querySelector( '.llao-vista__tipos-icon' );
 
 		// Las filas de tipos y de hermanos son independientes de la galería: se
 		// preparan antes de la salida por falta de recursos.
@@ -100,13 +99,13 @@
 		if ( tipos ) {
 			hacerArrastrable( tipos );
 		}
-		[ volverTipos, volverSiblings ].forEach( function ( boton ) {
-			if ( boton ) {
-				boton.addEventListener( 'click', function () {
-					history.back();
-				} );
-			}
-		} );
+		// El icono de "hermanos" ya es un enlace normal (al padre o a la Carta,
+		// ver render.php); solo el de "tipos" sigue volviendo con JS.
+		if ( volverTipos ) {
+			volverTipos.addEventListener( 'click', function () {
+				history.back();
+			} );
+		}
 
 		if ( ! medias.length ) {
 			return;

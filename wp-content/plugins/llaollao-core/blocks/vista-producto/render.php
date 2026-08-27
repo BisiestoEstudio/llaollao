@@ -55,6 +55,15 @@ if ( '' === $alergenos_lbl ) {
 $parent           = wp_get_post_parent_id( $post_id );
 $parent_siblings  = array();
 
+// Enlace del icono "volver": al padre y, si no tiene, a la página de Carta.
+$back_href = home_url( '/' );
+
+if ( $parent ) {
+	$back_href = get_permalink( $parent );
+} elseif ( llao_get_carta_page_id() ) {
+	$back_href = get_permalink( llao_get_carta_page_id() );
+}
+
 if ( $show_tipos && $parent ) {
 	$grandparent  = wp_get_post_parent_id( $parent );
 	$parent_tipos = wp_get_post_terms( $parent, 'tipo', array( 'fields' => 'ids' ) );
@@ -158,8 +167,8 @@ $wrapper = get_block_wrapper_attributes( array(
 
 	<?php if ( $siblings ) : ?>
 		<nav class="llao-vista__siblings" aria-label="<?php esc_attr_e( 'Otros productos de la misma familia', 'llaollao-core' ); ?>">
-			<?php /* Vuelve a la página anterior (JS, view.js); fuera de la pista para no irse con el desplazamiento. */ ?>
-			<button type="button" class="llao-vista__siblings-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></button>
+			<?php /* Va al producto padre o, sin padre, a la página de Carta; fuera de la pista para no irse con el desplazamiento. */ ?>
+			<a href="<?php echo esc_url( $back_href ); ?>" class="llao-vista__siblings-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></a>
 
 			<div class="llao-vista__siblings-track">
 				<?php foreach ( $siblings as $sibling ) : ?>

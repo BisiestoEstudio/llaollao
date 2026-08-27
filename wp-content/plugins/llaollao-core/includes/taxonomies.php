@@ -60,3 +60,14 @@ function llao_register_taxonomies() {
 		'query_var'          => false,
 	) );
 }
+
+/**
+ * "Tipo" tiene public => false (sin archivo ni consultas en el front), así que
+ * Polylang no la lista en Ajustes > Idiomas > Tipos de contenido personalizados
+ * y taxonomías (esa pantalla solo escanea taxonomías públicas). Se añade a mano
+ * para poder marcarla como traducible.
+ */
+add_filter( 'pll_get_taxonomies', function( $taxonomies ) {
+	$taxonomies['tipo'] = 'tipo';
+	return $taxonomies;
+} );

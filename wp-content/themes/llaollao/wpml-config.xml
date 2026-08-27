@@ -17,24 +17,9 @@
 <wpml-config>
 	<gutenberg-blocks>
 
-		<!-- Texto animado -->
-		<gutenberg-block type="bisiesto/animated-text" translate="1">
-			<key name="content" />
-		</gutenberg-block>
-
 		<!-- Banner: texto alternativo de la imagen -->
 		<gutenberg-block type="bisiesto/banner" translate="1">
 			<key name="imageAlt" />
-		</gutenberg-block>
-
-		<!-- Cintillo: alt y texto de cada item -->
-		<gutenberg-block type="bisiesto/cintillo" translate="1">
-			<key name="items">
-				<key name="*">
-					<key name="alt" />
-					<key name="text" />
-				</key>
-			</key>
 		</gutenberg-block>
 
 		<!-- FAQs: pregunta/respuesta de cada item -->
@@ -57,49 +42,79 @@
 			</key>
 		</gutenberg-block>
 
-		<!-- Location: dirección y horario -->
-		<gutenberg-block type="bisiesto/location" translate="1">
-			<key name="address" />
-			<key name="schedule" />
-		</gutenberg-block>
-
-		<!-- Marquee: texto en movimiento -->
+		<!-- Marquee: texto en movimiento (array de strings, no de objetos) -->
 		<gutenberg-block type="bisiesto/marquee" translate="1">
-			<key name="text" />
+			<key name="items" />
 		</gutenberg-block>
 
-		<!-- Offices card: texto alternativo de la imagen -->
-		<gutenberg-block type="bisiesto/offices-card" translate="1">
+		<!-- Video hero: alt de la portada -->
+		<gutenberg-block type="bisiesto/video-hero" translate="1">
+			<key name="posterAlt" />
+		</gutenberg-block>
+
+		<!-- Video Llaollao: alt de la portada -->
+		<gutenberg-block type="bisiesto/video-llaollao" translate="1">
+			<key name="posterAlt" />
+		</gutenberg-block>
+
+		<!-- Side images: alt de la imagen de cada columna (bloque hijo) -->
+		<gutenberg-block type="bisiesto/side-image-column" translate="1">
 			<key name="imageAlt" />
 		</gutenberg-block>
 
-		<!-- Reseñas: nombre, fecha y texto de cada reseña -->
-		<gutenberg-block type="bisiesto/resenas" translate="1">
-			<key name="items">
-				<key name="*">
-					<key name="name" />
-					<key name="date" />
-					<key name="text" />
-				</key>
-			</key>
+		<!-- Tabla de contenidos: título -->
+		<gutenberg-block type="bisiesto/table-of-contents" translate="1">
+			<key name="title" />
 		</gutenberg-block>
 
-		<!-- Team card: nombre, rol y alt de la imagen -->
-		<gutenberg-block type="bisiesto/team-card" translate="1">
-			<key name="name" />
-			<key name="role" />
-			<key name="imageAlt" />
+		<!-- Carta: etiqueta "Todos" -->
+		<gutenberg-block type="llaollao/carta" translate="1">
+			<key name="allLabel" />
 		</gutenberg-block>
 
-		<!-- Timeline: título y texto de cada hito (el año no se traduce) -->
-		<gutenberg-block type="bisiesto/timeline" translate="1">
-			<key name="items">
+		<!-- Vista producto (con slide vertical): etiqueta "Alérgenos" -->
+		<gutenberg-block type="llaollao/vista-producto" translate="1">
+			<key name="alergenosLabel" />
+		</gutenberg-block>
+
+		<!-- Vista producto simple: etiqueta "Alérgenos" -->
+		<gutenberg-block type="llaollao/vista-producto-simple" translate="1">
+			<key name="alergenosLabel" />
+		</gutenberg-block>
+
+		<!-- Slider de imágenes: alt de cada imagen (bloque hijo) -->
+		<gutenberg-block type="llaollao/image-slider-item" translate="1">
+			<key name="alt" />
+		</gutenberg-block>
+
+		<!-- Landing (404 / gracias): alt de cada imagen -->
+		<gutenberg-block type="llaollao/landing" translate="1">
+			<key name="images">
 				<key name="*">
-					<key name="title" />
-					<key name="text" />
+					<key name="alt" />
 				</key>
 			</key>
 		</gutenberg-block>
 
 	</gutenberg-blocks>
+
+	<!--
+		Campos del CPT "producto" (register_post_meta, no son atributos de
+		bloque). El editor de ficha de producto lee "llao_descripcion" en vez
+		de post_content, así que sin declararlo aquí Polylang/DeepL nunca lo ve.
+	-->
+	<custom-fields>
+		<!-- Descripción del producto (texto que sustituye a post_content) -->
+		<custom-field action="translate">llao_descripcion</custom-field>
+		<!-- Variantes: solo se traduce el texto de cada variante, no su URL -->
+		<custom-field action="translate">llao_variantes</custom-field>
+	</custom-fields>
+
+	<custom-fields-texts>
+		<key name="llao_variantes">
+			<key name="*">
+				<key name="texto" />
+			</key>
+		</key>
+	</custom-fields-texts>
 </wpml-config>
