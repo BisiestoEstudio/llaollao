@@ -35,10 +35,10 @@
 				}
 			} );
 
-			// La card de apertura (.is-wide, a dos columnas) pasa a ser la
-			// primera que quede a la vista: si no, al filtrar y caer la que la
-			// llevaba, el mosaico abriría sin card ancha. Para que sea siempre
-			// el mismo producto pase lo que pase, basta con quitar este bloque.
+			// La card de apertura (.is-wide, a 3x2) pasa a ser la primera que
+			// quede a la vista: si no, al filtrar y caer la que la llevaba, la
+			// rejilla abriría sin card grande. Para que sea siempre el mismo
+			// producto pase lo que pase, basta con quitar este bloque.
 			var primera = null;
 			cards.forEach( function ( card ) {
 				card.classList.remove( 'is-wide' );

@@ -31,26 +31,26 @@
 }
 
 .wp-block-llaollao-carta .llao-carta__grid {
-	column-count: 2;
-	column-gap: var(--llao-carta-gap);
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--llao-carta-gap);
 }
 
 .wp-block-llaollao-carta .llao-carta__card {
 	position: relative;
 	display: block;
 	width: 100%;
-	height: var(--llao-carta-card-h, 660px);
-	margin-bottom: var(--llao-carta-gap);
+	aspect-ratio: 1 / 1;
 	overflow: hidden;
 	border-radius: 9px;
 	background-color: var(--wp--preset--color--beige);
 	text-decoration: none;
-	break-inside: avoid;
-	-webkit-column-break-inside: avoid; /* Safari antiguo */
 }
 
 .wp-block-llaollao-carta .llao-carta__card.is-wide {
-	column-span: all;
+	grid-column: span 3;
+	grid-row: span 2;
+	aspect-ratio: 4 / 2;
 }
 
 .wp-block-llaollao-carta .llao-carta__card.is-hidden {
@@ -101,14 +101,12 @@
 
 @media (max-width: 781px) {
 	.wp-block-llaollao-carta .llao-carta__grid {
-		column-count: 1;
+		grid-template-columns: 1fr;
 	}
 
-	/* En móvil las cards van cuadradas (ignora el ciclo de altos de
-	   escritorio, que solo tiene sentido para el escalonado del masonry a
-	   dos columnas). */
-	.wp-block-llaollao-carta .llao-carta__card {
-		height: auto;
+	.wp-block-llaollao-carta .llao-carta__card.is-wide {
+		grid-column: span 1;
+		grid-row: span 1;
 		aspect-ratio: 1 / 1;
 	}
 

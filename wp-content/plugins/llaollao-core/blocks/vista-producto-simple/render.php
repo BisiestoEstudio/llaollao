@@ -64,6 +64,10 @@ if ( $parent ) {
 	) );
 }
 
+// Enlace del icono "volver": siempre a la página de Carta configurada en
+// Ajustes → Llaollao (home si no hay ninguna elegida).
+$carta_href = llao_get_carta_page_id() ? get_permalink( llao_get_carta_page_id() ) : home_url( '/' );
+
 // $parent_siblings: hermanos del PADRE (comparten el abuelo de $post_id) que
 // además comparten con él al menos un término de "tipo", para la fila de
 // arriba (.llao-vp__tipos-track): el padre marcado + sus hermanos.
@@ -115,8 +119,8 @@ $wrapper = get_block_wrapper_attributes( array(
 
 	<?php if ( $show_tipos && $parent ) : ?>
 		<div class="llao-vp__tipos">
-			<?php /* Vuelve a la página anterior (JS, view.js); fuera de la pista para no irse con el desplazamiento. */ ?>
-			<button type="button" class="llao-vp__tipos-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></button>
+			<?php /* Siempre a la página de Carta; fuera de la pista para no irse con el desplazamiento. */ ?>
+			<a href="<?php echo esc_url( $carta_href ); ?>" class="llao-vp__tipos-icon" aria-label="<?php esc_attr_e( 'Volver', 'llaollao-core' ); ?>"></a>
 
 			<ul class="llao-vp__tipos-track">
 				<li>

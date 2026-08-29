@@ -98,15 +98,8 @@
 
 	</gutenberg-blocks>
 
-	<!--
-		Campos del CPT "producto" (register_post_meta, no son atributos de
-		bloque). El editor de ficha de producto lee "llao_descripcion" en vez
-		de post_content, así que sin declararlo aquí Polylang/DeepL nunca lo ve.
-	-->
 	<custom-fields>
-		<!-- Descripción del producto (texto que sustituye a post_content) -->
 		<custom-field action="translate">llao_descripcion</custom-field>
-		<!-- Variantes: solo se traduce el texto de cada variante, no su URL -->
 		<custom-field action="translate">llao_variantes</custom-field>
 	</custom-fields>
 

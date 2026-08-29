@@ -2,15 +2,13 @@
 /**
  * Render del bloque "Carta".
  *
- * Dos piezas: la nube de etiquetas de la taxonomía "tipo" y el mosaico de
- * productos a dos columnas. El alto de cada card sale de un ciclo fijo de 8
- * posiciones (745 / 504 / 660 / 745 / 745 / 660 / 504 / 745) para dar el
- * escalonado del masonry; el mosaico en sí es un multi-columna de CSS (ver
- * style.css) y el filtrado lo hace view.js ocultando cards, sin recargar.
+ * Dos piezas: la nube de etiquetas de la taxonomía "tipo" y la rejilla de
+ * productos a tres columnas, todas cuadradas del mismo tamaño salvo la
+ * primera (.is-wide), que ocupa las tres columnas y dos filas (ver
+ * style.css). El filtrado lo hace view.js ocultando cards, sin recargar.
  *
- * La primera card lleva .is-wide y ocupa las dos columnas (column-span). Al
- * filtrar, view.js pasa esa clase a la primera que quede visible, para que el
- * mosaico siempre abra con una card ancha.
+ * Al filtrar, view.js pasa .is-wide a la primera card que quede visible, para
+ * que la rejilla siempre abra con una card grande.
  *
  * Los productos son los elegidos a mano en el bloque, en ese mismo orden. Sin
  * selección, entran todos los publicados (padres e hijos) por el campo Orden.
@@ -107,9 +105,6 @@ wp_reset_postdata();
 
 asort( $types, SORT_NATURAL | SORT_FLAG_CASE );
 
-// Ciclo de altos en escritorio, en el orden en que se pidió el escalonado.
-$heights = array( 745, 504, 660, 745, 745, 660, 504, 745 );
-
 $wrapper = get_block_wrapper_attributes( array(
 	'class' => 'llao-carta',
 	'style' => sprintf( '--llao-carta-gap:%dpx;', $gap ),
@@ -148,7 +143,6 @@ $wrapper = get_block_wrapper_attributes( array(
 			<a
 				class="llao-carta__card<?php echo 0 === $i ? ' is-wide' : ''; ?>"
 				href="<?php echo esc_url( $card['url'] ); ?>"
-				style="--llao-carta-card-h:<?php echo (int) $heights[ $i % count( $heights ) ]; ?>px;"
 				data-tipos="<?php echo esc_attr( implode( ' ', $card['slugs'] ) ); ?>"
 			>
 				<div class="llao-carta__media">
