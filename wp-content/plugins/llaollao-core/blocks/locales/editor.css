@@ -1,0 +1,5 @@
+.editor-styles-wrapper .wp-block-llaollao-locales .llao-locales__pais,
+.editor-styles-wrapper .wp-block-llaollao-locales .llao-locales__search,
+.editor-styles-wrapper .wp-block-llaollao-locales .llao-locales__map {
+	pointer-events: none;
+}

@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "llaollao/locales",
+	"version": "1.0.0",
+	"title": "Locales",
+	"category": "widgets",
+	"icon": "location",
+	"description": "Dos columnas: a la izquierda buscador, botones de país y listado de locales; a la derecha el mapa de Google con los markers de los locales visibles.",
+	"textdomain": "llaollao-core",
+	"attributes": {
+		"searchPlaceholder": { "type": "string", "default": "" },
+		"defaultPais":        { "type": "string", "default": "" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": false }
+	},
+	"editorScript": "file:./build/index.js",
+	"editorStyle":  "file:./editor.css",
+	"style":        "file:./style.css",
+	"viewScript":   "file:./build/view.js",
+	"render":       "file:./render.php"
+}
