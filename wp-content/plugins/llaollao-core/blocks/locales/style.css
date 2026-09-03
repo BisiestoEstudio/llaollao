@@ -188,6 +188,7 @@
 	list-style: none;
 	display: flex;
 	flex-direction: column;
+	border-radius: 12px;
 	scrollbar-width: auto;
 	scrollbar-color: var(--wp--preset--color--marron) var(--wp--preset--color--beige);
 }
@@ -285,8 +286,6 @@
 		overflow-y: auto;
 	}
 
-	/* Solo tapa cabecera + mapa (44px + el row-gap de 1rem + los 400px del
-	   mapa de aquí abajo), no el listado, que se queda debajo sin cubrir. */
 	.wp-block-llaollao-locales .llao-locales__filtros-panel {
 		top: 4rem;
 		left: 0;

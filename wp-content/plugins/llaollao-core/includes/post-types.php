@@ -90,3 +90,21 @@ function llao_register_post_types() {
 		'query_var'          => false,
 	) );
 }
+
+/**
+ * "Local" tiene public => false (sin single ni archivo en el front), así que
+ * Polylang no lo lista en Ajustes > Idiomas > Tipos de contenido personalizados
+ * y taxonomías (esa pantalla solo escanea post types públicos). Se añade a
+ * mano para que aparezca ahí, igual que "tipo" en taxonomies.php.
+ *
+ * Solo se añade cuando $is_settings es true (la llamada que arma esa pantalla
+ * de ajustes): si se añadiera siempre, Polylang lo trataría como "activo
+ * permanentemente" en vez de mirar la casilla guardada, y la casilla saldría
+ * marcada y bloqueada sin poder desactivarla.
+ */
+add_filter( 'pll_get_post_types', function( $post_types, $is_settings ) {
+	if ( $is_settings ) {
+		$post_types['local'] = 'local';
+	}
+	return $post_types;
+}, 10, 2 );

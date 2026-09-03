@@ -62,12 +62,21 @@ function llao_register_taxonomies() {
 }
 
 /**
- * "Tipo" tiene public => false (sin archivo ni consultas en el front), así que
- * Polylang no la lista en Ajustes > Idiomas > Tipos de contenido personalizados
- * y taxonomías (esa pantalla solo escanea taxonomías públicas). Se añade a mano
- * para poder marcarla como traducible.
+ * "Tipo" y "país" tienen public => false (sin archivo ni consultas en el
+ * front), así que Polylang no las lista en Ajustes > Idiomas > Tipos de
+ * contenido personalizados y taxonomías (esa pantalla solo escanea taxonomías
+ * públicas). Se añaden a mano para que aparezcan ahí.
+ *
+ * Solo se añaden cuando $is_settings es true (la llamada que arma esa
+ * pantalla de ajustes): si se añadieran siempre, Polylang las trataría como
+ * "activas permanentemente" en vez de mirar la casilla guardada, y saldrían
+ * marcadas y bloqueadas sin poder desactivarlas (mismo fallo que tuvo "local"
+ * en post-types.php).
  */
-add_filter( 'pll_get_taxonomies', function( $taxonomies ) {
-	$taxonomies['tipo'] = 'tipo';
+add_filter( 'pll_get_taxonomies', function( $taxonomies, $is_settings ) {
+	if ( $is_settings ) {
+		$taxonomies['tipo'] = 'tipo';
+		$taxonomies['pais'] = 'pais';
+	}
 	return $taxonomies;
-} );
+}, 10, 2 );
