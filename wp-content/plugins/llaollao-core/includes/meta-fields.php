@@ -168,15 +168,30 @@ function llao_register_local_meta() {
 	$booleano( 'llao_local_banos' );
 	$booleano( 'llao_local_terraza' );
 	$booleano( 'llao_local_club' );
+
+	// Extras: array de IDs de adjuntos (imágenes). Se pintan en el bloque
+	// Locales, bajo el horario de la card (ver blocks/locales/render.php).
+	register_post_meta( 'local', 'llao_local_extras', array(
+		'type'          => 'array',
+		'single'        => true,
+		'default'       => array(),
+		'auth_callback' => $can_edit,
+		'show_in_rest'  => array(
+			'schema' => array(
+				'type'  => 'array',
+				'items' => array( 'type' => 'integer' ),
+			),
+		),
+	) );
 }
 
 add_action( 'enqueue_block_editor_assets', 'llao_product_fields_assets' );
 
 function llao_product_fields_assets() {
 
-	// Solo en el editor del CPT producto.
+	// Solo en el editor de los CPT producto y local.
 	$screen = get_current_screen();
-	if ( ! $screen || 'producto' !== $screen->post_type ) {
+	if ( ! $screen || ! in_array( $screen->post_type, array( 'producto', 'local' ), true ) ) {
 		return;
 	}
 

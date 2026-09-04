@@ -307,4 +307,109 @@
 	}
 
 	registerPlugin( 'llao-product-fields', { render: ProductFieldsPanel } );
+
+	// --- CPT "local": panel de "Datos del local" (Extras) ---------------------
+	function LocalFieldsPanel() {
+		var postType = useSelect( function ( select ) {
+			return select( 'core/editor' ).getCurrentPostType();
+		}, [] );
+
+		var entity  = useEntityProp( 'postType', 'local', 'meta' );
+		var meta    = entity[ 0 ] || {};
+		var setMeta = entity[ 1 ];
+
+		var extras = meta.llao_local_extras || [];
+
+		var extrasItems = useSelect( function ( select ) {
+			return extras.map( function ( id ) {
+				return select( 'core' ).getMedia( id );
+			} );
+		}, [ extras.join( ',' ) ] );
+
+		if ( postType !== 'local' ) {
+			return null;
+		}
+
+		function update( key, value ) {
+			var next = Object.assign( {}, meta );
+			next[ key ] = value;
+			setMeta( next );
+		}
+
+		// Extras: imágenes, máx. 90px de ancho y 12px de separación en el front
+		// (ver blocks/locales/render.php y style.css, bajo el horario de la card).
+		function onSelectExtras( items ) {
+			update( 'llao_local_extras', items.map( function ( i ) { return i.id; } ) );
+		}
+		function removeExtra( id ) {
+			update( 'llao_local_extras', extras.filter( function ( e ) { return e !== id; } ) );
+		}
+
+		var extrasPreview = el(
+			'div',
+			{ style: { display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' } },
+			extrasItems.map( function ( m ) {
+				if ( ! m ) {
+					return null;
+				}
+				var thumb = ( m.media_details && m.media_details.sizes && m.media_details.sizes.thumbnail )
+					? m.media_details.sizes.thumbnail.source_url
+					: m.source_url;
+
+				return el(
+					'div',
+					{ key: m.id, style: { position: 'relative', width: '72px' } },
+					el( 'img', {
+						src: thumb,
+						alt: '',
+						style: { width: '72px', height: '72px', objectFit: 'cover', borderRadius: '4px', display: 'block' }
+					} ),
+					el( c.Button, {
+						icon: 'no-alt',
+						label: __( 'Quitar', 'llaollao-core' ),
+						onClick: function () { removeExtra( m.id ); },
+						style: {
+							position: 'absolute', top: '-8px', right: '-8px',
+							minWidth: '24px', width: '24px', height: '24px', padding: 0,
+							background: '#fff', borderRadius: '50%', boxShadow: '0 0 0 1px #ccc'
+						}
+					} )
+				);
+			} )
+		);
+
+		var extrasField = el(
+			Fragment,
+			null,
+			el( media.MediaUploadCheck, null,
+				el( media.MediaUpload, {
+					multiple: true,
+					gallery: false,
+					allowedTypes: [ 'image' ],
+					value: extras,
+					onSelect: onSelectExtras,
+					render: function ( o ) {
+						return el( c.Button, { variant: 'secondary', onClick: o.open },
+							extras.length
+								? __( 'Editar extras', 'llaollao-core' )
+								: __( 'Añadir extras', 'llaollao-core' )
+						);
+					}
+				} )
+			),
+			extras.length ? extrasPreview : null
+		);
+
+		return el(
+			PluginDocumentSettingPanel,
+			{ name: 'llao-local-fields', title: __( 'Datos del local', 'llaollao-core' ), initialOpen: true },
+			el( c.BaseControl, {
+				label: __( 'Extras', 'llaollao-core' ),
+				help: __( 'Imágenes (máx. 90px de ancho en el front, en fila con 12px de separación, bajo el horario).', 'llaollao-core' ),
+				__nextHasNoMarginBottom: true
+			}, extrasField )
+		);
+	}
+
+	registerPlugin( 'llao-local-fields', { render: LocalFieldsPanel } );
 } )( window.wp );

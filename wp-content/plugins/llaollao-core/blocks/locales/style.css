@@ -241,6 +241,19 @@
 	font-size: var(--wp--preset--font-size--caption);
 }
 
+.wp-block-llaollao-locales .llao-locales__extras {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	margin-top: 0.5rem;
+}
+
+.wp-block-llaollao-locales .llao-locales__extra {
+	max-width: 90px;
+	height: auto;
+	display: block;
+}
+
 .wp-block-llaollao-locales .llao-locales__empty {
 	margin: 0;
 	color: var(--wp--preset--color--marron);

@@ -14,6 +14,10 @@
  * metacampos llao_local_horario_lunes…domingo). Vacío significa que el local
  * está cerrado ese día, y en ese caso no se pinta la línea.
  *
+ * Bajo el horario, si el local tiene "Extras" (llao_local_extras, panel
+ * "Datos del local" en la barra lateral del editor), salen sus imágenes en
+ * fila (máx. 90px de ancho, 12px de separación).
+ *
  * Cabecera del listado: buscador + país seleccionado + botón "Filtros", que
  * despliega un panel a dos columnas con el resto de países. El panel y el
  * listado se superponen (position:absolute dentro de .llao-locales__body,
@@ -78,10 +82,19 @@ while ( $query->have_posts() ) {
 	$address = (string) get_post_meta( $post_id, 'llao_local_direccion', true );
 	$horario = trim( (string) get_post_meta( $post_id, 'llao_local_horario_' . $dia_hoy, true ) );
 
+	$extras = array();
+	foreach ( (array) get_post_meta( $post_id, 'llao_local_extras', true ) as $attachment_id ) {
+		$url = wp_get_attachment_image_url( $attachment_id, 'thumbnail' );
+		if ( $url ) {
+			$extras[] = array( 'url' => $url, 'alt' => get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ) );
+		}
+	}
+
 	$locales[] = array(
 		'title'   => $title,
 		'address' => $address,
 		'horario' => $horario,
+		'extras'  => $extras,
 		'lat'     => (float) $lat,
 		'lng'     => (float) $lng,
 		'pais'    => $term->slug,
@@ -162,6 +175,13 @@ $panel_id  = wp_unique_id( 'llao-locales-filtros-' );
 							<p class="llao-locales__horario">
 								<?php echo esc_html( sprintf( __( 'Hoy: %s', 'llaollao-core' ), $local['horario'] ) ); ?>
 							</p>
+						<?php endif; ?>
+						<?php if ( $local['extras'] ) : ?>
+							<div class="llao-locales__extras">
+								<?php foreach ( $local['extras'] as $extra ) : ?>
+									<img src="<?php echo esc_url( $extra['url'] ); ?>" alt="<?php echo esc_attr( $extra['alt'] ); ?>" class="llao-locales__extra">
+								<?php endforeach; ?>
+							</div>
 						<?php endif; ?>
 					</li>
 				<?php endforeach; ?>
